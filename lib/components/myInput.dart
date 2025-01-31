@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:tura_app/pages/login_page.dart';
 
 class Myinput extends StatefulWidget {
-  const Myinput({
-    super.key,
-    required this.myBool,
-    required this.hintText,
-    required this.isPassword,
-    required this.controller,
-  });
-  final myBool;
+  Myinput(
+      {super.key,
+      required this.myBool,
+      required this.hintText,
+      required this.isPassword,
+      required this.controller,
+      required this.hider});
+  bool myBool;
+  bool hider;
   final hintText;
-  final isPassword;
+  bool isPassword;
   final controller;
 
   @override
@@ -24,7 +26,7 @@ class _MyinputState extends State<Myinput> {
       padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
       child: TextField(
         controller: widget.controller,
-        obscureText: widget.myBool,
+        obscureText: widget.isPassword,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
@@ -35,14 +37,18 @@ class _MyinputState extends State<Myinput> {
           fillColor: Colors.grey.shade200,
           filled: true,
           hintText: widget.hintText,
-          suffixIcon: (widget.isPassword)
+          suffixIcon: (widget.hider)
               ? IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      widget.myBool = !widget.myBool;
+                      widget.isPassword = !widget.isPassword;
+                    });
+                  },
                   icon: (widget.myBool)
-                      ? Icon(Icons.remove_red_eye)
-                      : Icon(Icons.visibility_off_outlined),
-                )
-              : Icon(Icons.email),
+                      ? Icon(Icons.visibility_off_outlined)
+                      : Icon(Icons.remove_red_eye))
+              : Icon(Icons.person),
         ),
       ),
     );

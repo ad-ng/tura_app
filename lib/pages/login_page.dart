@@ -11,7 +11,8 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-bool mybool = false;
+bool mybool = true;
+bool isPassword = false;
 final usernameController = TextEditingController();
 final passwordController = TextEditingController();
 
@@ -43,16 +44,18 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Text('Token: ${token ?? "Not set"}'),
                   Myinput(
-                    myBool: mybool,
+                    myBool: false,
                     hintText: 'username',
                     isPassword: false,
                     controller: usernameController,
+                    hider: false,
                   ),
                   Myinput(
                     myBool: mybool,
                     hintText: 'password',
-                    isPassword: true,
+                    isPassword: isPassword,
                     controller: passwordController,
+                    hider: true,
                   ),
                   SizedBox(
                     height: 10,
