@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tura_app/pages/login_page.dart';
 
 class Myinput extends StatefulWidget {
   Myinput(
