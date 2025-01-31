@@ -15,6 +15,7 @@ bool mybool = true;
 bool isPassword = false;
 final usernameController = TextEditingController();
 final passwordController = TextEditingController();
+final _formKey = GlobalKey<FormState>();
 
 void login() {}
 
@@ -43,60 +44,69 @@ class _LoginPageState extends State<LoginPage> {
                     height: 60,
                   ),
                   Text('Token: ${token ?? "Not set"}'),
-                  Myinput(
-                    myBool: false,
-                    hintText: 'username',
-                    isPassword: false,
-                    controller: usernameController,
-                    hider: false,
-                  ),
-                  Myinput(
-                    myBool: mybool,
-                    hintText: 'password',
-                    isPassword: isPassword,
-                    controller: passwordController,
-                    hider: true,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  GestureDetector(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 30, bottom: 20),
-                      child: Text(
-                        'Reset password',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Myinput(
+                          myBool: false,
+                          hintText: 'username',
+                          isPassword: false,
+                          controller: usernameController,
+                          hider: false,
                         ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        context.read<TokenCubit>().clearToken();
+                        Myinput(
+                          myBool: mybool,
+                          hintText: 'password',
+                          isPassword: isPassword,
+                          controller: passwordController,
+                          hider: true,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        GestureDetector(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(right: 30, bottom: 20),
+                            child: Text(
+                              'Reset password',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            _formKey.currentState!.validate();
+                            setState(() {
+                              //context.read<TokenCubit>().clearToken();
 
-                        usernameController.clear();
-                        passwordController.clear();
-                      });
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        color: Colors.black,
-                      ),
-                      height: 55,
-                      child: Center(
-                          child: Text(
-                        'sign in',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )),
+                              usernameController.clear();
+                              passwordController.clear();
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: Colors.black,
+                            ),
+                            height: 55,
+                            child: Center(
+                                child: Text(
+                              'sign in',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                   SizedBox(

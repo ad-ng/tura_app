@@ -23,7 +23,9 @@ class _MyinputState extends State<Myinput> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-      child: TextField(
+      child: TextFormField(
+        validator: (value) =>
+            value!.length == 0 ? "${widget.hintText} can not be empty," : null,
         controller: widget.controller,
         obscureText: widget.isPassword,
         decoration: InputDecoration(
@@ -35,6 +37,7 @@ class _MyinputState extends State<Myinput> {
           ),
           fillColor: Colors.grey.shade200,
           filled: true,
+          errorStyle: TextStyle(color: Colors.white),
           hintText: widget.hintText,
           suffixIcon: (widget.hider)
               ? IconButton(
