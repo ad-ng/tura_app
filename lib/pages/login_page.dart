@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/components/myInput.dart';
 import 'package:tura_app/components/socialMedia.dart';
 import 'package:tura_app/models/login_model.dart';
-import 'package:tura_app/repos/logIn_repo.dart';
+import 'package:tura_app/models/user_model.dart';
 import 'package:tura_app/statemanagement/loginCubit.dart';
 
 class LoginPage extends StatefulWidget {
@@ -107,6 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                               }
                               return GestureDetector(
                                 onTap: () {
+                                  _formKey.currentState!.validate();
                                   // Get the username and password from the text fields
                                   final username = usernameController.text;
                                   final password = passwordController.text;
@@ -135,6 +136,13 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
+                // BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
+                //   if (state is LoginSuccess) {
+                //     UserModel login = state.response;
+                //     return Text('${login.email}');
+                //   }
+                //   return SizedBox.shrink();
+                // }),
                 Center(
                   child: Text(
                     'continue with',

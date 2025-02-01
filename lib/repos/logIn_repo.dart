@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:tura_app/models/login_model.dart';
+import 'package:tura_app/models/user_model.dart';
 import 'package:tura_app/network/dioService.dart';
 //import 'dio_service.dart'; // Import your DioService
 //import 'login_model.dart'; // Import your LoginModel
@@ -9,13 +10,14 @@ class LoginRepository {
       DioService.instance.dio; // Use the Dio instance from DioService
 
   // Method to handle login
-  Future<dynamic> login(LoginModel loginModel) async {
+  Future<UserModel> login(LoginModel loginModel) async {
     try {
       final response = await _dio.post(
         '/auth/login', // Your login endpoint
         data: loginModel.toMap(), // Convert LoginModel to a map
       );
-      return response.data; // Return the response data
+      final dataJson = response.data['data'];
+      return UserModel.fromJson(dataJson); // Return the response data
     } on DioException catch (e) {
       // Handle Dio errors
       throw _handleError(e);
