@@ -13,7 +13,7 @@ class DioService {
   // Public setup method to configure Dio
   void setup() {
     // Set the base URL for API requests
-    dio.options.baseUrl = 'https://backend.kigaluxe.estate/';
+    dio.options.baseUrl = 'https://backend.turaestate.com';
 
     // Set timeouts
     dio.options.connectTimeout =

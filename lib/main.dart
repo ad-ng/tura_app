@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/network/dioService.dart';
 import 'package:tura_app/pages/home_page.dart';
 import 'package:tura_app/pages/login_page.dart';
-import 'package:tura_app/statemanagement/tokenCubit.dart';
+import 'package:tura_app/repos/logIn_repo.dart';
+import 'package:tura_app/statemanagement/loginCubit.dart';
 
 void main() {
   DioService.instance.setup();
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => TokenCubit(),
+          create: (context) => LoginCubit(LoginRepository()),
         ),
       ],
       child: MaterialApp(
