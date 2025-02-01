@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/components/myInput.dart';
 import 'package:tura_app/components/socialMedia.dart';
-import 'package:tura_app/models/login_model.dart';
-import 'package:tura_app/models/user_model.dart';
 import 'package:tura_app/statemanagement/loginCubit.dart';
 
 class LoginPage extends StatefulWidget {

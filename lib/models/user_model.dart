@@ -5,14 +5,14 @@ class UserModel {
   String email;
   String gender;
   String address;
-  DateTime dob;
+  String dob;
   String phoneNumber;
   String profileImg;
   String coverImg;
   String role;
   bool isVerified;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String createdAt;
+  String updatedAt;
 
   UserModel({
     required this.id,
