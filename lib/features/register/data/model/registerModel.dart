@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Registermodel {
+class RegisterModel {
   String username;
   String email;
   String fullname;
@@ -10,7 +10,7 @@ class Registermodel {
   String phoneNumber;
   String password;
 
-  Registermodel({
+  RegisterModel({
     required this.username,
     required this.fullname,
     required this.email,
@@ -32,8 +32,8 @@ class Registermodel {
     };
   }
 
-  factory Registermodel.fromMap(Map<String, dynamic> map) {
-    return Registermodel(
+  factory RegisterModel.fromMap(Map<String, dynamic> map) {
+    return RegisterModel(
       username: map['username'] as String,
       email: map['email'] as String,
       fullname: map['fullname'] as String,
@@ -46,6 +46,6 @@ class Registermodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Registermodel.fromJson(String source) =>
-      Registermodel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory RegisterModel.fromJson(String source) =>
+      RegisterModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

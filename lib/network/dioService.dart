@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart'; 
 
 class DioService {
   // Private constructor for singleton pattern
@@ -17,14 +17,18 @@ class DioService {
 
     // Set timeouts
     dio.options.connectTimeout =
-        Duration(seconds: 15); // 10 seconds for connection
+        Duration(seconds: 15); // 15 seconds for connection
     dio.options.receiveTimeout =
-        Duration(seconds: 15); // 10 seconds for receiving data
+        Duration(seconds: 15); // 15 seconds for receiving data
 
     // Optionally set default headers globally
     dio.options.headers = {
       'Content-Type': 'application/json', // Set default content type
       'Accept': 'application/json',
     };
+
+    // Add the custom error interceptor to handle errors globally
+    // dio.interceptors
+    //     .add(ApiErrorInterceptor()); // Add the custom error interceptor
   }
 }
