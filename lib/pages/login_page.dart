@@ -99,9 +99,8 @@ class _LoginPageState extends State<LoginPage> {
                           child: BlocBuilder<LoginCubit, LoginState>(
                             builder: (context, state) {
                               if (state is LoginLoading) {
-                                return CircularProgressIndicator(
-                                  color: Colors.white,
-                                ); // Show loading indicator
+                                return CircularProgressIndicator
+                                    .adaptive(); // Show loading indicator
                               }
                               return GestureDetector(
                                 onTap: () {
