@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(
-                  height: 130,
+                  height: 80,
                 ),
                 Center(
                   child: Image.asset(
@@ -58,6 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                 Form(
                   key: _formKey,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Myinput(
                         myBool: false,
@@ -80,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Padding(
                           padding: const EdgeInsets.only(right: 30, bottom: 20),
                           child: Text(
-                            'Reset password',
+                            'Forgot password?',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
@@ -91,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 20),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(10),
                           color: Colors.black,
                         ),
                         height: 55,
@@ -131,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 35,
                 ),
                 // BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
                 //   if (state is LoginSuccess) {
@@ -140,15 +141,34 @@ class _LoginPageState extends State<LoginPage> {
                 //   }
                 //   return SizedBox.shrink();
                 // }),
-                Center(
-                  child: Text(
-                    'continue with',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w400),
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 20, right: 10),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                      height: 0.5,
+                      width: 120,
+                    ),
+                    Text(
+                      'continue with',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w400),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                      height: 0.5,
+                      width: 115,
+                    ),
+                  ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -158,12 +178,12 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 55,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('not a member?'),
+                    Text('Don\'t have an account?'),
                     SizedBox(
                       width: 10,
                     ),
