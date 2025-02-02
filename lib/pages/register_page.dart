@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/components/myInput.dart';
 import 'package:tura_app/components/socialMedia.dart';
 import 'package:tura_app/pages/login_page.dart';
+import 'package:tura_app/statemanagement/loginCubit.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -38,17 +40,17 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             children: [
               SizedBox(
-                height: 80,
+                height: 30,
               ),
               Center(
                 child: Image.asset(
                   'lib/images/logo.png',
-                  height: 100,
+                  height: 70,
                   color: Colors.white,
                 ),
               ),
               SizedBox(
-                height: 60,
+                height: 30,
               ),
               Form(
                 child: Column(
@@ -84,31 +86,34 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 200,
-                          height: 50,
-                          child: TextFormField(
-                            controller: dateController,
-                            decoration: InputDecoration(
-                              label: Text('DATE'),
-                              prefixIcon: Icon(Icons.calendar_month),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 150,
+                            height: 45,
+                            child: TextFormField(
+                              controller: dateController,
+                              decoration: InputDecoration(
+                                label: Text('DATE'),
+                                prefixIcon: Icon(Icons.calendar_month),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey.shade400),
+                                ),
+                                fillColor: Colors.grey.shade200,
+                                filled: true,
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey.shade400),
-                              ),
-                              fillColor: Colors.grey.shade200,
-                              filled: true,
+                              readOnly: true,
+                              onTap: () => _selectDate(),
                             ),
-                            readOnly: true,
-                            onTap: () => _selectDate(),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Myinput(
                       myBool: true,
@@ -123,9 +128,54 @@ class _RegisterPageState extends State<RegisterPage> {
                       isPassword: true,
                       controller: passwordController,
                       hider: true,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.black,
+                      ),
+                      height: 50,
+                      child: Center(
+                        child: BlocBuilder<LoginCubit, LoginState>(
+                          builder: (context, state) {
+                            if (state is LoginLoading) {
+                              return CircularProgressIndicator
+                                  .adaptive(); // Show loading indicator
+                            }
+                            return GestureDetector(
+                              onTap: () {
+                                //_formKey.currentState!.validate();
+                                // Get the username and password from the text fields
+                                final username = usernameController.text;
+                                final password = passwordController.text;
+
+                                // Trigger the login method in the Cubit
+                                context
+                                    .read<LoginCubit>()
+                                    .login(username, password);
+                              },
+                              child: Text(
+                                'sign up',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     )
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 20,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -154,7 +204,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -165,7 +215,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               SizedBox(
-                height: 55,
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

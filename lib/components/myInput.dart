@@ -21,39 +21,42 @@ class Myinput extends StatefulWidget {
 class _MyinputState extends State<Myinput> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      height: 55,
       padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-      child: TextFormField(
-        validator: (value) =>
-            value!.isEmpty ? "${widget.hintText} can not be empty," : null,
-        controller: widget.controller,
-        obscureText: widget.isPassword,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
+      child: Center(
+        child: TextFormField(
+          validator: (value) =>
+              value!.isEmpty ? "${widget.hintText} can not be empty," : null,
+          controller: widget.controller,
+          obscureText: widget.isPassword,
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey.shade400),
+            ),
+            fillColor: Colors.grey.shade200,
+            filled: true,
+            errorStyle: TextStyle(color: Colors.white),
+            hintText: widget.hintText,
+            suffixIcon: (widget.hider)
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        widget.myBool = !widget.myBool;
+                        widget.isPassword = !widget.isPassword;
+                      });
+                    },
+                    icon: (widget.myBool)
+                        ? Icon(Icons.visibility_off_outlined)
+                        : Icon(Icons.remove_red_eye))
+                : Icon(
+                    Icons.person,
+                    size: 1,
+                  ),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey.shade400),
-          ),
-          fillColor: Colors.grey.shade200,
-          filled: true,
-          errorStyle: TextStyle(color: Colors.white),
-          hintText: widget.hintText,
-          suffixIcon: (widget.hider)
-              ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      widget.myBool = !widget.myBool;
-                      widget.isPassword = !widget.isPassword;
-                    });
-                  },
-                  icon: (widget.myBool)
-                      ? Icon(Icons.visibility_off_outlined)
-                      : Icon(Icons.remove_red_eye))
-              : Icon(
-                  Icons.person,
-                  size: 1,
-                ),
         ),
       ),
     );
