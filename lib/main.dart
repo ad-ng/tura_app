@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/pages/register_page.dart';
 import 'package:tura_app/network/dioService.dart';
 import 'package:tura_app/pages/home_page.dart';
 import 'package:tura_app/pages/login_page.dart';
@@ -32,7 +33,9 @@ class MyApp extends StatelessWidget {
         ),
         home: const LoginPage(),
         routes: {
-          'homePage': (context) => const HomePage()
+          'homePage': (context) => const HomePage(),
+          'registerPage': (context) => const RegisterPage(),
+          'loginPage': (context) => const LoginPage()
         },
       ),
     );

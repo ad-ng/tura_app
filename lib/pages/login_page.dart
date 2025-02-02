@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 60,
                 ),
                 Form(
-                  key: _formKey,
+                  //key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -105,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                               }
                               return GestureDetector(
                                 onTap: () {
-                                  _formKey.currentState!.validate();
+                                  //_formKey.currentState!.validate();
                                   // Get the username and password from the text fields
                                   final username = usernameController.text;
                                   final password = passwordController.text;
@@ -174,6 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Socialmedia(imageUrl: 'lib/images/google.png'),
+                    Socialmedia(imageUrl: 'lib/images/facebook.png'),
                     Socialmedia(imageUrl: 'lib/images/apple.png'),
                   ],
                 ),
@@ -187,10 +188,13 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       width: 10,
                     ),
-                    Text(
-                      'Sign up',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w500),
+                    GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, 'registerPage'),
+                      child: Text(
+                        'Sign up',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w500),
+                      ),
                     ),
                   ],
                 ),
