@@ -50,7 +50,10 @@ class _MyinputState extends State<Myinput> {
                   icon: (widget.myBool)
                       ? Icon(Icons.visibility_off_outlined)
                       : Icon(Icons.remove_red_eye))
-              : Icon(Icons.person),
+              : Icon(
+                  Icons.person,
+                  size: 1,
+                ),
         ),
       ),
     );
