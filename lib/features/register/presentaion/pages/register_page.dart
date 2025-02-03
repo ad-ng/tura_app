@@ -4,6 +4,7 @@ import 'package:tura_app/components/myInput.dart';
 import 'package:tura_app/components/socialMedia.dart';
 import 'package:tura_app/features/register/data/model/registerModel.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
+import 'package:tura_app/features/register/presentaion/widgets/dob_input.dart';
 import 'package:tura_app/pages/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -24,21 +25,6 @@ final dateController = TextEditingController();
 class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
-    Future<void> _selectDate() async {
-      DateTime? _picked = await showDatePicker(
-        context: context,
-        firstDate: DateTime(1970),
-        lastDate: DateTime(2100),
-        initialDate: DateTime.now(),
-      );
-
-      if (_picked != null) {
-        setState(() {
-          dateController.text = _picked.toString().split(" ")[0];
-        });
-      }
-    }
-
     return BlocListener<Registercubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterError) {
@@ -107,31 +93,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(
                         height: 10,
                       ),
-                      Padding(
+                      Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           children: [
-                            SizedBox(
-                              width: 150,
-                              height: 45,
-                              child: TextFormField(
-                                controller: dateController,
-                                decoration: InputDecoration(
-                                  label: Text('DATE'),
-                                  prefixIcon: Icon(Icons.calendar_month),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.grey.shade400),
-                                  ),
-                                  fillColor: Colors.grey.shade200,
-                                  filled: true,
-                                ),
-                                readOnly: true,
-                                onTap: () => _selectDate(),
-                              ),
+                            DobInput(
+                              dobController: dateController,
                             ),
                           ],
                         ),
