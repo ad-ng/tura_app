@@ -14,6 +14,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 final passwordController = TextEditingController();
+final confirmPasswordController = TextEditingController();
 final fullnameController = TextEditingController();
 final usernameController = TextEditingController();
 final emailController = TextEditingController();
@@ -146,7 +147,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         myBool: true,
                         hintText: 'confirm password',
                         isPassword: true,
-                        controller: passwordController,
+                        controller: confirmPasswordController,
                         hider: true,
                       ),
                       SizedBox(

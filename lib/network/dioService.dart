@@ -1,4 +1,5 @@
-import 'package:dio/dio.dart'; 
+import 'package:dio/dio.dart';
+import 'package:tura_app/network/errorInterceptor.dart';
 
 class DioService {
   // Private constructor for singleton pattern
@@ -28,7 +29,7 @@ class DioService {
     };
 
     // Add the custom error interceptor to handle errors globally
-    // dio.interceptors
-    //     .add(ApiErrorInterceptor()); // Add the custom error interceptor
+    dio.interceptors
+        .add(ErrorInterceptor()); // Add the custom error interceptor
   }
 }
