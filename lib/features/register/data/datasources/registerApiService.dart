@@ -81,6 +81,7 @@ class Registerapiservice {
 
   Future<UserModel> signup(RegisterModel registerModel) async {
     try {
+      //print(registerModel.toMap());
       final response = await _dio.post(
         '/auth/signup', // Your signup endpoint
         data: registerModel.toMap(), // Convert RegisterModel to a map
@@ -88,10 +89,12 @@ class Registerapiservice {
 
       // If the response is successful, parse and return the user data
       final dataJson = response.data['data'];
+
       return UserModel.fromJson(
           dataJson); // Return the response data as a UserModel
     } on DioException catch (e) {
       // Simply throw the error, it has already been processed by the interceptor
+      print(e.message);
       throw e.message
           .toString(); // `e.error` should contain the message set by the interceptor
     }

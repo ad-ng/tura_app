@@ -9,16 +9,25 @@ class RegisterModel {
   String dob;
   String phoneNumber;
   String password;
+  String role;
+  bool isVerified;
+  String profileImg;
+  String coverImg;
+  String address;
 
-  RegisterModel({
-    required this.username,
-    required this.fullname,
-    required this.email,
-    required this.phoneNumber,
-    required this.dob,
-    required this.gender,
-    required this.password,
-  });
+  RegisterModel(
+      {required this.username,
+      required this.fullname,
+      required this.email,
+      required this.phoneNumber,
+      required this.dob,
+      required this.gender,
+      required this.password,
+      required this.role,
+      required this.isVerified,
+      required this.profileImg,
+      required this.coverImg,
+      required this.address});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -29,19 +38,28 @@ class RegisterModel {
       'dob': dob,
       'phoneNumber': phoneNumber,
       'password': password,
+      'role': role,
+      'isVerified': isVerified,
+      'profileImg': profileImg,
+      'coverImg': coverImg,
+      'address': address,
     };
   }
 
   factory RegisterModel.fromMap(Map<String, dynamic> map) {
     return RegisterModel(
-      username: map['username'] as String,
-      email: map['email'] as String,
-      fullname: map['fullname'] as String,
-      gender: map['gender'] as String,
-      dob: map['dob'] as String,
-      phoneNumber: map['phoneNumber'] as String,
-      password: map['password'] as String,
-    );
+        username: map['username'] as String,
+        email: map['email'] as String,
+        fullname: map['fullname'] as String,
+        gender: map['gender'] as String,
+        dob: map['dob'] as String,
+        phoneNumber: map['phoneNumber'] as String,
+        password: map['password'] as String,
+        role: map['role'] as String,
+        isVerified: map['isVerified'] as bool,
+        profileImg: map['profileImg'] as String,
+        coverImg: map['coverImg'] as String,
+        address: map['address'] as String);
   }
 
   String toJson() => json.encode(toMap());

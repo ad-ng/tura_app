@@ -5,6 +5,7 @@ import 'package:tura_app/components/socialMedia.dart';
 import 'package:tura_app/features/register/data/model/registerModel.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
 import 'package:tura_app/features/register/presentaion/widgets/dob_input.dart';
+import 'package:tura_app/features/register/presentaion/widgets/gender_picker.dart';
 import 'package:tura_app/pages/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -21,6 +22,7 @@ final usernameController = TextEditingController();
 final emailController = TextEditingController();
 final phoneNumberController = TextEditingController();
 final dateController = TextEditingController();
+final genderController = TextEditingController();
 
 class _RegisterPageState extends State<RegisterPage> {
   @override
@@ -96,10 +98,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            DobInput(
-                              dobController: dateController,
-                            ),
+                            DobInput(dobController: dateController),
+                            GenderPicker(genderController: genderController)
                           ],
                         ),
                       ),
@@ -142,15 +144,21 @@ class _RegisterPageState extends State<RegisterPage> {
                                   // Trigger the login method in the Cubit
                                   context.read<Registercubit>().signup(
                                         RegisterModel(
-                                          username: usernameController.text,
-                                          fullname: fullnameController.text,
-                                          email: emailController.text,
-                                          phoneNumber:
-                                              phoneNumberController.text,
-                                          dob: dateController.text,
-                                          gender: 'male',
-                                          password: passwordController.text,
-                                        ),
+                                            username: usernameController.text,
+                                            fullname: fullnameController.text,
+                                            email: emailController.text,
+                                            phoneNumber:
+                                                phoneNumberController.text,
+                                            dob: dateController.text,
+                                            gender: genderController.text,
+                                            password: passwordController.text,
+                                            isVerified: false,
+                                            role: "CLIENT",
+                                            coverImg:
+                                                'https://example.com/images/cover.jpg',
+                                            profileImg:
+                                                'https://example.com/images/cover.jpg',
+                                            address: 'Rwanda'),
                                       );
                                 },
                                 child: Text(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Myinput extends StatefulWidget {
-  Myinput(
+   Myinput(
       {super.key,
       required this.myBool,
       required this.hintText,
