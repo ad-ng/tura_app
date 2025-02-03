@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Myinput extends StatefulWidget {
-   Myinput(
+  Myinput(
       {super.key,
       required this.myBool,
       required this.hintText,
@@ -35,9 +35,10 @@ class _MyinputState extends State<Myinput> {
               borderSide: BorderSide(color: Colors.white),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade400),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.primary),
             ),
-            fillColor: Colors.grey.shade200,
+            fillColor: Theme.of(context).colorScheme.secondary,
             filled: true,
             errorStyle: TextStyle(color: Colors.white),
             hintText: widget.hintText,

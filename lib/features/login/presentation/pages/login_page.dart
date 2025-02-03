@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
       child: Scaffold(
-        backgroundColor: Color.fromARGB(183, 96, 125, 139),
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(

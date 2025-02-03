@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/core/theme/light_mode.dart';
 import 'package:tura_app/features/register/data/datasources/registerApiService.dart';
 import 'package:tura_app/features/register/data/repository/register_repo_impl.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
@@ -43,10 +44,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        theme: lightMode,
         home: const LoginPage(), // Initial page is LoginPage
         routes: {
           'homePage': (context) => const HomePage(),
