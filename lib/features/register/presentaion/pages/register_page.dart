@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tura_app/components/myInput.dart';
-import 'package:tura_app/components/socialMedia.dart';
+import 'package:tura_app/features/login/presentation/widgets/myInput.dart';
+import 'package:tura_app/features/login/presentation/widgets/socialMedia.dart';
 import 'package:tura_app/features/register/data/model/registerModel.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
 import 'package:tura_app/features/register/presentaion/widgets/dob_input.dart';
 import 'package:tura_app/features/register/presentaion/widgets/gender_picker.dart';
-import 'package:tura_app/pages/login_page.dart';
+import 'package:tura_app/features/login/presentation/pages/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

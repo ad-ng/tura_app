@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tura_app/models/login_model.dart';
-import 'package:tura_app/repos/logIn_repo.dart';
- 
-class LoginCubit extends Cubit<LoginState> {
-  final LoginRepository _loginRepository;
+import 'package:tura_app/features/login/data/models/login_model.dart';
+import 'package:tura_app/features/login/data/datasources/loginApiService.dart';
 
-  LoginCubit(this._loginRepository) : super(LoginInitial());
+class LoginCubit extends Cubit<LoginState> {
+  final LoginApiService _loginApiService;
+
+  LoginCubit(this._loginApiService) : super(LoginInitial());
 
   // Method to handle login
   Future<void> login(String username, String password) async {
@@ -16,7 +16,7 @@ class LoginCubit extends Cubit<LoginState> {
       final loginModel = LoginModel(username: username, password: password);
 
       // Call the login method from the repository
-      final response = await _loginRepository.login(loginModel);
+      final response = await _loginApiService.login(loginModel);
 
       // Emit success state with the response
       emit(LoginSuccess(response));

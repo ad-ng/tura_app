@@ -5,10 +5,10 @@ import 'package:tura_app/features/register/data/repository/register_repo_impl.da
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
 import 'package:tura_app/features/register/presentaion/pages/register_page.dart';
 import 'package:tura_app/network/dioService.dart';
-import 'package:tura_app/pages/home_page.dart';
-import 'package:tura_app/pages/login_page.dart';
-import 'package:tura_app/repos/logIn_repo.dart';
-import 'package:tura_app/statemanagement/loginCubit.dart';
+import 'package:tura_app/features/home/presentaion/pages/home_page.dart';
+import 'package:tura_app/features/login/presentation/pages/login_page.dart';
+import 'package:tura_app/features/login/data/datasources/loginApiService.dart';
+import 'package:tura_app/features/login/presentation/bloc/loginCubit.dart';
 
 void main() {
   DioService.instance.setup(); // Ensure Dio is set up correctly
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Step 1: Set up Dio and RegisterApiService
-    
+
     final registerApiService = Registerapiservice(); // Passing Dio instance
     final registerRepo =
         RegisterRepoImpl(registerApiService); // Create RegisterRepoImpl
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         // Step 2: Providing the LoginCubit
         BlocProvider(
           create: (context) => LoginCubit(
-            LoginRepository(),
+            LoginApiService(),
           ),
         ),
         // Step 3: Providing the RegisterCubit with the correct dependencies

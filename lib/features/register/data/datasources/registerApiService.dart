@@ -72,7 +72,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:tura_app/features/register/data/model/registerModel.dart';
-import 'package:tura_app/models/user_model.dart';
+import 'package:tura_app/features/login/data/models/user_model.dart';
 import 'package:tura_app/network/dioService.dart';
 
 class Registerapiservice {
@@ -94,7 +94,7 @@ class Registerapiservice {
           dataJson); // Return the response data as a UserModel
     } on DioException catch (e) {
       // Simply throw the error, it has already been processed by the interceptor
-      print(e.message);
+      print(e);
       throw e.message
           .toString(); // `e.error` should contain the message set by the interceptor
     }
