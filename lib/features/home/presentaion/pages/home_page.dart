@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('H O M E P A G E'),
+        child: Text('H O M E   P A G E'),
       ),
     );
   }
