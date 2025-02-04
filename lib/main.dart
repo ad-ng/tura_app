@@ -13,7 +13,7 @@ import 'package:tura_app/features/login/data/datasources/loginApiService.dart';
 import 'package:tura_app/features/login/presentation/bloc/loginCubit.dart';
 
 void main() {
-  DioService.instance.setup(); // Ensure Dio is set up correctly
+  DioService.instance.setup();
   runApp(const MyApp());
 }
 
