@@ -73,7 +73,7 @@
 import 'package:dio/dio.dart';
 import 'package:tura_app/features/register/data/model/registerModel.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
-import 'package:tura_app/network/dioService.dart';
+import 'package:tura_app/services/network/dioService.dart';
 
 class Registerapiservice {
   final Dio _dio =

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:tura_app/features/login/data/models/login_model.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
-import 'package:tura_app/network/dioService.dart';
+import 'package:tura_app/services/network/dioService.dart';
 //import 'dio_service.dart'; // Import your DioService
 //import 'login_model.dart'; // Import your LoginModel
 
