@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/core/theme/light_mode.dart';
+import 'package:tura_app/core/theme/theme_cubit.dart';
 import 'package:tura_app/features/register/data/datasources/registerApiService.dart';
 import 'package:tura_app/features/register/data/repository/register_repo_impl.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
@@ -40,6 +41,9 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               Registercubit(registerRepo), // Injecting RegisterRepoImpl
         ),
+        BlocProvider(
+          create: (context) => ThemeCubit(),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
