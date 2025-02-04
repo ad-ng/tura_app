@@ -17,6 +17,11 @@ class DioService {
     dio.options.connectTimeout = Duration(seconds: 15);
     dio.options.receiveTimeout = Duration(seconds: 15);
 
+    dio.options.headers = {
+      'Content-Type': 'application/json', // Set default content type
+      'Accept': 'application/json',
+    };
+
     // Add the custom interceptors to be handled globally
     dio.interceptors.add(ErrorInterceptor());
 

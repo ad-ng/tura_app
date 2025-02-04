@@ -6,14 +6,14 @@ import 'package:tura_app/features/register/data/datasources/registerApiService.d
 import 'package:tura_app/features/register/data/repository/register_repo_impl.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
 import 'package:tura_app/features/register/presentaion/pages/register_page.dart';
-import 'package:tura_app/services/network/dioService.dart';
+import 'package:tura_app/network/dioService.dart';
 import 'package:tura_app/features/home/presentaion/pages/home_page.dart';
 import 'package:tura_app/features/login/presentation/pages/login_page.dart';
 import 'package:tura_app/features/login/data/datasources/loginApiService.dart';
 import 'package:tura_app/features/login/presentation/bloc/loginCubit.dart';
 
 void main() {
-  DioService.instance.setup(); // Ensure Dio is set up correctly
+  DioService.instance.setup();
   runApp(const MyApp());
 }
 

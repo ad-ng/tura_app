@@ -1,17 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:tura_app/features/login/data/models/login_model.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
-import 'package:tura_app/services/network/dioService.dart';
-//import 'dio_service.dart'; // Import your DioService
-//import 'login_model.dart'; // Import your LoginModel
+import 'package:tura_app/network/dioService.dart';
 
 class LoginApiService {
-  final Dio _dio =
-      DioService.instance.dio; // Use the Dio instance from DioService
+  final Dio _dio = DioService.instance.dio;
 
   // Method to handle login
   Future<UserModel> login(LoginModel loginModel) async {
     try {
+      print(loginModel.toMap());
       final response = await _dio.post(
         '/auth/login', // Your login endpoint
         data: loginModel.toMap(), // Convert LoginModel to a map

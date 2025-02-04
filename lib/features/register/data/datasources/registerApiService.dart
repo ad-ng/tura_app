@@ -73,11 +73,10 @@
 import 'package:dio/dio.dart';
 import 'package:tura_app/features/register/data/model/registerModel.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
-import 'package:tura_app/services/network/dioService.dart';
+import 'package:tura_app/network/dioService.dart';
 
 class Registerapiservice {
-  final Dio _dio =
-      DioService.instance.dio; // Using the Dio instance from DioService
+  final Dio _dio = DioService.instance.dio;
 
   Future<UserModel> signup(RegisterModel registerModel) async {
     try {
