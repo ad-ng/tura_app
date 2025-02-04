@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:tura_app/features/login/data/datasources/local/tokenStore.dart';
 import 'package:tura_app/features/login/data/models/login_model.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
 import 'package:tura_app/network/dioService.dart';
@@ -9,12 +10,14 @@ class LoginApiService {
   // Method to handle login
   Future<UserModel> login(LoginModel loginModel) async {
     try {
-      print(loginModel.toMap());
       final response = await _dio.post(
         '/auth/login', // Your login endpoint
         data: loginModel.toMap(), // Convert LoginModel to a map
       );
       final dataJson = response.data['data'];
+
+      Tokenstore.setToken(response.data['token']);
+
       return UserModel.fromJson(dataJson); // Return the response data
     } on DioException catch (e) {
       // Handle Dio errors
