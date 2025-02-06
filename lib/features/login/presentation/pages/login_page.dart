@@ -32,6 +32,8 @@ class _LoginPageState extends State<LoginPage> {
           );
         }
         if (state is LoginSuccess) {
+          usernameController.clear();
+          passwordController.clear();
           Navigator.pushReplacementNamed(context, 'homePage');
         }
       },
