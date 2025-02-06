@@ -19,29 +19,37 @@ class _MybottomnavbarState extends State<Mybottomnavbar> {
       SalomonBottomBarItem(
         icon: Image.asset(
           '././lib/images/home.png',
+          color: Theme.of(context).colorScheme.background,
           height: screenHeight * 0.03,
         ),
+        selectedColor: const Color.fromARGB(254, 64, 212, 0),
         title: const Text('HOME'),
       ),
       SalomonBottomBarItem(
         icon: Image.asset(
           '././lib/images/cloud-share.png',
+          color: Theme.of(context).colorScheme.background,
           height: screenHeight * 0.03,
         ),
+        selectedColor: const Color.fromARGB(254, 64, 212, 0),
         title: const Text('SHARES'),
       ),
       SalomonBottomBarItem(
         icon: Image.asset(
           '././lib/images/guide-alt.png',
+          color: Theme.of(context).colorScheme.background,
           height: screenHeight * 0.03,
         ),
+        selectedColor: const Color.fromARGB(254, 64, 212, 0),
         title: const Text('GUIDE'),
       ),
       SalomonBottomBarItem(
           icon: Image.asset(
             '././lib/images/user.png',
+            color: Theme.of(context).colorScheme.background,
             height: screenHeight * 0.03,
           ),
+          selectedColor: const Color.fromARGB(254, 64, 212, 0),
           title: Text('PROFILE'))
     ];
 
