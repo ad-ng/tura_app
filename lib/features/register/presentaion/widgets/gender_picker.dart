@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class GenderPicker extends StatefulWidget {
   final TextEditingController genderController;
-  GenderPicker({super.key, required this.genderController});
+  const GenderPicker({super.key, required this.genderController});
 
   @override
   State<GenderPicker> createState() => _GenderPickerState();
@@ -32,10 +32,11 @@ class _GenderPickerState extends State<GenderPicker> {
             },
             items: [
               DropdownMenuItem<String>(
-                child: Text('Gender', style: TextStyle(color: Colors.black)),
                 value: 'Gender',
+                child: Text('Gender', style: TextStyle(color: Colors.black)),
               ),
               DropdownMenuItem<String>(
+                value: 'male',
                 child: Row(
                   children: [
                     Text('male'),
@@ -48,9 +49,9 @@ class _GenderPickerState extends State<GenderPicker> {
                     )
                   ],
                 ),
-                value: 'male',
               ),
               DropdownMenuItem<String>(
+                value: 'female',
                 child: Row(
                   children: [
                     Text('female'),
@@ -63,7 +64,6 @@ class _GenderPickerState extends State<GenderPicker> {
                     )
                   ],
                 ),
-                value: 'female',
               ),
             ],
           ),
