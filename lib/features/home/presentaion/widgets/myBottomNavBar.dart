@@ -10,28 +10,41 @@ class Mybottomnavbar extends StatefulWidget {
   State<Mybottomnavbar> createState() => _MybottomnavbarState();
 }
 
-final _items = [
-  SalomonBottomBarItem(
-    icon: const Icon(Icons.home),
-    title: const Text('home'),
-  ),
-  SalomonBottomBarItem(
-    icon: const Icon(Icons.swap_horizontal_circle_sharp),
-    title: const Text('shares'),
-  ),
-  SalomonBottomBarItem(
-    icon: const Icon(Icons.search),
-    title: const Text('search'),
-  ),
-  SalomonBottomBarItem(
-    icon: const Icon(Icons.person),
-    title: const Text('profile'),
-  ),
-];
-
 class _MybottomnavbarState extends State<Mybottomnavbar> {
   @override
   Widget build(BuildContext context) {
+    //double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    final _items = [
+      SalomonBottomBarItem(
+        icon: Image.asset(
+          '././lib/images/home.png',
+          height: screenHeight * 0.03,
+        ),
+        title: const Text('HOME'),
+      ),
+      SalomonBottomBarItem(
+        icon: Image.asset(
+          '././lib/images/cloud-share.png',
+          height: screenHeight * 0.03,
+        ),
+        title: const Text('SHARES'),
+      ),
+      SalomonBottomBarItem(
+        icon: Image.asset(
+          '././lib/images/guide-alt.png',
+          height: screenHeight * 0.03,
+        ),
+        title: const Text('GUIDE'),
+      ),
+      SalomonBottomBarItem(
+          icon: Image.asset(
+            '././lib/images/user.png',
+            height: screenHeight * 0.03,
+          ),
+          title: Text('PROFILE'))
+    ];
+
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(10),
