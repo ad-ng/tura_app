@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
           );
         }
         if (state is LoginSuccess) {
-          Navigator.pushNamed(context, 'homePage');
+          Navigator.pushReplacementNamed(context, 'homePage');
         }
       },
       child: Scaffold(

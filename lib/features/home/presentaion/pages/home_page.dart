@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myBottomNavBar.dart';
+import 'package:tura_app/features/home/presentaion/widgets/myappbar.dart';
+import 'package:tura_app/features/home/presentaion/widgets/mydrawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,8 +29,24 @@ final _screens = [
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    //ouble screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: _screens[currentIndex],
+      drawer: MyDrawer(),
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
+            myappbar(screenHeight: screenHeight),
+            SizedBox(
+              height: screenHeight * 0.3,
+            ),
+            _screens[currentIndex],
+          ],
+        ),
+      ),
       bottomNavigationBar: Mybottomnavbar(
         currentIndex: currentIndex,
         ontap: (index) {
