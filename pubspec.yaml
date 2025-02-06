@@ -37,6 +37,7 @@ dependencies:
   flutter_bloc:
   shared_preferences: 
   dio:
+  salomon_bottom_bar: ^3.3.2
   #sign_in_with_apple: 
 
 dev_dependencies:
