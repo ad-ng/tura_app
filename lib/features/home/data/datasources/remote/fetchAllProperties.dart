@@ -1,25 +1,44 @@
 import 'package:dio/dio.dart';
+import 'package:tura_app/features/home/data/models/properties_model.dart';
 import 'package:tura_app/network/dioService.dart';
 
-class Fetchallproperties {
-  
+class FetchAllProperties {
   final Dio _dio = DioService.instance.dio;
 
-  // Method to handle login
-  Future<UserModel> login(LoginModel loginModel) async {
+  Future<List<PropertiesModel>> fetchProps() async {
     try {
-      final response = await _dio.post(
-        '/auth/login', // Your login endpoint
-        data: loginModel.toMap(), // Convert LoginModel to a map
-      );
+      final response = await _dio.get('properties');
+
       final dataJson = response.data['data'];
 
-      Tokenstore.setToken(response.data['token']);
-
-      return UserModel.fromJson(dataJson); // Return the response data
+      if (dataJson is List) {
+        return dataJson.map((json) => PropertiesModel.fromJson(json)).toList();
+      } else {
+        throw Exception('Expected a list but got ${dataJson.runtimeType}');
+      }
     } on DioException catch (e) {
-      // Handle Dio errors
       throw _handleError(e);
+    } catch (e) {
+      throw 'An unexpected error occurred: $e';
     }
   }
+
+  String _handleError(DioException error) {
+    switch (error.type) {
+      case DioExceptionType.connectionTimeout:
+        return 'Connection timeout';
+      case DioExceptionType.sendTimeout:
+        return 'Send timeout';
+      case DioExceptionType.receiveTimeout:
+        return 'Receive timeout';
+      case DioExceptionType.badResponse:
+        return 'Bad response: ${error.response?.statusCode}';
+      case DioExceptionType.cancel:
+        return 'Request canceled';
+      case DioExceptionType.unknown:
+        return 'Unknown error: ${error.message}';
+      default:
+        return 'Something went wrong';
+    }
   }
+}
