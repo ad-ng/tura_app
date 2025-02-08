@@ -36,7 +36,6 @@ class _MyHomeState extends State<MyHome> {
                 // Handle errors
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else {
-                final properties = snapshot.data;
                 return Expanded(
                   child: ListView.builder(
                     itemCount: snapshot.data!.length,
