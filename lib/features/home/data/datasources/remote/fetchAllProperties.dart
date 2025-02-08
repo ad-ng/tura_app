@@ -54,7 +54,7 @@ import 'package:tura_app/network/dioService.dart';
 class FetchAllProperties {
   final Dio _dio = DioService.instance.dio;
 
-  Future<PropertiesModel> fetchProp(String slug) async {
+  Future<PropertiesModel> fetchSingleProp(String slug) async {
     try {
       final response = await _dio.get('/properties/$slug');
 

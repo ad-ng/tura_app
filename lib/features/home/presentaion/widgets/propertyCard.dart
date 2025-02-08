@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tura_app/features/home/data/models/properties_model.dart';
+import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 
 class Propertycard extends StatelessWidget {
   final PropertiesModel property;
@@ -196,20 +197,31 @@ class Propertycard extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.all(15),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: screenHeight * 0.06,
-                margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).colorScheme.surface),
-                child: Center(
-                  child: Text(
-                    'View Details',
-                    style: TextStyle(
-                        fontSize: screenHeight * 0.023,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.secondary),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          Singleproperty(slug: property.slug!),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: screenHeight * 0.06,
+                  margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).colorScheme.surface),
+                  child: Center(
+                    child: Text(
+                      'View Details',
+                      style: TextStyle(
+                          fontSize: screenHeight * 0.023,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.secondary),
+                    ),
                   ),
                 ),
               ),
