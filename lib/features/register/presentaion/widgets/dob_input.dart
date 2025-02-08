@@ -12,17 +12,17 @@ class DobInput extends StatefulWidget {
 class _DobInputState extends State<DobInput> {
   @override
   Widget build(BuildContext context) {
-    Future<void> _selectDate() async {
-      DateTime? _picked = await showDatePicker(
+    Future<void> selectDate() async {
+      DateTime? picked = await showDatePicker(
         context: context,
         firstDate: DateTime(1970),
         lastDate: DateTime(2100),
         initialDate: DateTime.now(),
       );
 
-      if (_picked != null) {
+      if (picked != null) {
         setState(() {
-          widget.dobController.text = _picked.toString().split(" ")[0];
+          widget.dobController.text = picked.toString().split(" ")[0];
         });
       }
     }
@@ -47,7 +47,7 @@ class _DobInputState extends State<DobInput> {
           filled: true,
         ),
         readOnly: true,
-        onTap: () => _selectDate(),
+        onTap: () => selectDate(),
       ),
     );
   }

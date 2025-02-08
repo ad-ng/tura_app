@@ -26,17 +26,19 @@ class _LoginPageState extends State<LoginPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                '${state.message}',
+                state.message,
               ),
             ),
           );
         }
         if (state is LoginSuccess) {
-          Navigator.pushNamed(context, 'homePage');
+          usernameController.clear();
+          passwordController.clear();
+          Navigator.pushReplacementNamed(context, 'homePage');
         }
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
