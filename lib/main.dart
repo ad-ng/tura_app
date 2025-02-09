@@ -5,6 +5,8 @@ import 'package:tura_app/core/theme/theme_cubit.dart';
 import 'package:tura_app/features/home/data/datasources/remote/propertiesapiservice.dart';
 import 'package:tura_app/features/home/data/repositories/properties_repo_impl.dart';
 import 'package:tura_app/features/home/presentaion/cubit/propertiesCubit.dart';
+import 'package:tura_app/features/home/presentaion/cubit/singlePropertyCubit.dart';
+import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 import 'package:tura_app/features/register/data/datasources/registerApiService.dart';
 import 'package:tura_app/features/register/data/repository/register_repo_impl.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
@@ -43,14 +45,17 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ThemeCubit(),
         ),
-        BlocProvider(create: (context) => PropertiesCubit(_propertiesRepo))
+        BlocProvider(create: (context) => PropertiesCubit(_propertiesRepo)),
+        BlocProvider(create: (context) => SinglePropertyCubit(_propertiesRepo))
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: lightMode,
-        home: const LoginPage(), // Initial page is LoginPage
+        //home: const LoginPage(), // Initial page is LoginPage
+        initialRoute: '/',
         routes: {
+          '/': (context) => LoginPage(),
           'homePage': (context) => const HomePage(),
           'registerPage': (context) => const RegisterPage(),
           'loginPage': (context) => const LoginPage(),
