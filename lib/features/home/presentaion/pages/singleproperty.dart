@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:tura_app/features/home/data/datasources/remote/fetchAllProperties.dart';
+import 'package:tura_app/features/home/data/datasources/remote/propertiesapiservice.dart';
 import 'package:tura_app/features/home/data/models/properties_model.dart';
 
 class Singleproperty extends StatelessWidget {
@@ -29,7 +29,7 @@ class Singleproperty extends StatelessWidget {
         ],
       ),
       body: FutureBuilder<PropertiesModel>(
-        future: FetchAllProperties().fetchSingleProp(slug),
+        future: PropertiesApiService().fetchSingleProp(slug),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());

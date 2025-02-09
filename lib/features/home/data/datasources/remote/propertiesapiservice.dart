@@ -51,7 +51,7 @@ import 'package:dio/dio.dart';
 import 'package:tura_app/features/home/data/models/properties_model.dart';
 import 'package:tura_app/network/dioService.dart';
 
-class FetchAllProperties {
+class PropertiesApiService {
   final Dio _dio = DioService.instance.dio;
 
   Future<PropertiesModel> fetchSingleProp(String slug) async {

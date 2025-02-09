@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tura_app/features/home/data/datasources/remote/fetchAllProperties.dart';
+import 'package:tura_app/features/home/data/datasources/remote/propertiesapiservice.dart';
 import 'package:tura_app/features/home/data/models/properties_model.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myappbar.dart';
 import 'package:tura_app/features/home/presentaion/widgets/propertyCard.dart';
@@ -12,7 +12,7 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-  final FetchAllProperties _fetchAllProperties = FetchAllProperties();
+  final PropertiesApiService _propertiesApiService = PropertiesApiService();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _MyHomeState extends State<MyHome> {
             height: screenHeight * 0.00001,
           ),
           FutureBuilder<List<PropertiesModel>>(
-            future: _fetchAllProperties.fetchProps(),
+            future: _propertiesApiService.fetchProps(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
