@@ -252,7 +252,7 @@ class Propertycard extends StatelessWidget {
         Container(
           height: screenHeight * 0.04,
           margin: EdgeInsets.only(
-              left: screenWidth * 0.2, top: screenWidth * 0.585),
+              left: screenWidth * 0.13, top: screenWidth * 0.585),
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
           decoration: BoxDecoration(
               color: Colors.green[400], borderRadius: BorderRadius.circular(5)),
