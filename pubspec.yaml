@@ -18,6 +18,7 @@ dependencies:
   dio:
   salomon_bottom_bar: ^3.3.2
   flutter_widget_from_html: ^0.15.3
+  share_plus: ^10.1.4
   #sign_in_with_apple: 
 
 dev_dependencies:

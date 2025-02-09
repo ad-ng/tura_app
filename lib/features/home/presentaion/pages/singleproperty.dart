@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+//import 'package:share_plus/share_plus.dart';
 import 'package:tura_app/features/home/data/datasources/remote/propertiesapiservice.dart';
 import 'package:tura_app/features/home/data/repositories/properties_repo_impl.dart';
 import 'package:tura_app/features/home/presentaion/cubit/singlePropertyCubit.dart';
@@ -177,6 +178,40 @@ class _SinglepropertyState extends State<Singleproperty> {
                               ],
                             ),
                           ),
+                          GestureDetector(
+                            onTap: () async {
+                              //final result = await Share.share(
+                              //  'check out my website https://example.com');
+
+                              // if (result.status == ShareResultStatus.success) {
+                              //Shar
+                              print('Thank you for sharing my website!');
+                              // }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 2, horizontal: 4),
+                              margin: EdgeInsets.only(
+                                  left: screenWidth * 0.38,
+                                  bottom: screenHeight * 0.015),
+                              height: screenHeight * 0.05,
+                              width: screenWidth * 0.27,
+                              decoration: BoxDecoration(
+                                  color: Colors.green[300],
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Icon(Icons.share),
+                                  Text(
+                                    'share',
+                                    style: TextStyle(fontSize: 20),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ],
