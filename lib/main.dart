@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/core/theme/light_mode.dart';
 import 'package:tura_app/core/theme/theme_cubit.dart';
+import 'package:tura_app/features/home/data/datasources/remote/propertiesapiservice.dart';
+import 'package:tura_app/features/home/data/repositories/properties_repo_impl.dart';
+import 'package:tura_app/features/home/presentaion/cubit/propertiesCubit.dart';
 import 'package:tura_app/features/register/data/datasources/registerApiService.dart';
 import 'package:tura_app/features/register/data/repository/register_repo_impl.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
@@ -22,28 +25,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Step 1: Set up Dio and RegisterApiService
-
-    final registerApiService = Registerapiservice(); // Passing Dio instance
-    final registerRepo =
-        RegisterRepoImpl(registerApiService); // Create RegisterRepoImpl
+    //final registerApiService = Registerapiservice();
+    //final registerRepo = RegisterRepoImpl(registerApiService);
+    final registerRepo = RegisterRepoImpl(Registerapiservice());
+    final _propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
 
     return MultiBlocProvider(
       providers: [
-        // Step 2: Providing the LoginCubit
         BlocProvider(
           create: (context) => LoginCubit(
             LoginApiService(),
           ),
         ),
-        // Step 3: Providing the RegisterCubit with the correct dependencies
         BlocProvider(
-          create: (context) =>
-              Registercubit(registerRepo), // Injecting RegisterRepoImpl
+          create: (context) => Registercubit(registerRepo),
         ),
         BlocProvider(
           create: (context) => ThemeCubit(),
-        )
+        ),
+        BlocProvider(create: (context) => PropertiesCubit(_propertiesRepo))
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

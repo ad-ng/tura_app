@@ -46,16 +46,19 @@ import 'package:tura_app/features/home/domain/repositories/properties_repo.dart'
 class PropertiesCubit extends Cubit<PropertiesState> {
   final PropertiesRepo _propertiesRepo;
 
-  PropertiesCubit(this._propertiesRepo) : super(PropertiesInitial());
+  PropertiesCubit(this._propertiesRepo) : super(PropertiesInitial()) {
+    fetchProps();
+  }
 
-  Future fetchProps(PropertiesModel propertiesModel) async {
+  Future fetchProps() async {
     emit(PropertiesLoading());
 
     try {
       final response = await _propertiesRepo.fetchProps();
-
+      print('Fetched properties: $response'); // Log the response
       emit(PropertiesSuccess(response));
     } catch (e) {
+      print('Error fetching properties: $e'); // Log any error
       emit(PropertiesError(e.toString()));
     }
   }
@@ -68,7 +71,7 @@ class PropertiesInitial extends PropertiesState {}
 class PropertiesLoading extends PropertiesState {}
 
 class PropertiesSuccess extends PropertiesState {
-  final dynamic response; // Response from the API
+  final List<PropertiesModel> response; // Response from the API
   PropertiesSuccess(this.response);
 }
 
