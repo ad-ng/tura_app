@@ -92,6 +92,25 @@ class PropertiesApiService {
     }
   }
 
+  Future<List<PropertiesModel>> similarProps(String id) async {
+    try {
+      final response = await _dio.get('/properties/$id/similar');
+
+      final dataJson = response.data['data'];
+
+      if (dataJson != null && dataJson is List) {
+        return dataJson.map((json) => PropertiesModel.fromJson(json)).toList();
+      } else {
+        throw Exception(
+            'Expected a list of properties but got ${dataJson.runtimeType}');
+      }
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      throw 'An unexpected error occurred: $e';
+    }
+  }
+
   // Handle Dio-specific errors
   String _handleError(DioException error) {
     switch (error.type) {
