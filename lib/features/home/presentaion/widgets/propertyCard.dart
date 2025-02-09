@@ -201,10 +201,9 @@ class Propertycard extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          Singleproperty(slug: property.slug!),
-                    ),
+                    MaterialPageRoute(builder: (context) {
+                      return Singleproperty(slug: property.slug!);
+                    }),
                   );
                 },
                 child: Container(

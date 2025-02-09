@@ -6,7 +6,6 @@ import 'package:tura_app/features/home/data/datasources/remote/propertiesapiserv
 import 'package:tura_app/features/home/data/repositories/properties_repo_impl.dart';
 import 'package:tura_app/features/home/presentaion/cubit/propertiesCubit.dart';
 import 'package:tura_app/features/home/presentaion/cubit/singlePropertyCubit.dart';
-import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 import 'package:tura_app/features/register/data/datasources/registerApiService.dart';
 import 'package:tura_app/features/register/data/repository/register_repo_impl.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
@@ -31,22 +30,15 @@ class MyApp extends StatelessWidget {
     //final registerRepo = RegisterRepoImpl(registerApiService);
     final registerRepo = RegisterRepoImpl(Registerapiservice());
     final _propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
-
+    final slug = 'slug';
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => LoginCubit(
-            LoginApiService(),
-          ),
-        ),
-        BlocProvider(
-          create: (context) => Registercubit(registerRepo),
-        ),
-        BlocProvider(
-          create: (context) => ThemeCubit(),
-        ),
+        BlocProvider(create: (context) => LoginCubit(LoginApiService())),
+        BlocProvider(create: (context) => Registercubit(registerRepo)),
+        BlocProvider(create: (context) => ThemeCubit()),
         BlocProvider(create: (context) => PropertiesCubit(_propertiesRepo)),
-        BlocProvider(create: (context) => SinglePropertyCubit(_propertiesRepo))
+        BlocProvider(
+            create: (context) => SinglePropertyCubit(_propertiesRepo, slug))
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
