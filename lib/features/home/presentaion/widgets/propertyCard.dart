@@ -177,7 +177,19 @@ class _PropertycardState extends State<Propertycard> {
             onPressed: () {},
             icon: Icon(
               Icons.chevron_left,
-              color: Colors.yellow,
+              color: Colors.yellow[900],
+              size: 40,
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(
+              top: screenHeight * 0.15, left: screenWidth * 0.83),
+          child: IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.chevron_right,
+              color: Colors.yellow[900],
               size: 40,
             ),
           ),
