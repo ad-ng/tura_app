@@ -13,6 +13,7 @@ class Propertycard extends StatefulWidget {
 
 class _PropertycardState extends State<Propertycard> {
   final myController = CarouselSliderController();
+  int activeIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,11 @@ class _PropertycardState extends State<Propertycard> {
                     viewportFraction: 1,
                     initialPage: 0,
                     enableInfiniteScroll: false,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        activeIndex = index;
+                      });
+                    },
                   ),
                 ),
               ),
@@ -186,7 +192,11 @@ class _PropertycardState extends State<Propertycard> {
           margin: EdgeInsets.only(
               top: screenHeight * 0.15, left: screenWidth * 0.83),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                myController.nextPage();
+              });
+            },
             icon: Icon(
               Icons.chevron_right,
               color: Colors.yellow[900],
