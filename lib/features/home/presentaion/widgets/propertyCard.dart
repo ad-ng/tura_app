@@ -170,6 +170,17 @@ class _PropertycardState extends State<Propertycard> {
                 fontSize: 20,
                 fontWeight: FontWeight.w500),
           ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: screenHeight * 0.15, left: 5),
+          child: IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.chevron_left,
+              color: Colors.yellow,
+              size: 40,
+            ),
+          ),
         )
       ],
     );
