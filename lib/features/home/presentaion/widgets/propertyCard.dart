@@ -1,10 +1,18 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:tura_app/features/home/data/models/properties_model.dart';
 import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 
-class Propertycard extends StatelessWidget {
+class Propertycard extends StatefulWidget {
   final PropertiesModel property;
-  const Propertycard({super.key, required this.property});
+  Propertycard({super.key, required this.property});
+
+  @override
+  State<Propertycard> createState() => _PropertycardState();
+}
+
+class _PropertycardState extends State<Propertycard> {
+  final myController = CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,138 +33,38 @@ class Propertycard extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15)),
-                child: Image.network(
-                  '${property.imageUrls![0]}',
-                  width: screenWidth,
-                  height: screenHeight * 0.300,
+                child: CarouselSlider.builder(
+                  itemCount: widget.property.imageUrls!.length,
+                  carouselController: myController,
+                  itemBuilder: (context, index, realIndex) {
+                    return Container(
+                      child: Image.network(
+                        widget.property.imageUrls![index],
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                  options: CarouselOptions(
+                    height: screenHeight * 0.301,
+                    viewportFraction: 1,
+                    initialPage: 0,
+                    enableInfiniteScroll: false,
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20, left: 10, bottom: 10),
+                padding: const EdgeInsets.only(top: 20, left: 10),
                 child: Text(
-                  '${property.title}',
+                  '${widget.property.title}',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      color: Colors.grey[900],
-                    ),
-                    Text(
-                      '${property.place!.name}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: screenHeight * 0.02,
-                        color: Colors.grey[900],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 40, top: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          '././lib/images/full-size.png',
-                          height: screenHeight * 0.025,
-                          color: Colors.grey[900],
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          '${property.size} m',
-                          style: TextStyle(
-                            fontSize: screenHeight * 0.02,
-                            color: Colors.grey[900],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          '././lib/images/sleeping.png',
-                          height: screenHeight * 0.03,
-                          color: Colors.grey[900],
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          '${property.bedrooms} bedrooms',
-                          style: TextStyle(
-                            fontSize: screenHeight * 0.02,
-                            color: Colors.grey[900],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 20, right: 40, top: 10, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Image.asset(
-                          '././lib/images/shower.png',
-                          height: screenHeight * 0.03,
-                          color: Colors.grey[900],
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          '${property.bathrooms} bathrooms',
-                          style: TextStyle(
-                            fontSize: screenHeight * 0.02,
-                            color: Colors.grey[900],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          '././lib/images/garage.png',
-                          color: Colors.grey[900],
-                          height: screenHeight * 0.03,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          property.hasParking! ? 'has parking' : 'no parking',
-                          style: TextStyle(
-                            fontSize: screenHeight * 0.02,
-                            color: Colors.grey[900],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
               Row(
                 children: [
-                  property.hasPool!
+                  widget.property.hasPool!
                       ? Container(
                           margin: EdgeInsets.only(left: 20),
                           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -172,7 +80,7 @@ class Propertycard extends StatelessWidget {
                           ),
                         )
                       : Container(),
-                  property.hasParking!
+                  widget.property.hasParking!
                       ? Container(
                           margin: EdgeInsets.only(left: 20),
                           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -202,7 +110,7 @@ class Propertycard extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return Singleproperty(slug: property.slug!);
+                      return Singleproperty(slug: widget.property.slug!);
                     }),
                   );
                 },
@@ -229,7 +137,7 @@ class Propertycard extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            color: property.isForSale!
+            color: widget.property.isForSale!
                 ? Theme.of(context).colorScheme.surface
                 : Colors.green[400],
             borderRadius: BorderRadius.circular(15),
@@ -240,7 +148,7 @@ class Propertycard extends StatelessWidget {
               left: screenWidth * 0.08, top: screenHeight * 0.02),
           child: Center(
             child: Text(
-              property.isForSale! ? 'For Sale' : 'For Rent',
+              widget.property.isForSale! ? 'For Sale' : 'For Rent',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
                 fontWeight: FontWeight.w500,
@@ -256,7 +164,7 @@ class Propertycard extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.green[400], borderRadius: BorderRadius.circular(5)),
           child: Text(
-            '${property.price} Rwf',
+            '${widget.property.price} Rwf',
             style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 20,

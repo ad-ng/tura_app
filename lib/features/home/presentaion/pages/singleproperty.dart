@@ -238,7 +238,7 @@ class _SinglepropertyState extends State<Singleproperty> {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
                               return SizedBox(
-                                height: screenHeight * 0.65,
+                                height: screenHeight * 0.55,
                                 width: screenWidth,
                                 child: ListView.builder(
                                   itemCount: snapshot.data!.length,
