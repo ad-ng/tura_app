@@ -180,7 +180,9 @@ class _PropertycardState extends State<Propertycard> {
         Container(
           margin: EdgeInsets.only(top: screenHeight * 0.15, left: 5),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              myController.previousPage();
+            },
             icon: Icon(
               Icons.chevron_left,
               color: Colors.yellow[900],
@@ -193,9 +195,7 @@ class _PropertycardState extends State<Propertycard> {
               top: screenHeight * 0.15, left: screenWidth * 0.83),
           child: IconButton(
             onPressed: () {
-              setState(() {
-                myController.nextPage();
-              });
+              myController.nextPage();
             },
             icon: Icon(
               Icons.chevron_right,
