@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:tura_app/features/login/data/datasources/local/tokenStore.dart';
+import 'package:tura_app/features/login/data/datasources/local/userPreferences.dart';
 import 'package:tura_app/features/login/data/models/login_model.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
 import 'package:tura_app/network/dioService.dart';
@@ -11,17 +12,29 @@ class LoginApiService {
   Future<UserModel> login(LoginModel loginModel) async {
     try {
       final response = await _dio.post(
-        '/auth/login', // Your login endpoint
-        data: loginModel.toMap(), // Convert LoginModel to a map
+        '/auth/login',
+        data: loginModel.toMap(),
       );
       final dataJson = response.data['data'];
 
+      // Save the token using Tokenstore
       Tokenstore.setToken(response.data['token']);
 
-      return UserModel.fromJson(dataJson); // Return the response data
+      // Save user in SharedPreferences
+      await UserPreferences().saveLocalUser(UserModel.fromJson(dataJson));
+
+      print('shared preferences data');
+      final locals = await UserPreferences().getLocalUser();
+      print(locals!.fullname);
+
+      // Return the UserModel instance
+      return UserModel.fromJson(dataJson);
     } on DioException catch (e) {
       // Handle Dio errors
       throw _handleError(e);
+    } catch (e) {
+      // Catch other errors (like JSON decoding errors)
+      return Future.error('Something went wrong');
     }
   }
 
