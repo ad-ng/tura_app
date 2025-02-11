@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -16,6 +17,8 @@ class Singleproperty extends StatefulWidget {
 }
 
 int imgIndex = 0;
+final myController = CarouselSliderController();
+int activeIndex = 0;
 
 class _SinglepropertyState extends State<Singleproperty> {
   final _propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
@@ -76,34 +79,32 @@ class _SinglepropertyState extends State<Singleproperty> {
                             ),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          height: screenHeight * 0.32,
-                          child: Image.network(property.imageUrls![imgIndex]),
-                        ),
-                        Container(
-                          height: screenWidth * 0.2,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: property.imageUrls!.length,
-                            itemBuilder: (context, index) {
-                              // return Image.asset(snapshot.data!.imageUrls![index]);
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    imgIndex = index;
-                                  });
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 10, top: 5),
+                        Stack(
+                          children: [
+                            CarouselSlider.builder(
+                              itemCount: property.imageUrls!.length,
+                              carouselController: myController,
+                              itemBuilder: (context, index, realIndex) {
+                                return Container(
                                   child: Image.network(
                                     property.imageUrls![index],
+                                    fit: BoxFit.cover,
                                   ),
-                                ),
-                              );
-                            },
-                          ),
+                                );
+                              },
+                              options: CarouselOptions(
+                                height: screenHeight * 0.301,
+                                viewportFraction: 1,
+                                initialPage: 0,
+                                enableInfiniteScroll: false,
+                                onPageChanged: (index, reason) {
+                                  setState(() {
+                                    activeIndex = index;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(
