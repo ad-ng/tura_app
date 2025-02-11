@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -16,6 +17,8 @@ class Singleproperty extends StatefulWidget {
 }
 
 int imgIndex = 0;
+final myController = CarouselSliderController();
+int activeIndex = 0;
 
 class _SinglepropertyState extends State<Singleproperty> {
   final _propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
@@ -76,34 +79,96 @@ class _SinglepropertyState extends State<Singleproperty> {
                             ),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          height: screenHeight * 0.32,
-                          child: Image.network(property.imageUrls![imgIndex]),
-                        ),
-                        Container(
-                          height: screenWidth * 0.2,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: property.imageUrls!.length,
-                            itemBuilder: (context, index) {
-                              // return Image.asset(snapshot.data!.imageUrls![index]);
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    imgIndex = index;
-                                  });
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 10, top: 5),
+                        Stack(
+                          children: [
+                            CarouselSlider.builder(
+                              itemCount: property.imageUrls!.length,
+                              carouselController: myController,
+                              itemBuilder: (context, index, realIndex) {
+                                return Container(
                                   child: Image.network(
                                     property.imageUrls![index],
+                                    fit: BoxFit.cover,
                                   ),
+                                );
+                              },
+                              options: CarouselOptions(
+                                height: screenHeight * 0.301,
+                                viewportFraction: 1,
+                                initialPage: 0,
+                                enableInfiniteScroll: false,
+                                onPageChanged: (index, reason) {
+                                  setState(() {
+                                    activeIndex = index;
+                                  });
+                                },
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  top: screenHeight * 0.12, left: 5),
+                              child: IconButton(
+                                onPressed: () {
+                                  myController.previousPage();
+                                },
+                                icon: Icon(
+                                  Icons.chevron_left,
+                                  color: Colors.yellow[900],
+                                  size: 40,
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  top: screenHeight * 0.12,
+                                  left: screenWidth * 0.83),
+                              child: IconButton(
+                                onPressed: () {
+                                  myController.nextPage();
+                                },
+                                icon: Icon(
+                                  Icons.chevron_right,
+                                  color: Colors.yellow[900],
+                                  size: 40,
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () async {
+                                //final result = await Share.share(
+                                //  'check out my website https://example.com');
+
+                                // if (result.status == ShareResultStatus.success) {
+                                //Shar
+                                print('Thank you for sharing my website!');
+                                // }
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 2, horizontal: 4),
+                                margin: EdgeInsets.only(
+                                  left: screenWidth * 0.64,
+                                  top: screenHeight * 0.24,
+                                ),
+                                height: screenHeight * 0.05,
+                                width: screenWidth * 0.27,
+                                decoration: BoxDecoration(
+                                    color: Colors.green[300],
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Icon(Icons.share),
+                                    Text(
+                                      'share',
+                                      style: TextStyle(fontSize: 20),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(
@@ -112,46 +177,49 @@ class _SinglepropertyState extends State<Singleproperty> {
                               color: Theme.of(context).colorScheme.primary,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
-                            child: DataTable(columns: <DataColumn>[
-                              DataColumn(label: Text('Information')),
-                              DataColumn(label: Text('value'))
-                            ], rows: <DataRow>[
-                              DataRow(cells: [
-                                DataCell(Text('location')),
-                                DataCell(Text(property.place!.name!))
-                              ]),
-                              DataRow(cells: [
-                                DataCell(Text('price')),
-                                DataCell(Text('${property.price!} Rwf'))
-                              ]),
-                              DataRow(cells: [
-                                DataCell(Text('area')),
-                                DataCell(Text('${property.size!} m'))
-                              ]),
-                              DataRow(cells: [
-                                DataCell(Text('bedrooms')),
-                                DataCell(Text('${property.bedrooms}'))
-                              ]),
-                              DataRow(cells: [
-                                DataCell(Text('bathrooms')),
-                                DataCell(Text('${property.bathrooms}'))
-                              ]),
-                              DataRow(cells: [
-                                DataCell(Text('parking')),
-                                DataCell(Icon(property.hasParking!
-                                    ? Icons.check_outlined
-                                    : Icons.clear))
-                              ]),
-                              DataRow(cells: [
-                                DataCell(Text('year built')),
-                                DataCell(Text(
-                                    '${property.yearBuilt!.split('-')[0]}'))
-                              ]),
-                              DataRow(cells: [
-                                DataCell(Text('category')),
-                                DataCell(Text('${property.category!.name!}'))
-                              ]),
-                            ]),
+                            child: DataTable(
+                              columns: <DataColumn>[
+                                DataColumn(label: Text('Information')),
+                                DataColumn(label: Text('value'))
+                              ],
+                              rows: <DataRow>[
+                                DataRow(cells: [
+                                  DataCell(Text('location')),
+                                  DataCell(Text(property.place!.name!))
+                                ]),
+                                DataRow(cells: [
+                                  DataCell(Text('price')),
+                                  DataCell(Text('${property.price!} Rwf'))
+                                ]),
+                                DataRow(cells: [
+                                  DataCell(Text('area')),
+                                  DataCell(Text('${property.size!} m'))
+                                ]),
+                                DataRow(cells: [
+                                  DataCell(Text('bedrooms')),
+                                  DataCell(Text('${property.bedrooms}'))
+                                ]),
+                                DataRow(cells: [
+                                  DataCell(Text('bathrooms')),
+                                  DataCell(Text('${property.bathrooms}'))
+                                ]),
+                                DataRow(cells: [
+                                  DataCell(Text('parking')),
+                                  DataCell(Icon(property.hasParking!
+                                      ? Icons.check_outlined
+                                      : Icons.clear))
+                                ]),
+                                DataRow(cells: [
+                                  DataCell(Text('year built')),
+                                  DataCell(Text(
+                                      '${property.yearBuilt!.split('-')[0]}'))
+                                ]),
+                                DataRow(cells: [
+                                  DataCell(Text('category')),
+                                  DataCell(Text('${property.category!.name!}'))
+                                ]),
+                              ],
+                            ),
                           ),
                         ),
                         Container(
@@ -176,39 +244,6 @@ class _SinglepropertyState extends State<Singleproperty> {
                                 ''' ${property.details!} ''',
                               ),
                             ],
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            //final result = await Share.share(
-                            //  'check out my website https://example.com');
-
-                            // if (result.status == ShareResultStatus.success) {
-                            //Shar
-                            print('Thank you for sharing my website!');
-                            // }
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 2, horizontal: 4),
-                            margin: EdgeInsets.only(
-                                left: screenWidth * 0.38,
-                                bottom: screenHeight * 0.015),
-                            height: screenHeight * 0.05,
-                            width: screenWidth * 0.27,
-                            decoration: BoxDecoration(
-                                color: Colors.green[300],
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Icon(Icons.share),
-                                Text(
-                                  'share',
-                                  style: TextStyle(fontSize: 20),
-                                )
-                              ],
-                            ),
                           ),
                         ),
                         Center(

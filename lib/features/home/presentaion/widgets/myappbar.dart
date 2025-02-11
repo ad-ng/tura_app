@@ -33,12 +33,13 @@ class myappbar extends StatelessWidget {
             height: screenHeight * 0.07,
           ),
           IconButton(
-              onPressed: () {},
-              icon: Image.asset(
-                '././lib/images/bell.png',
-                color: Theme.of(context).colorScheme.secondary,
-                height: screenHeight * 0.03,
-              ))
+            onPressed: () {},
+            icon: Image.asset(
+              '././lib/images/bell.png',
+              color: Theme.of(context).colorScheme.secondary,
+              height: screenHeight * 0.03,
+            ),
+          )
         ],
       ),
     );
