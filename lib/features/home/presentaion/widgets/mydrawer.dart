@@ -22,12 +22,20 @@ class MyDrawer extends StatelessWidget {
           //   ),
           // ),
           Padding(
-            padding: const EdgeInsets.all(28),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(190),
-              child: Image.network(
-                'https://d1covwzj3ggua9.cloudfront.net/user/Adolphe.jpg',
-                height: screenHeight * 0.224,
+            padding:
+                const EdgeInsets.only(top: 28, left: 28, right: 28), //all(28),
+            child: Image.asset(
+              './././lib/images/logo.png',
+              color: Theme.of(context).colorScheme.secondary,
+              height: screenHeight * 0.224,
+            ),
+          ),
+          Center(
+            child: Text(
+              'MENU',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
+                fontSize: 20,
               ),
             ),
           ),
@@ -36,6 +44,18 @@ class MyDrawer extends StatelessWidget {
                 color: Theme.of(context).colorScheme.secondary),
             title: Text(
               'settings',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.favorite_sharp,
+                color: Theme.of(context).colorScheme.secondary),
+            title: Text(
+              'favorites',
               style: TextStyle(color: Theme.of(context).colorScheme.secondary),
             ),
             onTap: () {},
