@@ -3,6 +3,7 @@ import 'package:tura_app/features/home/presentaion/widgets/myBottomNavBar.dart';
 import 'package:tura_app/features/home/presentaion/widgets/mydrawer.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myhome.dart';
 import 'package:tura_app/features/profile/presentaion/pages/profile.dart';
+import 'package:tura_app/features/shares/presentation/pages/shares.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,9 +15,7 @@ class HomePage extends StatefulWidget {
 int currentIndex = 0;
 final _screens = [
   MyHome(),
-  Center(
-    child: Text('S H A R E S   P A G E'),
-  ),
+  Shares(),
   Center(
     child: Text('S E A R C H   P A G E'),
   ),
