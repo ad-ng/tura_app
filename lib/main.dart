@@ -6,6 +6,9 @@ import 'package:tura_app/features/home/data/datasources/remote/propertiesapiserv
 import 'package:tura_app/features/home/data/repositories/properties_repo_impl.dart';
 import 'package:tura_app/features/home/presentaion/cubit/propertiesCubit.dart';
 import 'package:tura_app/features/home/presentaion/cubit/singlePropertyCubit.dart';
+import 'package:tura_app/features/profile/data/datasources/remote/userapiservice.dart';
+import 'package:tura_app/features/profile/data/repositories/user_repo_impl.dart';
+import 'package:tura_app/features/profile/presentaion/bloc/userCubit.dart';
 import 'package:tura_app/features/register/data/datasources/registerApiService.dart';
 import 'package:tura_app/features/register/data/repository/register_repo_impl.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
@@ -26,9 +29,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final registerApiService = Registerapiservice();
-    //final registerRepo = RegisterRepoImpl(registerApiService);
     final registerRepo = RegisterRepoImpl(Registerapiservice());
+    final _userRepo = UserRepoImpl(UserApiService());
     final _propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
     final slug = 'slug';
     return MultiBlocProvider(
@@ -37,6 +39,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => Registercubit(registerRepo)),
         BlocProvider(create: (context) => ThemeCubit()),
         BlocProvider(create: (context) => PropertiesCubit(_propertiesRepo)),
+        BlocProvider(create: (context) => UserCubit(_userRepo)),
         BlocProvider(
             create: (context) => SinglePropertyCubit(_propertiesRepo, slug))
       ],

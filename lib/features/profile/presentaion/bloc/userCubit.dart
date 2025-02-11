@@ -2,10 +2,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
 import 'package:tura_app/features/profile/domain/repository/user_repo.dart';
 
-class Usercubit extends Cubit<UserState>{
+class UserCubit extends Cubit<UserState>{
   final UserRepo _userRepo;
 
-Usercubit(this._userRepo) : super (UserInitial());
+UserCubit(this._userRepo) : super (UserInitial());
 
   Future fetchUser() async {
     emit(UserLoading());
