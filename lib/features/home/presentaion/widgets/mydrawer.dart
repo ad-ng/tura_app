@@ -23,22 +23,17 @@ class MyDrawer extends StatelessWidget {
           // ),
           Padding(
             padding:
-                const EdgeInsets.only(top: 28, left: 28, right: 28), //all(28),
+                const EdgeInsets.only(top: 65, left: 28, right: 28), //all(28),
             child: Image.asset(
               './././lib/images/logo.png',
               color: Theme.of(context).colorScheme.secondary,
-              height: screenHeight * 0.224,
+              height: screenHeight * 0.1,
             ),
           ),
-          Center(
-            child: Text(
-              'MENU',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: 20,
-              ),
-            ),
+          SizedBox(
+            height: screenHeight * 0.05,
           ),
+
           ListTile(
             leading: Icon(Icons.settings,
                 color: Theme.of(context).colorScheme.secondary),
