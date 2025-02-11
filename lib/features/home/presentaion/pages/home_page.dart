@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myBottomNavBar.dart';
 import 'package:tura_app/features/home/presentaion/widgets/mydrawer.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myhome.dart';
+import 'package:tura_app/features/profile/presentaion/pages/profile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,9 +20,7 @@ final _screens = [
   Center(
     child: Text('S E A R C H   P A G E'),
   ),
-  Center(
-    child: Text('P R O F I L E   P A G E'),
-  )
+  Profile()
 ];
 
 class _HomePageState extends State<HomePage> {
