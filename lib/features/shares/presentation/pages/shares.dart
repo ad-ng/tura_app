@@ -21,12 +21,12 @@ class Shares extends StatelessWidget {
               tabs: [
                 Tab(
                   text: 'shares sent',
-                  icon: Icon(Icons.call_made_rounded),
+                  icon: Icon(Icons.arrow_upward_sharp),
                 ),
                 Tab(
                   text: 'shares received',
                   icon: Icon(
-                    Icons.call_received_rounded,
+                    Icons.arrow_downward_outlined,
                   ),
                 )
               ],
