@@ -13,6 +13,10 @@ import 'package:tura_app/features/register/data/datasources/registerApiService.d
 import 'package:tura_app/features/register/data/repository/register_repo_impl.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
 import 'package:tura_app/features/register/presentaion/pages/register_page.dart';
+import 'package:tura_app/features/shares/data/datasources/shareapiservice.dart';
+import 'package:tura_app/features/shares/data/repositories/share_repo_impl.dart';
+import 'package:tura_app/features/shares/presentation/bloc/sharesRecievedCubit.dart';
+import 'package:tura_app/features/shares/presentation/bloc/sharesSentCubit.dart';
 import 'package:tura_app/network/dioService.dart';
 import 'package:tura_app/features/home/presentaion/pages/home_page.dart';
 import 'package:tura_app/features/login/presentation/pages/login_page.dart';
@@ -32,6 +36,8 @@ class MyApp extends StatelessWidget {
     final registerRepo = RegisterRepoImpl(Registerapiservice());
     final _userRepo = UserRepoImpl(UserApiService());
     final _propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
+    final _shareRepo = ShareRepoImpl(ShareApiService());
+
     final slug = 'slug';
     return MultiBlocProvider(
       providers: [
@@ -39,6 +45,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => Registercubit(registerRepo)),
         BlocProvider(create: (context) => ThemeCubit()),
         BlocProvider(create: (context) => PropertiesCubit(_propertiesRepo)),
+        BlocProvider(create: (context) => SharesSentCubit(_shareRepo)),
+        BlocProvider(create: (context) => SharesrecievedCubit(_shareRepo)),
         BlocProvider(create: (context) => UserCubit(_userRepo)),
         BlocProvider(
             create: (context) => SinglePropertyCubit(_propertiesRepo, slug))
