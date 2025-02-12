@@ -16,7 +16,7 @@ class _SharessentState extends State<Sharessent> {
     return BlocBuilder<SharesSentCubit, SharesSentState>(
       builder: (context, state) {
         if (state is SharesSentLoading) {
-          return CircularProgressIndicator.adaptive();
+          return Center(child: CircularProgressIndicator.adaptive());
         }
         if (state is SharesSentError) {
           return Center(
@@ -27,7 +27,7 @@ class _SharessentState extends State<Sharessent> {
           return Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -69,36 +69,37 @@ class _SharessentState extends State<Sharessent> {
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '${state.response[index].id}',
-                                style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  fontSize: 18,
-                                ),
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${state.response[index].id}',
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: Image.network(
+                                      state.response[index].sender!.profileImg!,
+                                      width: screenWidth * 0.1,
+                                    ),
+                                  ),
+                                  Image.network(
+                                    '${state.response[index].property.imageUrls![0]}',
+                                    width: screenWidth * 0.15,
+                                  ),
+                                ],
                               ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: Image.network(
-                                  state.response[index].sender!.profileImg!,
-                                  width: screenWidth * 0.1,
-                                ),
-                              ),
-                              Image.network(
-                                '${state.response[index].property.imageUrls![0]}',
-                                width: screenWidth * 0.15,
-                              ),
-                            ],
+                            ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: 5, bottom: 5),
-                            height: 1,
-                            width: screenWidth,
-                            color: Colors.white,
-                          )
                         ],
                       ),
                     );
