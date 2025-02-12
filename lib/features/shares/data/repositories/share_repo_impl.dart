@@ -6,7 +6,11 @@ class ShareRepoImpl implements ShareRepo {
   final ShareApiService _shareApiService;
   ShareRepoImpl(this._shareApiService);
   @override
-  Future<List<Sharemodel>> fetchSentShares() async{
+  Future<List<Sharemodel>> fetchSentShares() async {
     return await _shareApiService.fetchSentShares();
+  }
+
+  Future<List<Sharemodel>> fetchSharesReceived() async {
+    return await _shareApiService.fetchSharesReceived();
   }
 }
