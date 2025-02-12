@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myappbar.dart';
+import 'package:tura_app/features/shares/presentation/widgets/sharesRecieved.dart';
 import 'package:tura_app/features/shares/presentation/widgets/sharesSent.dart';
 
 class Shares extends StatefulWidget {
@@ -38,12 +39,12 @@ class _SharesState extends State<Shares> {
               ],
             ),
             Expanded(
-              child: TabBarView(children: [
-                Sharessent(),
-                Center(
-                  child: Text('shares recieved'),
-                )
-              ]),
+              child: TabBarView(
+                children: [
+                  Sharessent(),
+                  Sharesrecieved(),
+                ],
+              ),
             )
           ],
         ),

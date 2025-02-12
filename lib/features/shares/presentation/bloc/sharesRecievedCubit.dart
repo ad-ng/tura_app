@@ -13,12 +13,12 @@ class SharesrecievedCubit extends Cubit<SharesRecievedState> {
     emit(SharesRecievedLoading());
 
     try {
-      final response = await _shareRepo.fetchSentShares();
+      final response = await _shareRepo.fetchSharesReceived();
       print('Fetched user: $response'); // Log the response
-      emit(SharesSentSuccess(response));
+      emit(SharesRecievedSuccess(response));
     } catch (e) {
       print('Error fetching properties: $e'); // Log any error
-      emit(SharesSentError(e.toString()));
+      emit(SharesRecievedError(e.toString()));
     }
   }
 }
@@ -29,12 +29,12 @@ class SharesRecievedInitial extends SharesRecievedState {}
 
 class SharesRecievedLoading extends SharesRecievedState {}
 
-class SharesSentSuccess extends SharesRecievedState {
+class SharesRecievedSuccess extends SharesRecievedState {
   final List<Sharemodel> response; // Response from the API
-  SharesSentSuccess(this.response);
+  SharesRecievedSuccess(this.response);
 }
 
-class SharesSentError extends SharesRecievedState {
+class SharesRecievedError extends SharesRecievedState {
   final String message; // Error message
-  SharesSentError(this.message);
+  SharesRecievedError(this.message);
 }
