@@ -101,6 +101,7 @@
 // }
 
 import 'package:dio/dio.dart';
+import 'package:tura_app/features/login/data/datasources/local/userPreferences.dart';
 import 'package:tura_app/features/shares/data/model/sharemodel.dart';
 import 'package:tura_app/network/dioService.dart';
 
@@ -109,7 +110,8 @@ class ShareApiService {
 
   Future<List<Sharemodel>> fetchSentShares() async {
     try {
-      final response = await _dio.get('/shares/sender/1');
+      final localUser = await UserPreferences().getLocalUser();
+      final response = await _dio.get('/shares/sender/${localUser!.id}');
 
       final dataJson = response.data['data'];
 
