@@ -30,7 +30,7 @@ class SharesSentInitial extends SharesSentState {}
 class SharesSentLoading extends SharesSentState {}
 
 class SharesSentSuccess extends SharesSentState {
-  final List<Sharemodel> response; // Response from the API
+  final List <Sharemodel> response; // Response from the API
   SharesSentSuccess(this.response);
 }
 

@@ -1,21 +1,18 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:tura_app/features/home/data/models/properties_model.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
 
 class Sharemodel {
-  int id;
-  int propertyId;
-  int? senderId;
-  int? recipientId;
-  int? parentShareId;
-  DateTime createdAt;
-  PropertiesModel property;
-  UserModel? sender;
-  UserModel? recipient;
-  UserModel? parentShare;
-  List<UserModel> children;
+  final int id;
+  final int propertyId;
+  final int? senderId;
+  final int? recipientId;
+  final int? parentShareId;
+  final DateTime createdAt;
+  final PropertiesModel property;
+  final UserModel? sender;
+  final UserModel? recipient;
+  final UserModel? parentShare;
+  final List<UserModel> children;
 
   Sharemodel({
     required this.id,
@@ -28,56 +25,47 @@ class Sharemodel {
     this.sender,
     this.recipient,
     this.parentShare,
-    required this.children,
+    this.children = const [],
   });
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+  factory Sharemodel.fromJson(Map<String, dynamic> json) {
+    return Sharemodel(
+      id: json['id'] as int,
+      propertyId: json['propertyId'] as int,
+      senderId: json['senderId'] as int?,
+      recipientId: json['recipientId'] as int?,
+      parentShareId: json['parentShareId'] as int?,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      property:
+          PropertiesModel.fromJson(json['property'] as Map<String, dynamic>),
+      sender: json['sender'] != null
+          ? UserModel.fromJson(json['sender'] as Map<String, dynamic>)
+          : null,
+      recipient: json['recipient'] != null
+          ? UserModel.fromJson(json['recipient'] as Map<String, dynamic>)
+          : null,
+      parentShare: json['parentShare'] != null
+          ? UserModel.fromJson(json['parentShare'] as Map<String, dynamic>)
+          : null,
+      children: List<UserModel>.from(
+        (json['children'] as List).map((x) => UserModel.fromJson(x)),
+      ),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
       'id': id,
       'propertyId': propertyId,
       'senderId': senderId,
       'recipientId': recipientId,
       'parentShareId': parentShareId,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'property': property.toJson(), 
-      'sender': sender?.toJson(), 
-      'recipient': recipient?.toJson(), 
-      'parentShare': parentShare?.toJson(), 
-      'children': children.map((x) => x.toJson()).toList(), 
+      'createdAt': createdAt.toIso8601String(),
+      'property': property.toJson(),
+      'sender': sender?.toJson(),
+      'recipient': recipient?.toJson(),
+      'parentShare': parentShare?.toJson(),
+      'children': children.map((x) => x.toJson()).toList(),
     };
   }
-
-  factory Sharemodel.fromMap(Map<String, dynamic> map) {
-    return Sharemodel(
-      id: map['id'] as int,
-      propertyId: map['propertyId'] as int,
-      senderId: map['senderId'] != null ? map['senderId'] as int : null,
-      recipientId:
-          map['recipientId'] != null ? map['recipientId'] as int : null,
-      parentShareId:
-          map['parentShareId'] != null ? map['parentShareId'] as int : null,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
-      property:
-          PropertiesModel.fromJson(map['property'] as Map<String, dynamic>),
-      sender: map['sender'] != null
-          ? UserModel.fromJson(map['sender'] as Map<String, dynamic>)
-          : null,
-      recipient: map['recipient'] != null
-          ? UserModel.fromJson(map['recipient'] as Map<String, dynamic>)
-          : null,
-      parentShare: map['parentShare'] != null
-          ? UserModel.fromJson(map['parentShare'] as Map<String, dynamic>)
-          : null,
-      children: List<UserModel>.from(
-        (map['children'] as List).map<UserModel>(
-          (x) => UserModel.fromJson(x as Map<String, dynamic>),
-        ),
-      ),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory Sharemodel.fromJson(String source) =>
-      Sharemodel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
