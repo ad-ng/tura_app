@@ -129,6 +129,27 @@ class ShareApiService {
     }
   }
 
+  Future<List<Sharemodel>> fetchSharesReceived() async {
+    try {
+      final localUser = await UserPreferences().getLocalUser();
+      final response = await _dio.get('/shares/recipient/${localUser!.id}');
+
+      final dataJson = response.data['data'];
+
+      print('testing share api service');
+      if (dataJson != null && dataJson is List) {
+        return dataJson.map((json) => Sharemodel.fromJson(json)).toList();
+      } else {
+        throw Exception(
+            'Expected a list of properties but got ${dataJson.runtimeType}');
+      }
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      throw 'An unexpected error occurred: $e';
+    }
+  }
+
   // Handle Dio-specific errors
   String _handleError(DioException error) {
     switch (error.type) {
