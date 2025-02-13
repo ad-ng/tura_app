@@ -14,7 +14,44 @@ class _MyCustomShareButtonState extends State<MyCustomShareButton> {
     double screenWidth = MediaQuery.of(context).size.width;
     Future openDialog() => showDialog(
           context: context,
-          builder: (context) => AlertDialog(),
+          builder: (context) => AlertDialog(
+            title: Text(
+              'Share Property',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
+            content: Column(
+              children: [
+                Container(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefix: Icon(Icons.search),
+                      hintText: 'search a user',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(onPressed: () {}, child: Text('copy link')),
+                  Row(
+                    children: [
+                      TextButton(onPressed: () {}, child: Text('Cancel')),
+                      TextButton(onPressed: () {}, child: Text('Send')),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
         );
     return GestureDetector(
       onTap: () async {
