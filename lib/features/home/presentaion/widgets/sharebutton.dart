@@ -12,6 +12,10 @@ class _MyCustomShareButtonState extends State<MyCustomShareButton> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    Future openDialog() => showDialog(
+          context: context,
+          builder: (context) => AlertDialog(),
+        );
     return GestureDetector(
       onTap: () async {
         //final result = await Share.share(
@@ -21,6 +25,7 @@ class _MyCustomShareButtonState extends State<MyCustomShareButton> {
         //Shar
         print('Thank you for sharing my website!');
         // }
+        openDialog();
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
