@@ -1,3 +1,5 @@
+import 'package:tura_app/features/shares/data/model/sharemodel.dart';
+
 class PropertiesModel {
   int? id;
   int? userId;
@@ -25,7 +27,7 @@ class PropertiesModel {
   Owner? owner;
   Category? category;
   Place? place;
-  List<dynamic>? shares;
+  List<Sharemodel>? shares;
 
   PropertiesModel({
     this.id,
@@ -91,7 +93,7 @@ class PropertiesModel {
           json['category'] != null ? Category.fromJson(json['category']) : null,
       place: json['place'] != null ? Place.fromJson(json['place']) : null,
       shares:
-          json['shares'] != null ? List<dynamic>.from(json['shares']) : null,
+          json['shares'] != null ? List<Sharemodel>.from(json['shares']) : null,
     );
   }
 

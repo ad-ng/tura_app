@@ -8,6 +8,7 @@ import 'package:tura_app/features/home/data/repositories/properties_repo_impl.da
 import 'package:tura_app/features/home/presentaion/cubit/singlePropertyCubit.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myBottomNavBar.dart';
 import 'package:tura_app/features/home/presentaion/widgets/propertyCard.dart';
+import 'package:tura_app/features/home/presentaion/widgets/sharebutton.dart';
 
 class Singleproperty extends StatefulWidget {
   final String slug;
@@ -135,41 +136,7 @@ class _SinglepropertyState extends State<Singleproperty> {
                                   ),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () async {
-                                  //final result = await Share.share(
-                                  //  'check out my website https://example.com');
-
-                                  // if (result.status == ShareResultStatus.success) {
-                                  //Shar
-                                  print('Thank you for sharing my website!');
-                                  // }
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 2, horizontal: 4),
-                                  margin: EdgeInsets.only(
-                                    left: screenWidth * 0.64,
-                                    top: screenHeight * 0.24,
-                                  ),
-                                  height: screenHeight * 0.05,
-                                  width: screenWidth * 0.27,
-                                  decoration: BoxDecoration(
-                                      color: Colors.green[300],
-                                      borderRadius: BorderRadius.circular(15)),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Icon(Icons.share),
-                                      Text(
-                                        'share',
-                                        style: TextStyle(fontSize: 20),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              MyCustomShareButton()
                             ],
                           ),
                           Container(
