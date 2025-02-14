@@ -3,7 +3,7 @@ import 'package:tura_app/features/login/data/datasources/local/tokenStore.dart';
 import 'package:tura_app/features/login/data/datasources/local/userPreferences.dart';
 import 'package:tura_app/features/login/data/models/login_model.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
-import 'package:tura_app/network/dioService.dart';
+import 'package:tura_app/config/network/dioService.dart';
 
 class LoginApiService {
   final Dio _dio = DioService.instance.dio;

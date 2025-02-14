@@ -43,7 +43,13 @@ class ShareButtonComponents {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('testing snack bar'),
+                        ),
+                      );
+                    },
                     child: Text(
                       'Share',
                       style: TextStyle(fontSize: 15, color: Colors.white),

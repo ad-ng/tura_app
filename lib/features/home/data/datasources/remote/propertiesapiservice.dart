@@ -49,7 +49,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:tura_app/features/home/data/models/properties_model.dart';
-import 'package:tura_app/network/dioService.dart';
+import 'package:tura_app/config/network/dioService.dart';
 
 class PropertiesApiService {
   final Dio _dio = DioService.instance.dio;
