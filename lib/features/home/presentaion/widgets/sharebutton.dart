@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tura_app/features/home/presentaion/widgets/dialogfunction.dart';
+import 'package:tura_app/features/home/presentaion/widgets/sharebuttoncomponents.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
 import 'package:tura_app/features/shares/data/datasources/shareapiservice.dart';
 
@@ -62,7 +62,7 @@ class _MyCustomShareButtonState extends State<MyCustomShareButton> {
     return GestureDetector(
       onTap: () async {
         print('Thank you for sharing my website!');
-        openDialog(
+        ShareButtonComponents().openDialog(
             context, searchController, filteredUsers, allUsers, filterUsers);
       },
       child: Container(

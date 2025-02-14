@@ -1,0 +1,101 @@
+import 'package:flutter/material.dart';
+import 'package:tura_app/features/login/data/models/user_model.dart';
+
+class ShareButtonComponents{
+  Future openDialog(
+    BuildContext context,
+    TextEditingController searchController,
+    List<UserModel> filteredUsers,
+    List<UserModel> allUsers,
+    Function filterUsers,
+  ) =>
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return AlertDialog(
+                title: Text(
+                  'Share Property',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Copy link',
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      searchController.clear();
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(fontSize: 15, color: Colors.green),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Share',
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                ],
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: searchController,
+                        decoration: InputDecoration(
+                          labelText: 'Search',
+                          hintText: 'Search a User To Share',
+                          prefixIcon: Icon(Icons.search),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            filteredUsers = filterUsers(allUsers, value);
+                          });
+                        },
+                      ),
+                    ),
+                    Container(
+                      height: 200,
+                      width: 300,
+                      child: ListView.builder(
+                        itemCount: filteredUsers.length,
+                        itemBuilder: (context, index) {
+                          final user = filteredUsers[index];
+                          return ListTile(
+                            title: Text(
+                              user.fullname!,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            subtitle: Text(
+                              '${user.username}',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      );
+
+}
