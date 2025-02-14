@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
 
-class ShareButtonComponents{
+class ShareButtonComponents {
+  UserModel? userToShare;
+
   Future openDialog(
     BuildContext context,
     TextEditingController searchController,
@@ -70,6 +72,22 @@ class ShareButtonComponents{
                         },
                       ),
                     ),
+                    userToShare != null
+                        ? Container(
+                            color: Theme.of(context).colorScheme.primary,
+                            child: ListTile(
+                              title: Text(userToShare!.fullname!),
+                              trailing: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    userToShare = null;
+                                  });
+                                },
+                                icon: Icon(Icons.cancel),
+                              ),
+                            ),
+                          )
+                        : SizedBox.shrink(),
                     Container(
                       height: 200,
                       width: 300,
@@ -77,14 +95,19 @@ class ShareButtonComponents{
                         itemCount: filteredUsers.length,
                         itemBuilder: (context, index) {
                           final user = filteredUsers[index];
-                          return ListTile(
-                            title: Text(
-                              user.fullname!,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            subtitle: Text(
-                              '${user.username}',
-                              style: TextStyle(color: Colors.white),
+                          return GestureDetector(
+                            onTap: () => setState(() {
+                              userToShare = user;
+                            }),
+                            child: ListTile(
+                              title: Text(
+                                user.fullname!,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              subtitle: Text(
+                                '${user.username}',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           );
                         },
@@ -97,5 +120,4 @@ class ShareButtonComponents{
           );
         },
       );
-
 }
