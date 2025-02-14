@@ -4,6 +4,6 @@ import 'package:tura_app/features/shares/data/model/sharemodel.dart';
 abstract class ShareRepo {
 Future<List<Sharemodel>> fetchSentShares();
 Future<List<Sharemodel>> fetchSharesReceived();
-Future<List<UserModel>> searchFilterUsers();
+Future<List<UserModel>> searchFilterUsers(String query);
 }
 
