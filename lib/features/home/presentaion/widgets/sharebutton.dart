@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tura_app/features/login/data/models/user_model.dart';
+import 'package:tura_app/features/shares/data/datasources/shareapiservice.dart';
 
 class MyCustomShareButton extends StatefulWidget {
   const MyCustomShareButton({super.key});
@@ -7,121 +9,147 @@ class MyCustomShareButton extends StatefulWidget {
   State<MyCustomShareButton> createState() => _MyCustomShareButtonState();
 }
 
-TextEditingController searchController = TextEditingController();
-
 class _MyCustomShareButtonState extends State<MyCustomShareButton> {
+  List<UserModel> filterUsers(List<UserModel> users, String query) {
+    return users.where((user) {
+      final fullNameLower = user.fullname!.toLowerCase();
+      final userNameLower = user.username!.toLowerCase();
+      final searchLower = query.toLowerCase();
+
+      return fullNameLower.contains(searchLower) ||
+          userNameLower.contains(searchLower);
+    }).toList();
+  }
+
+  late Future<List<UserModel>> futureUsers;
+  List<UserModel> allUsers = [];
+  List<UserModel> filteredUsers = [];
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    futureUsers = ShareApiService().fetchAllUsers().then((users) {
+      setState(() {
+        allUsers = users;
+        //   filteredUsers = users;
+      });
+      return users;
+    });
+    searchController.addListener(_onTextChanged);
+  }
+
+  void _onTextChanged() {
+    final query = searchController.text;
+    setState(() {
+      filteredUsers = filterUsers(allUsers, query);
+    });
+  }
+
+  @override
+  void dispose() {
+    searchController.removeListener(_onTextChanged);
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+
     Future openDialog() => showDialog(
+          barrierDismissible: false,
           context: context,
-          builder: (context) => AlertDialog(
-            title: Text(
-              'Share Property',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Copy link',
-                  style: TextStyle(fontSize: 15, color: Colors.white),
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text('Cancel',
-                    style: TextStyle(fontSize: 15, color: Colors.white)),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text('Share',
-                    style: TextStyle(fontSize: 15, color: Colors.white)),
-              ),
-            ],
-            content: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    controller: searchController,
-                    decoration: InputDecoration(
-                      labelText: 'Search',
-                      hintText: 'Search a User To Share',
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      // onChanged: _filterProducts,
+          builder: (context) {
+            return StatefulBuilder(
+              builder: (context, setState) {
+                return AlertDialog(
+                  title: Text(
+                    'Share Property',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
-                  // Expanded(
-                  //   child: FutureBuilder<List<Product>>(
-                  //     future: futureProducts,
-                  //     builder: (context, snapshot) {
-                  //       if (snapshot.connectionState ==
-                  //           ConnectionState.waiting) {
-                  //         return Center(child: CircularProgressIndicator());
-                  //       } else if (snapshot.hasError) {
-                  //         return Center(
-                  //             child: Text('Error: ${snapshot.error}'));
-                  //       } else if (!snapshot.hasData ||
-                  //           snapshot.data!.isEmpty) {
-                  //         return Center(child: Text('No products found'));
-                  //       } else {
-                  //         final productsToDisplay =
-                  //             searchController.text.isEmpty
-                  //                 ? snapshot.data!
-                  //                 : filteredProducts;
-
-                  //         return ListView.builder(
-                  //           itemCount: productsToDisplay.length,
-                  //           itemBuilder: (context, index) {
-                  //             final product = productsToDisplay[index];
-                  //             return ListTile(
-                  //               title: Text(product.name),
-                  //               subtitle: Text(
-                  //                   '\$${product.price.toString()} - ${product.category}'),
-                  //             );
-                  //           },
-                  //         );
-                  //       }
-                  //     },
-                  //   ),
-                  //   actions: [
-                  //     Row(
-                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //       children: [
-                  //         TextButton(
-                  //             onPressed: () {}, child: Text('copy link')),
-                  //         Row(
-                  //           children: [
-                  //             TextButton(
-                  //                 onPressed: () {}, child: Text('Cancel')),
-                  //             TextButton(onPressed: () {}, child: Text('Send')),
-                  //           ],
-                  //         )
-                  //       ],
-                  //     ),
-                  //   ],
-                  // ),
-                ),
-              ],
-            ),
-          ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Copy link',
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        searchController.clear();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(fontSize: 15, color: Colors.green),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Share',
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: searchController,
+                          decoration: InputDecoration(
+                            labelText: 'Search',
+                            hintText: 'Search a User To Share',
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              filteredUsers = filterUsers(allUsers, value);
+                            });
+                          },
+                        ),
+                      ),
+                      Container(
+                        height: 200,
+                        width: 300,
+                        child: ListView.builder(
+                          itemCount: filteredUsers.length,
+                          itemBuilder: (context, index) {
+                            final user = filteredUsers[index];
+                            return ListTile(
+                              title: Text(
+                                user.fullname!,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              subtitle: Text(
+                                '${user.username}',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
         );
+
     return GestureDetector(
       onTap: () async {
-        //final result = await Share.share(
-        //  'check out my website https://example.com');
-
-        // if (result.status == ShareResultStatus.success) {
-        //Shar
         print('Thank you for sharing my website!');
-        // }
         openDialog();
       },
       child: Container(
@@ -133,7 +161,9 @@ class _MyCustomShareButtonState extends State<MyCustomShareButton> {
         height: screenHeight * 0.05,
         width: screenWidth * 0.27,
         decoration: BoxDecoration(
-            color: Colors.green[300], borderRadius: BorderRadius.circular(15)),
+          color: Colors.green[300],
+          borderRadius: BorderRadius.circular(15),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -141,7 +171,7 @@ class _MyCustomShareButtonState extends State<MyCustomShareButton> {
             Text(
               'share',
               style: TextStyle(fontSize: 20),
-            )
+            ),
           ],
         ),
       ),
