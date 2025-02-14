@@ -102,6 +102,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:tura_app/features/login/data/datasources/local/userPreferences.dart';
+import 'package:tura_app/features/login/data/models/user_model.dart';
 import 'package:tura_app/features/shares/data/model/sharemodel.dart';
 import 'package:tura_app/network/dioService.dart';
 
@@ -129,6 +130,27 @@ class ShareApiService {
     }
   }
 
+
+   Future<List<UserModel>> fetchAllUsers() async {
+    try {
+      final response = await _dio.get('/users');
+
+      final dataJson = response.data['data'];
+
+      if (dataJson != null && dataJson is List) {
+        return dataJson.map((json) => UserModel.fromJson(json)).toList();
+      } else {
+        throw Exception(
+            'Expected a list of properties but got ${dataJson.runtimeType}');
+      }
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      throw 'An unexpected error occurred: $e';
+    }
+  }
+
+  
   Future<List<Sharemodel>> fetchSharesReceived() async {
     try {
       final localUser = await UserPreferences().getLocalUser();
