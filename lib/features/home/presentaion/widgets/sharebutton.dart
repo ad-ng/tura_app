@@ -7,6 +7,8 @@ class MyCustomShareButton extends StatefulWidget {
   State<MyCustomShareButton> createState() => _MyCustomShareButtonState();
 }
 
+TextEditingController searchController = TextEditingController();
+
 class _MyCustomShareButtonState extends State<MyCustomShareButton> {
   @override
   Widget build(BuildContext context) {
@@ -21,36 +23,94 @@ class _MyCustomShareButtonState extends State<MyCustomShareButton> {
                 color: Theme.of(context).colorScheme.secondary,
               ),
             ),
+            actions: [
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Copy link',
+                  style: TextStyle(fontSize: 15, color: Colors.white),
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text('Cancel',
+                    style: TextStyle(fontSize: 15, color: Colors.white)),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text('Share',
+                    style: TextStyle(fontSize: 15, color: Colors.white)),
+              ),
+            ],
             content: Column(
               children: [
-                Container(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    controller: searchController,
                     decoration: InputDecoration(
-                      prefix: Icon(Icons.search),
-                      hintText: 'search a user',
+                      labelText: 'Search',
+                      hintText: 'Search a User To Share',
+                      prefixIcon: Icon(Icons.search),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
+                      // onChanged: _filterProducts,
                     ),
                   ),
+                  // Expanded(
+                  //   child: FutureBuilder<List<Product>>(
+                  //     future: futureProducts,
+                  //     builder: (context, snapshot) {
+                  //       if (snapshot.connectionState ==
+                  //           ConnectionState.waiting) {
+                  //         return Center(child: CircularProgressIndicator());
+                  //       } else if (snapshot.hasError) {
+                  //         return Center(
+                  //             child: Text('Error: ${snapshot.error}'));
+                  //       } else if (!snapshot.hasData ||
+                  //           snapshot.data!.isEmpty) {
+                  //         return Center(child: Text('No products found'));
+                  //       } else {
+                  //         final productsToDisplay =
+                  //             searchController.text.isEmpty
+                  //                 ? snapshot.data!
+                  //                 : filteredProducts;
+
+                  //         return ListView.builder(
+                  //           itemCount: productsToDisplay.length,
+                  //           itemBuilder: (context, index) {
+                  //             final product = productsToDisplay[index];
+                  //             return ListTile(
+                  //               title: Text(product.name),
+                  //               subtitle: Text(
+                  //                   '\$${product.price.toString()} - ${product.category}'),
+                  //             );
+                  //           },
+                  //         );
+                  //       }
+                  //     },
+                  //   ),
+                  //   actions: [
+                  //     Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         TextButton(
+                  //             onPressed: () {}, child: Text('copy link')),
+                  //         Row(
+                  //           children: [
+                  //             TextButton(
+                  //                 onPressed: () {}, child: Text('Cancel')),
+                  //             TextButton(onPressed: () {}, child: Text('Send')),
+                  //           ],
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
                 ),
               ],
             ),
-            actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(onPressed: () {}, child: Text('copy link')),
-                  Row(
-                    children: [
-                      TextButton(onPressed: () {}, child: Text('Cancel')),
-                      TextButton(onPressed: () {}, child: Text('Send')),
-                    ],
-                  )
-                ],
-              ),
-            ],
           ),
         );
     return GestureDetector(
