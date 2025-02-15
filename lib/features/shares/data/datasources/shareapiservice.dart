@@ -103,6 +103,7 @@
 import 'package:dio/dio.dart';
 import 'package:tura_app/features/login/data/datasources/local/userPreferences.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
+import 'package:tura_app/features/shares/data/model/createShareModel.dart';
 import 'package:tura_app/features/shares/data/model/sharemodel.dart';
 import 'package:tura_app/config/network/dioService.dart';
 
@@ -130,10 +131,7 @@ class ShareApiService {
     }
   }
 
-    
-
-
-   Future<List<UserModel>> fetchAllUsers() async {
+  Future<List<UserModel>> fetchAllUsers() async {
     try {
       final response = await _dio.get('/users');
 
@@ -152,7 +150,6 @@ class ShareApiService {
     }
   }
 
-
   Future<List<Sharemodel>> fetchSharesReceived() async {
     try {
       final localUser = await UserPreferences().getLocalUser();
@@ -167,6 +164,20 @@ class ShareApiService {
         throw Exception(
             'Expected a list of properties but got ${dataJson.runtimeType}');
       }
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      throw 'An unexpected error occurred: $e';
+    }
+  }
+
+  Future<String> createShare(int propertyId, int recipientId) async {
+    try {
+      final response = await _dio.post('/shares',
+          data:
+              CreateShareModel(propertyId: propertyId, recipientId: recipientId)
+                  .toMap());
+      return response.data['message'];
     } on DioException catch (e) {
       throw _handleError(e);
     } catch (e) {

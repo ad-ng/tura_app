@@ -56,70 +56,72 @@ class ShareButtonComponents {
                     ),
                   ),
                 ],
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        controller: searchController,
-                        decoration: InputDecoration(
-                          labelText: 'Search',
-                          hintText: 'Search a User To Share',
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                content: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: searchController,
+                          decoration: InputDecoration(
+                            labelText: 'Search',
+                            hintText: 'Search a User To Share',
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
                           ),
+                          onChanged: (value) {
+                            setState(() {
+                              filteredUsers = filterUsers(allUsers, value);
+                            });
+                          },
                         ),
-                        onChanged: (value) {
-                          setState(() {
-                            filteredUsers = filterUsers(allUsers, value);
-                          });
-                        },
                       ),
-                    ),
-                    userToShare != null
-                        ? Container(
-                            color: Theme.of(context).colorScheme.primary,
-                            child: ListTile(
-                              title: Text(userToShare!.fullname!),
-                              trailing: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    userToShare = null;
-                                  });
-                                },
-                                icon: Icon(Icons.cancel),
+                      userToShare != null
+                          ? Container(
+                              color: Theme.of(context).colorScheme.primary,
+                              child: ListTile(
+                                title: Text(userToShare!.fullname!),
+                                trailing: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      userToShare = null;
+                                    });
+                                  },
+                                  icon: Icon(Icons.cancel),
+                                ),
                               ),
-                            ),
-                          )
-                        : SizedBox.shrink(),
-                    Container(
-                      height: 200,
-                      width: 300,
-                      child: ListView.builder(
-                        itemCount: filteredUsers.length,
-                        itemBuilder: (context, index) {
-                          final user = filteredUsers[index];
-                          return GestureDetector(
-                            onTap: () => setState(() {
-                              userToShare = user;
-                            }),
-                            child: ListTile(
-                              title: Text(
-                                user.fullname!,
-                                style: TextStyle(color: Colors.white),
+                            )
+                          : SizedBox.shrink(),
+                      Container(
+                        height: 200,
+                        width: 300,
+                        child: ListView.builder(
+                          itemCount: filteredUsers.length,
+                          itemBuilder: (context, index) {
+                            final user = filteredUsers[index];
+                            return GestureDetector(
+                              onTap: () => setState(() {
+                                userToShare = user;
+                              }),
+                              child: ListTile(
+                                title: Text(
+                                  user.fullname!,
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                subtitle: Text(
+                                  '${user.username}',
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
-                              subtitle: Text(
-                                '${user.username}',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             },
