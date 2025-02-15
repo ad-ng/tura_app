@@ -179,10 +179,8 @@ class ShareApiService {
                   .toMap());
       print(response.data['message']);
       return response.data['message'];
-    } on DioException catch (e) {
-      throw _handleError(e);
     } catch (e) {
-      throw 'An unexpected error occurred: $e';
+      return e.toString();
     }
   }
 
