@@ -28,6 +28,14 @@ class _SinglepropertyState extends State<Singleproperty> {
 
   @override
   Widget build(BuildContext context) {
+    // shareActualFunction() {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text('simple test'),
+    //     ),
+    //   );
+    // }
+
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return BlocProvider(
@@ -136,7 +144,9 @@ class _SinglepropertyState extends State<Singleproperty> {
                                   ),
                                 ),
                               ),
-                              MyCustomShareButton()
+                              MyCustomShareButton(
+                                propertyId: property.id!,
+                              )
                             ],
                           ),
                           Container(

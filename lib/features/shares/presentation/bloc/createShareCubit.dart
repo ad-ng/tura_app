@@ -11,10 +11,10 @@ class CreateShareCubit extends Cubit<CreateShareState> {
 
     try {
       final response = await _shareRepo.createShare(propertyId, recipientId);
-      print('Fetched user: $response'); // Log the response
+      print('Fetched create share resounse: $response'); // Log the response
       emit(CreateShareSuccess(response));
     } catch (e) {
-      print('Error fetching properties: $e'); // Log any error
+      print('Error creating share: $e'); // Log any error
       emit(CreateShareError(e.toString()));
     }
   }

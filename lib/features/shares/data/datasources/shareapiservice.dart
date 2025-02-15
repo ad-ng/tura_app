@@ -177,6 +177,7 @@ class ShareApiService {
           data:
               CreateShareModel(propertyId: propertyId, recipientId: recipientId)
                   .toMap());
+      print(response.data['message']);
       return response.data['message'];
     } on DioException catch (e) {
       throw _handleError(e);
