@@ -27,7 +27,7 @@ class ShareRepoImpl implements ShareRepo {
     }).toList();
   }
 
-  Future<String> createShare(int propertyId, int recipientId) async {
+  Future<String?> createShare(int propertyId, int recipientId) async {
     return await _shareApiService.createShare(propertyId, recipientId);
   }
 }
