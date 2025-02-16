@@ -195,11 +195,6 @@ class ShareApiService {
     }
   }
 
-  Future<int> numberOfSharesPerProperty(String slug) async{
-    final response = await _dio.get('/shares/recipients/${slug}');
-    return response.data['meta']['total'];
-  }
-
   // Handle Dio-specific errors
   String _handleError(DioException error) {
     switch (error.type) {

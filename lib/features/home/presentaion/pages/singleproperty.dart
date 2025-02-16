@@ -28,14 +28,6 @@ class _SinglepropertyState extends State<Singleproperty> {
 
   @override
   Widget build(BuildContext context) {
-    // shareActualFunction() {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(
-    //       content: Text('simple test'),
-    //     ),
-    //   );
-    // }
-
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return BlocProvider(
@@ -146,6 +138,20 @@ class _SinglepropertyState extends State<Singleproperty> {
                               ),
                               MyCustomShareButton(
                                 propertyId: property.id!,
+                              ),
+                              Card(
+                                margin: EdgeInsets.only(left: 20, top: 5),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3.5),
+                                  child: Text(
+                                    '${property.shares!.length} shares',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                    ),
+                                  ),
+                                ),
                               )
                             ],
                           ),
