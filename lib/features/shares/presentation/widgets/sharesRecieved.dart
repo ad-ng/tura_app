@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 import 'package:tura_app/features/shares/presentation/bloc/sharesRecievedCubit.dart';
 
 class Sharesrecieved extends StatefulWidget {
@@ -96,9 +97,18 @@ class _SharesrecievedState extends State<Sharesrecieved> {
                                       width: screenWidth * 0.1,
                                     ),
                                   ),
-                                  Image.network(
-                                    '${state.response[index].property.imageUrls![0]}',
-                                    width: screenWidth * 0.15,
+                                  GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Singleproperty(
+                                              slug: state.response[index]
+                                                  .property.slug!),
+                                        )),
+                                    child: Image.network(
+                                      '${state.response[index].property.imageUrls![0]}',
+                                      width: screenWidth * 0.15,
+                                    ),
                                   ),
                                 ],
                               ),
