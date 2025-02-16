@@ -1,3 +1,4 @@
+import 'package:tura_app/features/login/data/models/user_model.dart';
 import 'package:tura_app/features/shares/data/datasources/shareapiservice.dart';
 import 'package:tura_app/features/shares/data/model/sharemodel.dart';
 import 'package:tura_app/features/shares/domain/repositories/share_repo.dart';
@@ -12,5 +13,21 @@ class ShareRepoImpl implements ShareRepo {
 
   Future<List<Sharemodel>> fetchSharesReceived() async {
     return await _shareApiService.fetchSharesReceived();
+  }
+
+  Future<List<UserModel>> searchFilterUsers(String query) async {
+    final users = await _shareApiService.fetchAllUsers();
+    return users.where((user) {
+      final fullNameLower = user.fullname!.toLowerCase();
+      final userNameLower = user.username!.toLowerCase();
+      final searchLower = query.toLowerCase();
+
+      return fullNameLower.contains(searchLower) ||
+          userNameLower.contains(searchLower);
+    }).toList();
+  }
+
+  Future<String> createShare(int propertyId, int recipientId) async {
+    return await _shareApiService.createShare(propertyId, recipientId);
   }
 }

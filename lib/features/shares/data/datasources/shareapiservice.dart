@@ -102,8 +102,10 @@
 
 import 'package:dio/dio.dart';
 import 'package:tura_app/features/login/data/datasources/local/userPreferences.dart';
+import 'package:tura_app/features/login/data/models/user_model.dart';
+import 'package:tura_app/features/shares/data/model/createShareModel.dart';
 import 'package:tura_app/features/shares/data/model/sharemodel.dart';
-import 'package:tura_app/network/dioService.dart';
+import 'package:tura_app/config/network/dioService.dart';
 
 class ShareApiService {
   final Dio _dio = DioService.instance.dio;
@@ -118,6 +120,25 @@ class ShareApiService {
       print('testing share api service');
       if (dataJson != null && dataJson is List) {
         return dataJson.map((json) => Sharemodel.fromJson(json)).toList();
+      } else {
+        throw Exception(
+            'Expected a list of properties but got ${dataJson.runtimeType}');
+      }
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      throw 'An unexpected error occurred: $e';
+    }
+  }
+
+  Future<List<UserModel>> fetchAllUsers() async {
+    try {
+      final response = await _dio.get('/users');
+
+      final dataJson = response.data['data'];
+
+      if (dataJson != null && dataJson is List) {
+        return dataJson.map((json) => UserModel.fromJson(json)).toList();
       } else {
         throw Exception(
             'Expected a list of properties but got ${dataJson.runtimeType}');
@@ -147,6 +168,30 @@ class ShareApiService {
       throw _handleError(e);
     } catch (e) {
       throw 'An unexpected error occurred: $e';
+    }
+  }
+
+  Future<String> createShare(int propertyId, int recipientId) async {
+    Sharemodel senderData;
+
+    // SENDING ACTUAL SHARE
+    try {
+      final response0 = await _dio.get('/shares/${propertyId}/sender/');
+
+      final dataJson = response0.data['share'];
+
+      senderData = Sharemodel.fromJson(dataJson);
+
+      final response = await _dio.post('/shares',
+          data: CreateShareModel(
+                  propertyId: propertyId,
+                  recipientId: recipientId,
+                  parentShareId: senderData.senderId)
+              .toMap());
+      print(response.data['message']);
+      return response.data['message'];
+    } catch (e) {
+      return e.toString();
     }
   }
 

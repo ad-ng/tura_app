@@ -180,7 +180,7 @@
 // }
 
 import 'package:dio/dio.dart';
-import 'package:tura_app/network/apiErrorResponse.dart';
+import 'package:tura_app/config/network/apiErrorResponse.dart';
 
 class ErrorInterceptor extends Interceptor {
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 import 'package:tura_app/features/shares/presentation/bloc/sharesSentCubit.dart';
 
 class Sharessent extends StatefulWidget {
@@ -32,7 +33,7 @@ class _SharessentState extends State<Sharessent> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'ID',
+                      'Property',
                       style: TextStyle(
                         fontSize: 18,
                         color: Theme.of(context).colorScheme.secondary,
@@ -46,12 +47,12 @@ class _SharessentState extends State<Sharessent> {
                       ),
                     ),
                     Text(
-                      'Property',
+                      'Info',
                       style: TextStyle(
                         fontSize: 18,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -76,13 +77,26 @@ class _SharessentState extends State<Sharessent> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    '${state.response[index].id}',
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      fontSize: 18,
+                                  // Text(
+                                  //   '${state.response[index].id}',
+                                  //   style: TextStyle(
+                                  //     color: Theme.of(context)
+                                  //         .colorScheme
+                                  //         .secondary,
+                                  //     fontSize: 18,
+                                  //   ),
+                                  // ),
+                                  GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Singleproperty(
+                                              slug: state.response[index]
+                                                  .property.slug!),
+                                        )),
+                                    child: Image.network(
+                                      '${state.response[index].property.imageUrls![0]}',
+                                      width: screenWidth * 0.15,
                                     ),
                                   ),
                                   ClipRRect(
@@ -92,9 +106,15 @@ class _SharessentState extends State<Sharessent> {
                                       width: screenWidth * 0.1,
                                     ),
                                   ),
-                                  Image.network(
-                                    '${state.response[index].property.imageUrls![0]}',
-                                    width: screenWidth * 0.15,
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 3),
+                                    child: Icon(
+                                      Icons.info_outline_rounded,
+                                      size: 30,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ),
                                   ),
                                 ],
                               ),

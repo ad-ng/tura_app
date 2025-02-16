@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:tura_app/network/errorInterceptor.dart';
-import 'package:tura_app/network/headerInterceptor.dart';
+import 'package:tura_app/config/network/errorInterceptor.dart';
+import 'package:tura_app/config/network/headerInterceptor.dart';
 
 class DioService {
   // Private constructor for singleton pattern
