@@ -33,7 +33,7 @@ class _SharessentState extends State<Sharessent> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'ID',
+                      'Property',
                       style: TextStyle(
                         fontSize: 18,
                         color: Theme.of(context).colorScheme.secondary,
@@ -47,12 +47,12 @@ class _SharessentState extends State<Sharessent> {
                       ),
                     ),
                     Text(
-                      'Property',
+                      'Info',
                       style: TextStyle(
                         fontSize: 18,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -77,22 +77,15 @@ class _SharessentState extends State<Sharessent> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    '${state.response[index].id}',
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(25),
-                                    child: Image.network(
-                                      state.response[index].sender!.profileImg!,
-                                      width: screenWidth * 0.1,
-                                    ),
-                                  ),
+                                  // Text(
+                                  //   '${state.response[index].id}',
+                                  //   style: TextStyle(
+                                  //     color: Theme.of(context)
+                                  //         .colorScheme
+                                  //         .secondary,
+                                  //     fontSize: 18,
+                                  //   ),
+                                  // ),
                                   GestureDetector(
                                     onTap: () => Navigator.push(
                                         context,
@@ -104,6 +97,23 @@ class _SharessentState extends State<Sharessent> {
                                     child: Image.network(
                                       '${state.response[index].property.imageUrls![0]}',
                                       width: screenWidth * 0.15,
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: Image.network(
+                                      state.response[index].sender!.profileImg!,
+                                      width: screenWidth * 0.1,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 3),
+                                    child: Icon(
+                                      Icons.info_outline_rounded,
+                                      size: 30,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                     ),
                                   ),
                                 ],
