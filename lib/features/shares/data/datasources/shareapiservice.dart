@@ -172,11 +172,22 @@ class ShareApiService {
   }
 
   Future<String> createShare(int propertyId, int recipientId) async {
+    Sharemodel senderData;
+
+    // SENDING ACTUAL SHARE
     try {
+      final response0 = await _dio.get('/shares/${propertyId}/sender/');
+
+      final dataJson = response0.data['share'];
+
+      senderData = Sharemodel.fromJson(dataJson);
+
       final response = await _dio.post('/shares',
-          data:
-              CreateShareModel(propertyId: propertyId, recipientId: recipientId)
-                  .toMap());
+          data: CreateShareModel(
+                  propertyId: propertyId,
+                  recipientId: recipientId,
+                  parentShareId: senderData.senderId)
+              .toMap());
       print(response.data['message']);
       return response.data['message'];
     } catch (e) {
