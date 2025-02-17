@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 import 'package:tura_app/features/shares/presentation/bloc/sharesRecievedCubit.dart';
+import 'package:tura_app/features/shares/presentation/pages/eachSharePage.dart';
 
 class Sharesrecieved extends StatefulWidget {
   const Sharesrecieved({super.key});
@@ -120,12 +121,20 @@ class _SharesrecievedState extends State<Sharesrecieved> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 3),
-                                    child: Icon(
-                                      Icons.info_outline_rounded,
-                                      size: 30,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
+                                    child: GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                GraphExample(),
+                                          )),
+                                      child: Icon(
+                                        Icons.info_outline_rounded,
+                                        size: 30,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
                                     ),
                                   ),
                                 ],

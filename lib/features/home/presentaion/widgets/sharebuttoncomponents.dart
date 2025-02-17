@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
 import 'package:tura_app/features/shares/presentation/bloc/createShareCubit.dart';
 
@@ -30,7 +31,16 @@ class ShareButtonComponents {
                     ),
                     actions: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          final result = await Share.share(
+                            'check out my website https://www.turaestate.com',
+                            subject: 'Look what I made!',
+                          );
+
+                          if (result.status == ShareResultStatus.success) {
+                            print('Thank you for sharing my website!');
+                          }
+                        },
                         child: Text(
                           'Copy link',
                           style: TextStyle(fontSize: 15, color: Colors.white),

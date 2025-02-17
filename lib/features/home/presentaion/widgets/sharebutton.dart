@@ -78,7 +78,7 @@ class _MyCustomShareButtonState extends State<MyCustomShareButton> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                state.message,
+                state.message!,
                 style: TextStyle(fontSize: 30),
               ),
             ),

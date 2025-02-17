@@ -171,26 +171,55 @@ class ShareApiService {
     }
   }
 
-  Future<String> createShare(int propertyId, int recipientId) async {
-    Sharemodel senderData;
+  Future<String?> createShare(int propertyId, int recipientId) async {
+    int? holder;
+
+    try {
+      final response0 = await _dio.get(
+        '/shares/${propertyId}/sender/',
+        options: Options(
+          extra: {
+            'useErrorInterceptor': false
+          }, // Disable interceptor for this request
+        ),
+      );
+      holder = response0.data['share']['id'];
+    } on DioException catch (e) {
+      // Handle 400 or other errors for the first request
+      if (e.response?.statusCode == 400) {
+        // If it's a 400 error, we can continue without the holder
+        print('First request: 404 error, continuing without holder');
+        holder = null;
+      } else {
+        // If it's another type of error, return the error message
+        print('First request error: ${e.toString()}');
+        return e.toString();
+      }
+    } catch (e) {
+      print('First request unexpected error: ${e.toString()}');
+      return e.toString();
+    }
 
     // SENDING ACTUAL SHARE
     try {
-      final response0 = await _dio.get('/shares/${propertyId}/sender/');
+      final response = await _dio.post(
+        '/shares',
+        data: CreateShareModel(
+          propertyId: propertyId,
+          recipientId: recipientId,
+          parentShareId: holder,
+        ).toMap(),
+      );
 
-      final dataJson = response0.data['share'];
-
-      senderData = Sharemodel.fromJson(dataJson);
-
-      final response = await _dio.post('/shares',
-          data: CreateShareModel(
-                  propertyId: propertyId,
-                  recipientId: recipientId,
-                  parentShareId: senderData.senderId)
-              .toMap());
-      print(response.data['message']);
+      print('Second request success: ${response.data['message']}');
       return response.data['message'];
+    } on DioException catch (e) {
+      // Handle Dio errors for the second request
+      print('Second request error: ${e.toString()}');
+      return e.response?.data['message'] ?? e.toString();
     } catch (e) {
+      // Handle any other unexpected errors
+      print('Second request unexpected error: ${e.toString()}');
       return e.toString();
     }
   }
