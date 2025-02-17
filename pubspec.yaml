@@ -20,6 +20,7 @@ dependencies:
   flutter_widget_from_html: ^0.15.3
   share_plus: ^10.1.4
   carousel_slider: ^5.0.0
+  graphview: ^1.2.0
   #sign_in_with_apple: 
 
 dev_dependencies:
