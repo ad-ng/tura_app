@@ -224,6 +224,26 @@ class ShareApiService {
     }
   }
 
+  Future<List<Sharemodel>> fetchShareTree(int Id) async {
+    try {
+      final response = await _dio.get('/share/${Id}/tree');
+
+      final dataJson = response.data['share']['children'];
+
+      print('testing fetch share tree service');
+      if (dataJson != null && dataJson is List) {
+        return dataJson.map((json) => Sharemodel.fromJson(json)).toList();
+      } else {
+        throw Exception(
+            'Expected a list of properties but got ${dataJson.runtimeType}');
+      }
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      throw 'An unexpected error occurred: $e';
+    }
+  }
+
   // Handle Dio-specific errors
   String _handleError(DioException error) {
     switch (error.type) {
