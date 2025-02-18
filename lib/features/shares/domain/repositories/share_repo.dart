@@ -6,5 +6,6 @@ Future<List<Sharemodel>> fetchSentShares();
 Future<List<Sharemodel>> fetchSharesReceived();
 Future<List<UserModel>> searchFilterUsers(String query);
 Future <String?> createShare(int propertyId, int recipientId);
+Future <List<Sharemodel>> fetchShareTree(int shareId);
 }
 

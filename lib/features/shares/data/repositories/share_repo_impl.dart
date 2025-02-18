@@ -30,4 +30,8 @@ class ShareRepoImpl implements ShareRepo {
   Future<String?> createShare(int propertyId, int recipientId) async {
     return await _shareApiService.createShare(propertyId, recipientId);
   }
+
+  Future<List<Sharemodel>> fetchShareTree(int shareId) async {
+    return await _shareApiService.fetchShareTree(shareId);
+  }
 }
