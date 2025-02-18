@@ -13,33 +13,60 @@ class GraphExample extends StatelessWidget {
     buildGraph();
   }
 
-  void buildGraph() {
-    final nodes = List.generate(30, (index) => Node.Id(index + 1));
+  // Sample hierarchical data
+  final List<Map<String, dynamic>> data = [
+    {
+      "name": "person1",
+      "children": [
+        {"name": "person3", "children": []},
+        {
+          "name": "person4",
+          "children": [
+            {"name": "person5", "children": []}
+          ]
+        },
+        {"name": "person6", "children": []}
+      ]
+    },
+    {"name": "person2", "children": []},
+    {"name": "person7", "children": []}
+  ];
 
-    graph.addEdge(nodes[0], nodes[1]);
-    graph.addEdge(nodes[0], nodes[12]);
-    graph.addEdge(nodes[0], nodes[13]);
-    graph.addEdge(nodes[0], nodes[14]);
-    graph.addEdge(nodes[0], nodes[15]);
-    graph.addEdge(nodes[0], nodes[16]);
-    graph.addEdge(nodes[0], nodes[17]);
-    graph.addEdge(nodes[0], nodes[18]);
-    graph.addEdge(nodes[0], nodes[19]);
-    graph.addEdge(nodes[0], nodes[20]);
-    graph.addEdge(nodes[0], nodes[21]);
-    graph.addEdge(nodes[0], nodes[22]);
-    graph.addEdge(nodes[0], nodes[23]);
-    graph.addEdge(nodes[0], nodes[24]);
-    graph.addEdge(nodes[0], nodes[2]);
-    graph.addEdge(nodes[1], nodes[3]);
-    graph.addEdge(nodes[1], nodes[4]);
-    graph.addEdge(nodes[2], nodes[5]);
-    graph.addEdge(nodes[4], nodes[6]);
-    graph.addEdge(nodes[4], nodes[7]);
-    graph.addEdge(nodes[4], nodes[11]);
-    graph.addEdge(nodes[5], nodes[8]);
-    graph.addEdge(nodes[7], nodes[9]);
-    graph.addEdge(nodes[9], nodes[10]);
+  // Map to store nodes by person name (for easy reference)
+  final Map<String, Node> nodeMap = {};
+
+  void buildGraph() {
+    // Create a root node
+    Node rootNode = Node.Id("root");
+    graph.addNode(rootNode);
+
+    // Traverse the data and create the graph, connecting person1 to the root node
+    data.forEach((person) {
+      _addPersonNode(person, rootNode); // Connect the first level to root node
+    });
+  }
+
+  // Recursive function to add a person and their children to the graph
+  void _addPersonNode(Map<String, dynamic> personData, [Node? parent]) {
+    String personName = personData['name'];
+
+    // Create the node if it doesn't exist yet
+    if (!nodeMap.containsKey(personName)) {
+      Node newNode = Node.Id(personName);
+      nodeMap[personName] = newNode;
+
+      // If there is a parent, create an edge
+      if (parent != null) {
+        graph.addEdge(parent, newNode);
+      }
+
+      // Add children recursively
+      List children = personData['children'];
+      for (var child in children) {
+        _addPersonNode(
+            child, newNode); // Connect the child to the current person
+      }
+    }
   }
 
   @override
@@ -72,7 +99,7 @@ class GraphExample extends StatelessWidget {
                           border: Border.all(color: Colors.blue),
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Center(child: Text('Node ${node.key!.value}')),
+                        child: Center(child: Text(node.key!.value.toString())),
                       ),
                     );
                   },
