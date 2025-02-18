@@ -224,9 +224,9 @@ class ShareApiService {
     }
   }
 
-  Future<List<Sharemodel>> fetchShareTree(int Id) async {
+  Future<List<Sharemodel>> fetchShareTree(int shareId) async {
     try {
-      final response = await _dio.get('/share/${Id}/tree');
+      final response = await _dio.get('/share/${shareId}/tree');
 
       final dataJson = response.data['share']['children'];
 
