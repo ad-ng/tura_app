@@ -110,15 +110,55 @@ class _SharessentState extends State<Sharessent> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      BlocProvider.of<Wholesharetree>(context)
-                                          .fetchShareTree(
-                                              state.response[index].id);
+                                      showDialog(
+                                        barrierDismissible: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog.adaptive(
+                                            title: Text('Quick share info'),
+                                            content: Container(
+                                              height: 20,
+                                            ),
+                                            actions: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      BlocProvider.of<
+                                                                  Wholesharetree>(
+                                                              context)
+                                                          .fetchShareTree(state
+                                                              .response[index]
+                                                              .id);
 
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => GraphExample(),
-                                        ),
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              GraphExample(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Text('whole tree'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () {},
+                                                    child: Text('downliners'),
+                                                  ),
+                                                ],
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('cancel'),
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       );
                                     },
                                     child: Padding(
