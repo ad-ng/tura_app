@@ -11,7 +11,8 @@ class DioService {
   Dio dio = Dio();
 
   void setup() {
-    dio.options.baseUrl = 'https://backend.turaestate.com';
+    dio.options.baseUrl =
+        'https://d20l4iyrtz140g.cloudfront.net'; //'https://backend.turaestate.com';
 
     // Set timeouts
     dio.options.connectTimeout = Duration(seconds: 15);

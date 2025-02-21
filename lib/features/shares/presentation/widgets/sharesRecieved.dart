@@ -127,6 +127,7 @@ class _SharesrecievedState extends State<Sharesrecieved> {
                                         BlocProvider.of<Wholesharetree>(context)
                                             .fetchShareTree(
                                                 state.response[index].id);
+
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(

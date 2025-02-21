@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 import 'package:tura_app/features/shares/presentation/bloc/sharesSentCubit.dart';
+import 'package:tura_app/features/shares/presentation/bloc/wholeShareTree.dart';
+import 'package:tura_app/features/shares/presentation/pages/eachSharePage.dart';
 
 class Sharessent extends StatefulWidget {
   const Sharessent({super.key});
@@ -106,14 +108,28 @@ class _SharessentState extends State<Sharessent> {
                                       width: screenWidth * 0.1,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 3),
-                                    child: Icon(
-                                      Icons.info_outline_rounded,
-                                      size: 30,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
+                                  GestureDetector(
+                                    onTap: () {
+                                      BlocProvider.of<Wholesharetree>(context)
+                                          .fetchShareTree(
+                                              state.response[index].id);
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => GraphExample(),
+                                        ),
+                                      );
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 3),
+                                      child: Icon(
+                                        Icons.info_outline_rounded,
+                                        size: 30,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
                                     ),
                                   ),
                                 ],
