@@ -136,16 +136,12 @@ class _SharessentState extends State<Sharessent> {
                                                     child: Text('whole tree'),
                                                   ),
                                                   ElevatedButton(
-                                                    onPressed: () {},
-                                                    child: Text('downliners'),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text('cancel'),
                                                   ),
                                                 ],
-                                              ),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text('cancel'),
                                               ),
                                             ],
                                           );
