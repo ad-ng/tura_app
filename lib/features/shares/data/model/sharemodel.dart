@@ -12,7 +12,7 @@ class Sharemodel {
   final UserModel? sender;
   final UserModel? recipient;
   final UserModel? parentShare;
-  final List<UserModel> children;
+  final List<Sharemodel> children;
 
   Sharemodel({
     required this.id,
@@ -47,8 +47,8 @@ class Sharemodel {
       parentShare: json['parentShare'] != null
           ? UserModel.fromJson(json['parentShare'] as Map<String, dynamic>)
           : null,
-      children: List<UserModel>.from(
-        (json['children'] as List).map((x) => UserModel.fromJson(x)),
+      children: List<Sharemodel>.from(
+        (json['children'] as List).map((x) => Sharemodel.fromJson(x)),
       ),
     );
   }

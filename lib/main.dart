@@ -23,6 +23,7 @@ import 'package:tura_app/features/home/presentaion/pages/home_page.dart';
 import 'package:tura_app/features/login/presentation/pages/login_page.dart';
 import 'package:tura_app/features/login/data/datasources/loginApiService.dart';
 import 'package:tura_app/features/login/presentation/bloc/loginCubit.dart';
+import 'package:tura_app/features/shares/presentation/bloc/wholeShareTree.dart';
 
 void main() {
   DioService.instance.setup();
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SharesSentCubit(_shareRepo)),
         BlocProvider(create: (context) => SharesrecievedCubit(_shareRepo)),
         BlocProvider(create: (context) => CreateShareCubit(_shareRepo)),
+        BlocProvider(create: (context) => Wholesharetree(_shareRepo)),
         BlocProvider(create: (context) => UserCubit(_userRepo)),
         BlocProvider(
             create: (context) => SinglePropertyCubit(_propertiesRepo, slug))
