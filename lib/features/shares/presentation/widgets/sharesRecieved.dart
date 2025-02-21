@@ -132,7 +132,7 @@ class _SharesrecievedState extends State<Sharesrecieved> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                GraphExample(),
+                                                EachSharePage(),
                                           ),
                                         );
                                       },

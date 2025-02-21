@@ -4,14 +4,14 @@ import 'package:graphview/graphview.dart';
 import 'package:tura_app/features/shares/data/model/sharemodel.dart';
 import 'package:tura_app/features/shares/presentation/bloc/wholeShareTree.dart';
 
-class GraphExample extends StatefulWidget {
-  const GraphExample({super.key});
+class EachSharePage extends StatefulWidget {
+  const EachSharePage({super.key});
 
   @override
-  State<GraphExample> createState() => _GraphExampleState();
+  State<EachSharePage> createState() => _EachSharePageState();
 }
 
-class _GraphExampleState extends State<GraphExample> {
+class _EachSharePageState extends State<EachSharePage> {
   static const _defaultNodeWidth = 80.0;
   static const _defaultNodeHeight = 40.0;
 

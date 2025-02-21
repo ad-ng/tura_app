@@ -79,15 +79,6 @@ class _SharessentState extends State<Sharessent> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // Text(
-                                  //   '${state.response[index].id}',
-                                  //   style: TextStyle(
-                                  //     color: Theme.of(context)
-                                  //         .colorScheme
-                                  //         .secondary,
-                                  //     fontSize: 18,
-                                  //   ),
-                                  // ),
                                   GestureDetector(
                                     onTap: () => Navigator.push(
                                         context,
@@ -138,7 +129,7 @@ class _SharessentState extends State<Sharessent> {
                                                         context,
                                                         MaterialPageRoute(
                                                           builder: (context) =>
-                                                              GraphExample(),
+                                                              EachSharePage(),
                                                         ),
                                                       );
                                                     },
