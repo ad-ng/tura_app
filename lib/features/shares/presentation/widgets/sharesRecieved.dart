@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
@@ -27,7 +25,7 @@ class _SharesrecievedState extends State<Sharesrecieved> {
         }
         if (state is SharesRecievedError) {
           return Center(
-            child: Text('${e.toString()}'),
+            child: Text('${state.message}'),
           );
         }
         if (state is SharesRecievedSuccess) {

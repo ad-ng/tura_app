@@ -35,7 +35,9 @@ class Sharemodel {
       senderId: json['senderId'] as int?,
       recipientId: json['recipientId'] as int?,
       parentShareId: json['parentShareId'] as int?,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'] as String)
+          : DateTime.now(), // Default to current time if missing
       property:
           PropertiesModel.fromJson(json['property'] as Map<String, dynamic>),
       sender: json['sender'] != null
@@ -47,9 +49,11 @@ class Sharemodel {
       parentShare: json['parentShare'] != null
           ? UserModel.fromJson(json['parentShare'] as Map<String, dynamic>)
           : null,
-      children: List<Sharemodel>.from(
-        (json['children'] as List).map((x) => Sharemodel.fromJson(x)),
-      ),
+      children: json['children'] != null
+          ? List<Sharemodel>.from(
+              (json['children'] as List).map((x) => Sharemodel.fromJson(x)),
+            )
+          : [], // Default to an empty list if children is null
     );
   }
 
