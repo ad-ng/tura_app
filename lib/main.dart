@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/core/theme/light_mode.dart';
 import 'package:tura_app/core/theme/theme_cubit.dart';
+import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
+import 'package:tura_app/features/favorites/data/repositories/favorites_repo_impl.dart';
+import 'package:tura_app/features/favorites/presentation/bloc/favoritesCubit.dart';
 import 'package:tura_app/features/favorites/presentation/pages/favorites.dart';
 import 'package:tura_app/features/home/data/datasources/remote/propertiesapiservice.dart';
 import 'package:tura_app/features/home/data/repositories/properties_repo_impl.dart';
@@ -40,6 +43,7 @@ class MyApp extends StatelessWidget {
     final _userRepo = UserRepoImpl(UserApiService());
     final _propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
     final _shareRepo = ShareRepoImpl(ShareApiService());
+    final _favoritesRepo = FavoritesRepoImpl(Favoritesapiservice());
 
     final slug = 'slug';
 
@@ -54,6 +58,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => CreateShareCubit(_shareRepo)),
         BlocProvider(create: (context) => Wholesharetree(_shareRepo)),
         BlocProvider(create: (context) => UserCubit(_userRepo)),
+        BlocProvider(create: (context) => Favoritescubit(_favoritesRepo)),
         BlocProvider(
             create: (context) => SinglePropertyCubit(_propertiesRepo, slug))
       ],
