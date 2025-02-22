@@ -53,7 +53,9 @@ class MyDrawer extends StatelessWidget {
               'favorites',
               style: TextStyle(color: Theme.of(context).colorScheme.secondary),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, 'favoritePage');
+            },
           ),
           ListTile(
             leading: Icon(
