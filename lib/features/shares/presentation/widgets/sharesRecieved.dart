@@ -29,6 +29,20 @@ class _SharesrecievedState extends State<Sharesrecieved> {
           );
         }
         if (state is SharesRecievedSuccess) {
+          // Using a set to track unique slugs
+          Set<String> seenSlugs = Set();
+          // Filter out the properties that have already been added to the set
+          var uniqueProperties = state.response.where((property) {
+            // If the slug has already been seen, return false to filter it out
+            if (seenSlugs.contains(property.property.slug!)) {
+              return false;
+            } else {
+              // Add the slug to the set for future checks
+              seenSlugs.add(property.property.slug!);
+              return true;
+            }
+          }).toList();
+
           return Column(
             children: [
               Padding(
@@ -36,13 +50,6 @@ class _SharesrecievedState extends State<Sharesrecieved> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Text(
-                    //   'ID',
-                    //   style: TextStyle(
-                    //     fontSize: 18,
-                    //     color: Theme.of(context).colorScheme.secondary,
-                    //   ),
-                    // ),
                     Text(
                       'Property',
                       style: TextStyle(
@@ -75,8 +82,9 @@ class _SharesrecievedState extends State<Sharesrecieved> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: state.response.length,
+                  itemCount: uniqueProperties.length,
                   itemBuilder: (context, index) {
+                    var property = uniqueProperties[index];
                     return Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Column(
@@ -88,33 +96,24 @@ class _SharesrecievedState extends State<Sharesrecieved> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // Text(
-                                  //   '${state.response[index].id}',
-                                  //   style: TextStyle(
-                                  //     color: Theme.of(context)
-                                  //         .colorScheme
-                                  //         .secondary,
-                                  //     fontSize: 18,
-                                  //   ),
-                                  // ),
-
                                   GestureDetector(
                                     onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Singleproperty(
-                                              slug: state.response[index]
-                                                  .property.slug!),
-                                        )),
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Singleproperty(
+                                          slug: property.property.slug!,
+                                        ),
+                                      ),
+                                    ),
                                     child: Image.network(
-                                      '${state.response[index].property.imageUrls![0]}',
+                                      '${property.property.imageUrls![0]}',
                                       width: screenWidth * 0.15,
                                     ),
                                   ),
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(25),
                                     child: Image.network(
-                                      state.response[index].sender!.profileImg!,
+                                      property.sender!.profileImg!,
                                       width: screenWidth * 0.1,
                                     ),
                                   ),
@@ -123,8 +122,7 @@ class _SharesrecievedState extends State<Sharesrecieved> {
                                     child: GestureDetector(
                                       onTap: () {
                                         BlocProvider.of<Wholesharetree>(context)
-                                            .fetchShareTree(
-                                                state.response[index].id);
+                                            .fetchShareTree(property.id);
 
                                         Navigator.push(
                                           context,
