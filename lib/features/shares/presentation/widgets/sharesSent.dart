@@ -125,6 +125,8 @@ class _SharessentState extends State<Sharessent> {
                                             title: Text('Quick share info'),
                                             content: Container(
                                               height: 20,
+                                              child: Text(
+                                                  'shares sent to ${state.response.length} people'),
                                             ),
                                             actions: [
                                               Row(
