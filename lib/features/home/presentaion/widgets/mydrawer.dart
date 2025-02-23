@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/features/favorites/presentation/bloc/favoritesCubit.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -54,6 +56,7 @@ class MyDrawer extends StatelessWidget {
               style: TextStyle(color: Theme.of(context).colorScheme.secondary),
             ),
             onTap: () {
+              BlocProvider.of<Favoritescubit>(context).fetchProps();
               Navigator.pushNamed(context, 'favoritePage');
             },
           ),
