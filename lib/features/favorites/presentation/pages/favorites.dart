@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/features/favorites/presentation/bloc/favoritesCubit.dart';
+import 'package:tura_app/features/favorites/presentation/widgets/favoriteCard.dart';
 
 class Favorites_page extends StatelessWidget {
   const Favorites_page({super.key});
@@ -33,8 +34,11 @@ class Favorites_page extends StatelessWidget {
             );
           }
           if (state is FavoriteSuccess) {
-            return Center(
-              child: Text('data found'),
+            return ListView.builder(
+              itemCount: state.response.length,
+              itemBuilder: (context, index) => Favoritecard(
+                favotite: state.response[index]!,
+              ),
             );
           }
           return SizedBox.shrink();
