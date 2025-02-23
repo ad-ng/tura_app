@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:intl/intl.dart';
+import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 //import 'package:share_plus/share_plus.dart';
 import 'package:tura_app/features/home/data/datasources/remote/propertiesapiservice.dart';
 import 'package:tura_app/features/home/data/repositories/properties_repo_impl.dart';
@@ -15,7 +16,12 @@ class Singleproperty extends StatefulWidget {
   final String slug;
   final int propertyId;
   final bool isFavorited;
-  Singleproperty({super.key, required this.slug, required this.propertyId,required this.isFavorited});
+  Singleproperty({
+    super.key,
+    required this.slug,
+    required this.propertyId,
+    required this.isFavorited,
+  });
 
   @override
   State<Singleproperty> createState() => _SinglepropertyState();
@@ -25,9 +31,6 @@ int imgIndex = 0;
 final myController = CarouselSliderController();
 int activeIndex = 0;
 int currentIndex = 0; //for navbar
-
-
-
 
 class _SinglepropertyState extends State<Singleproperty> {
   final _propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
@@ -50,14 +53,19 @@ class _SinglepropertyState extends State<Singleproperty> {
               Container(
                 margin: EdgeInsets.only(right: 10),
                 child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      //favoriteStatus = !favoriteStatus;
-                    });
+                  onPressed: () async {
+                    if (widget.isFavorited) {
+                      await Favoritesapiservice()
+                          .deleteFavorite(widget.propertyId);
+                    } else {
+                      await Favoritesapiservice()
+                          .addFavorite(widget.propertyId);
+                    }
                   },
                   icon: Icon(
                     Icons.favorite,
-                    color: (widget.isFavorited) ? Colors.red[300] : Colors.white,
+                    color:
+                        (widget.isFavorited) ? Colors.red[300] : Colors.white,
                   ),
                 ),
               )

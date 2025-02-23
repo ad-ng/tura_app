@@ -50,8 +50,7 @@ class Favoritesapiservice {
 
   Future addFavorite(propertyId) async {
     try {
-      await _dio
-          .post('/favorites/check/${propertyId}', data: {"isFavorite": true});
+      await _dio.post('/favorites', data: {"propertyId": propertyId});
     } on DioException catch (e) {
       throw _handleError(e);
     } catch (e) {
