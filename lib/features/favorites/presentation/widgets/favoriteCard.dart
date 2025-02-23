@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 import 'package:tura_app/features/favorites/data/models/favoritesModel.dart';
+import 'package:tura_app/features/favorites/presentation/bloc/favoritesCubit.dart';
 import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 
 class Favoritecard extends StatelessWidget {
@@ -29,7 +32,45 @@ class Favoritecard extends StatelessWidget {
             ),
           ),
           trailing: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showAdaptiveDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (context) {
+                  return AlertDialog.adaptive(
+                    title: Center(
+                      child: Text(
+                        'Are you sure ?',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).colorScheme.secondary),
+                      ),
+                    ),
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            await Favoritesapiservice()
+                                .deleteFavorite(favotite.propertyId);
+                            BlocProvider.of<Favoritescubit>(context)
+                                .fetchProps();
+                            Navigator.pop(context);
+                          },
+                          child: Text('Delete'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('Cancel'),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
             icon: Icon(
               Icons.delete,
               color: Colors.red[300],
