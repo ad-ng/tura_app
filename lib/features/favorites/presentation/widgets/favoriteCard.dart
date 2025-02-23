@@ -77,12 +77,17 @@ class Favoritecard extends StatelessWidget {
             ),
           ),
           leading: GestureDetector(
-            onTap: () {
+            onTap: () async {
+              bool isFavorited = await Favoritesapiservice()
+                  .checkFavorite(favotite.propertyId);
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      Singleproperty(slug: favotite.property.slug!, propertyId: favotite.propertyId,),
+                  builder: (context) => Singleproperty(
+                    slug: favotite.property.slug!,
+                    propertyId: favotite.propertyId,
+                    isFavorited: isFavorited,
+                  ),
                 ),
               );
             },

@@ -13,8 +13,8 @@ class FavoritesRepoImpl implements FavoritesRepo {
   }
 
   @override
-  Future addFavorite(propertyId, favoriteStatus) async {
-    return await _favoritesapiservice.addFavorite(propertyId, favoriteStatus);
+  Future addFavorite(propertyId) async {
+    return await _favoritesapiservice.addFavorite(propertyId);
   }
 
   @override

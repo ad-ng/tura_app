@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:intl/intl.dart';
-import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 //import 'package:share_plus/share_plus.dart';
 import 'package:tura_app/features/home/data/datasources/remote/propertiesapiservice.dart';
 import 'package:tura_app/features/home/data/repositories/properties_repo_impl.dart';
@@ -15,14 +14,11 @@ import 'package:tura_app/features/home/presentaion/widgets/sharebutton.dart';
 class Singleproperty extends StatefulWidget {
   final String slug;
   final int propertyId;
-  Singleproperty({super.key, required this.slug, required this.propertyId});
+  final bool isFavorited;
+  Singleproperty({super.key, required this.slug, required this.propertyId,required this.isFavorited});
 
   @override
   State<Singleproperty> createState() => _SinglepropertyState();
-
-  favoriteStatus() async {
-    return await Favoritesapiservice().checkFavorite(propertyId);
-  }
 }
 
 int imgIndex = 0;
@@ -30,7 +26,8 @@ final myController = CarouselSliderController();
 int activeIndex = 0;
 int currentIndex = 0; //for navbar
 
-bool favoriteStatus = false;
+
+
 
 class _SinglepropertyState extends State<Singleproperty> {
   final _propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
@@ -55,12 +52,12 @@ class _SinglepropertyState extends State<Singleproperty> {
                 child: IconButton(
                   onPressed: () {
                     setState(() {
-                      favoriteStatus = !favoriteStatus;
+                      //favoriteStatus = !favoriteStatus;
                     });
                   },
                   icon: Icon(
                     Icons.favorite,
-                    color: (favoriteStatus) ? Colors.red[300] : Colors.white,
+                    color: (widget.isFavorited) ? Colors.red[300] : Colors.white,
                   ),
                 ),
               )

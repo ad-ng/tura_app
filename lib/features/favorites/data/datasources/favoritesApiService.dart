@@ -38,7 +38,7 @@ class Favoritesapiservice {
 
   Future<bool> checkFavorite(propertyId) async {
     try {
-      final response = await _dio.delete('/favorites/check/${propertyId}');
+      final response = await _dio.get('/favorites/check/${propertyId}');
       return response.data['isFavorite'];
     } on DioException catch (e) {
       throw _handleError(e);
@@ -48,10 +48,10 @@ class Favoritesapiservice {
     }
   }
 
-  Future addFavorite(propertyId, favoriteStatus) async {
+  Future addFavorite(propertyId) async {
     try {
-      await _dio.post('/favorites/check/${propertyId}',
-          data: {"isFavorite": favoriteStatus});
+      await _dio
+          .post('/favorites/check/${propertyId}', data: {"isFavorite": true});
     } on DioException catch (e) {
       throw _handleError(e);
     } catch (e) {

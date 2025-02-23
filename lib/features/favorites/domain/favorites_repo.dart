@@ -7,5 +7,5 @@ abstract class FavoritesRepo {
 
   Future<bool> checkFavorite(propertyId);
 
-  Future addFavorite(propertyId, favoriteStatus);
+  Future addFavorite(propertyId);
 }
