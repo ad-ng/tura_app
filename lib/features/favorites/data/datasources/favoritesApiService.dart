@@ -10,9 +10,6 @@ class Favoritesapiservice {
       final response = await _dio.get('/favorites');
 
       final dataJson = response.data;
-      print('status code................');
-      print(response.statusCode);
-      print(dataJson.runtimeType); // Debugging: Remove in production
 
       if (dataJson != null && dataJson is List) {
         return dataJson.map((json) => Favoritesmodel.fromMap(json)).toList();
@@ -20,6 +17,17 @@ class Favoritesapiservice {
         throw Exception(
             'Expected a list of properties but got ${dataJson.runtimeType}');
       }
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      // You could enhance this error further with specific error handling
+      throw 'An unexpected error occurred: $e';
+    }
+  }
+
+  Future deleteFavorite(propertyId) async {
+    try {
+      await _dio.delete('/favorites/${propertyId}');
     } on DioException catch (e) {
       throw _handleError(e);
     } catch (e) {
