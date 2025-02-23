@@ -48,6 +48,18 @@ class Favoritesapiservice {
     }
   }
 
+  Future addFavorite(propertyId, favoriteStatus) async {
+    try {
+      await _dio.post('/favorites/check/${propertyId}',
+          data: {"isFavorite": favoriteStatus});
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      // You could enhance this error further with specific error handling
+      throw 'An unexpected error occurred: $e';
+    }
+  }
+
   // Handle Dio-specific errors
   String _handleError(DioException error) {
     switch (error.type) {

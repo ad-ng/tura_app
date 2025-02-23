@@ -11,4 +11,19 @@ class FavoritesRepoImpl implements FavoritesRepo {
   Future<List<Favoritesmodel?>> fetchAllFavorites() async {
     return await _favoritesapiservice.fetchAllFavorites();
   }
+
+  @override
+  Future addFavorite(propertyId, favoriteStatus) async {
+    return await _favoritesapiservice.addFavorite(propertyId, favoriteStatus);
+  }
+
+  @override
+  Future<bool> checkFavorite(propertyId) async {
+    return await _favoritesapiservice.checkFavorite(propertyId);
+  }
+
+  @override
+  Future deleteFavorite(propertyId) async {
+    return await _favoritesapiservice.deleteFavorite(propertyId);
+  }
 }

@@ -82,7 +82,7 @@ class Favoritecard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      Singleproperty(slug: favotite.property.slug!),
+                      Singleproperty(slug: favotite.property.slug!, propertyId: favotite.propertyId,),
                 ),
               );
             },

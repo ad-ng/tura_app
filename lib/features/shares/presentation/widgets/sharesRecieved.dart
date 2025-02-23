@@ -101,7 +101,7 @@ class _SharesrecievedState extends State<Sharesrecieved> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => Singleproperty(
-                                          slug: property.property.slug!,
+                                          slug: property.property.slug!,propertyId: property.propertyId,
                                         ),
                                       ),
                                     ),

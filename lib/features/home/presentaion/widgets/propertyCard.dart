@@ -117,7 +117,10 @@ class _PropertycardState extends State<Propertycard> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return Singleproperty(slug: widget.property.slug!);
+                      return Singleproperty(
+                        slug: widget.property.slug!,
+                        propertyId: widget.property.id!,
+                      );
                     }),
                   );
                 },

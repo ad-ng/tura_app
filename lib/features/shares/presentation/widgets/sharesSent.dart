@@ -100,6 +100,7 @@ class _SharessentState extends State<Sharessent> {
                                       MaterialPageRoute(
                                         builder: (context) => Singleproperty(
                                           slug: property.property.slug!,
+                                          propertyId: property.propertyId,
                                         ),
                                       ),
                                     ),

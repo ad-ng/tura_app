@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:intl/intl.dart';
+import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 //import 'package:share_plus/share_plus.dart';
 import 'package:tura_app/features/home/data/datasources/remote/propertiesapiservice.dart';
 import 'package:tura_app/features/home/data/repositories/properties_repo_impl.dart';
@@ -13,16 +14,23 @@ import 'package:tura_app/features/home/presentaion/widgets/sharebutton.dart';
 
 class Singleproperty extends StatefulWidget {
   final String slug;
-  Singleproperty({super.key, required this.slug});
+  final int propertyId;
+  Singleproperty({super.key, required this.slug, required this.propertyId});
 
   @override
   State<Singleproperty> createState() => _SinglepropertyState();
+
+  favoriteStatus() async {
+    return await Favoritesapiservice().checkFavorite(propertyId);
+  }
 }
 
 int imgIndex = 0;
 final myController = CarouselSliderController();
 int activeIndex = 0;
 int currentIndex = 0; //for navbar
+
+bool favoriteStatus = false;
 
 class _SinglepropertyState extends State<Singleproperty> {
   final _propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
@@ -31,6 +39,7 @@ class _SinglepropertyState extends State<Singleproperty> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+
     return BlocProvider(
       create: (context) => SinglePropertyCubit(_propertiesRepo, widget.slug),
       child: Scaffold(
@@ -44,8 +53,15 @@ class _SinglepropertyState extends State<Singleproperty> {
               Container(
                 margin: EdgeInsets.only(right: 10),
                 child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.favorite),
+                  onPressed: () {
+                    setState(() {
+                      favoriteStatus = !favoriteStatus;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.favorite,
+                    color: (favoriteStatus) ? Colors.red[300] : Colors.white,
+                  ),
                 ),
               )
             ],
