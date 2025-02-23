@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 import 'package:tura_app/features/shares/presentation/bloc/sharesSentCubit.dart';
 import 'package:tura_app/features/shares/presentation/bloc/wholeShareTree.dart';
@@ -95,14 +96,22 @@ class _SharessentState extends State<Sharessent> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   GestureDetector(
-                                    onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Singleproperty(
-                                          slug: property.property.slug!,
+                                    onTap: () async {
+                                      bool isFavorited =
+                                          await Favoritesapiservice()
+                                              .checkFavorite(
+                                                  property.propertyId);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Singleproperty(
+                                            slug: property.property.slug!,
+                                            propertyId: property.propertyId,
+                                            isFavorited: isFavorited,
+                                          ),
                                         ),
-                                      ),
-                                    ),
+                                      );
+                                    },
                                     child: Image.network(
                                       '${property.property.imageUrls![0]}',
                                       width: screenWidth * 0.15,

@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 import 'package:tura_app/features/home/data/models/properties_model.dart';
 import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 
@@ -112,11 +114,16 @@ class _PropertycardState extends State<Propertycard> {
                 margin: EdgeInsets.all(15),
               ),
               GestureDetector(
-                onTap: () {
+                onTap: () async{
+                  bool isFavorited = await Favoritesapiservice().checkFavorite(widget.property.id);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return Singleproperty(slug: widget.property.slug!);
+                      return Singleproperty(
+                         isFavorited: isFavorited,
+                        slug: widget.property.slug!,
+                        propertyId: widget.property.id!,
+                      );
                     }),
                   );
                 },
@@ -170,7 +177,7 @@ class _PropertycardState extends State<Propertycard> {
           decoration: BoxDecoration(
               color: Colors.green[400], borderRadius: BorderRadius.circular(5)),
           child: Text(
-            '${widget.property.price} Rwf',
+            '${NumberFormat('#,###').format(widget.property.price)} Rwf',
             style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 20,

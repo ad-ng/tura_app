@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:intl/intl.dart';
+import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 //import 'package:share_plus/share_plus.dart';
 import 'package:tura_app/features/home/data/datasources/remote/propertiesapiservice.dart';
 import 'package:tura_app/features/home/data/repositories/properties_repo_impl.dart';
@@ -12,7 +14,14 @@ import 'package:tura_app/features/home/presentaion/widgets/sharebutton.dart';
 
 class Singleproperty extends StatefulWidget {
   final String slug;
-  Singleproperty({super.key, required this.slug});
+  final int propertyId;
+  late bool isFavorited;
+  Singleproperty({
+    super.key,
+    required this.slug,
+    required this.propertyId,
+    required this.isFavorited,
+  });
 
   @override
   State<Singleproperty> createState() => _SinglepropertyState();
@@ -30,6 +39,7 @@ class _SinglepropertyState extends State<Singleproperty> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+
     return BlocProvider(
       create: (context) => SinglePropertyCubit(_propertiesRepo, widget.slug),
       child: Scaffold(
@@ -43,8 +53,23 @@ class _SinglepropertyState extends State<Singleproperty> {
               Container(
                 margin: EdgeInsets.only(right: 10),
                 child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.favorite),
+                  onPressed: () async {
+                    if (widget.isFavorited) {
+                      await Favoritesapiservice()
+                          .deleteFavorite(widget.propertyId);
+                    } else {
+                      await Favoritesapiservice()
+                          .addFavorite(widget.propertyId);
+                    }
+                    setState(() {
+                      widget.isFavorited = !widget.isFavorited;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.favorite,
+                    color:
+                        (widget.isFavorited) ? Colors.red[300] : Colors.white,
+                  ),
                 ),
               )
             ],
@@ -174,7 +199,8 @@ class _SinglepropertyState extends State<Singleproperty> {
                                   ]),
                                   DataRow(cells: [
                                     DataCell(Text('price')),
-                                    DataCell(Text('${property.price!} Rwf'))
+                                    DataCell(Text(
+                                        '${NumberFormat('#,###').format(property.price!)} Rwf'))
                                   ]),
                                   DataRow(cells: [
                                     DataCell(Text('area')),
