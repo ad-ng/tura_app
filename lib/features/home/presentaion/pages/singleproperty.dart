@@ -15,7 +15,7 @@ import 'package:tura_app/features/home/presentaion/widgets/sharebutton.dart';
 class Singleproperty extends StatefulWidget {
   final String slug;
   final int propertyId;
-  final bool isFavorited;
+  late bool isFavorited;
   Singleproperty({
     super.key,
     required this.slug,
@@ -61,6 +61,9 @@ class _SinglepropertyState extends State<Singleproperty> {
                       await Favoritesapiservice()
                           .addFavorite(widget.propertyId);
                     }
+                    setState(() {
+                      widget.isFavorited = !widget.isFavorited;
+                    });
                   },
                   icon: Icon(
                     Icons.favorite,
