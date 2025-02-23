@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/features/favorites/presentation/bloc/favoritesCubit.dart';
 
 class Favorites_page extends StatelessWidget {
   const Favorites_page({super.key});
@@ -14,6 +16,29 @@ class Favorites_page extends StatelessWidget {
           ),
         ),
         centerTitle: true,
+      ),
+      body: BlocBuilder<Favoritescubit, favoriteState>(
+        builder: (context, state) {
+          if (state is FavoriteLoading) {
+            return Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }
+          if (state is FavoriteError) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text('${state.message}'),
+              ),
+            );
+          }
+          if (state is FavoriteSuccess) {
+            return Center(
+              child: Text('data found'),
+            );
+          }
+          return SizedBox.shrink();
+        },
       ),
     );
   }

@@ -2,30 +2,39 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/features/favorites/data/models/favoritesModel.dart';
 import 'package:tura_app/features/favorites/domain/favorites_repo.dart';
 
-class Favoritescubit extends Cubit<FavoritesState> {
-  final FavoritesRepo _favoritesRepo;
+class Favoritescubit extends Cubit<favoriteState> {
+  final FavoritesRepo _FavoritesRepo;
 
-  Favoritescubit(this._favoritesRepo) : super(FavoriteInitial()) {
-    fetchAllFavorites();
+  Favoritescubit(this._FavoritesRepo) : super(FavoriteInitial()) {
+    fetchProps();
   }
 
-  Future<List<Favoritesmodel>> fetchAllFavorites() async {
-    return await _favoritesRepo.fetchAllFavorites();
+  Future fetchProps() async {
+    emit(FavoriteLoading());
+
+    try {
+      final response = await _FavoritesRepo.fetchAllFavorites();
+      print('Fetched properties: $response'); // Log the response
+      emit(FavoriteSuccess(response));
+    } catch (e) {
+      print('Error fetching properties: $e'); // Log any error
+      emit(FavoriteError(e.toString()));
+    }
   }
 }
 
-abstract class FavoritesState {}
+abstract class favoriteState {}
 
-class FavoriteInitial extends FavoritesState {}
+class FavoriteInitial extends favoriteState {}
 
-class FavoriteLoading extends FavoritesState {}
+class FavoriteLoading extends favoriteState {}
 
-class FavoriteSuccess extends FavoritesState {
-  final List<Favoritesmodel> response; // Response from the API
+class FavoriteSuccess extends favoriteState {
+  final List<Favoritesmodel?> response; // Response from the API
   FavoriteSuccess(this.response);
 }
 
-class FavoriteError extends FavoritesState {
+class FavoriteError extends favoriteState {
   final String message; // Error message
   FavoriteError(this.message);
 }

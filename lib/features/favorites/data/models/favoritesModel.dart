@@ -5,8 +5,8 @@ import 'package:tura_app/features/home/data/models/properties_model.dart';
 
 class Favoritesmodel {
   int id;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String createdAt;
+  String updatedAt;
   int userId;
   int propertyId;
   PropertiesModel property;
@@ -23,19 +23,19 @@ class Favoritesmodel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
       'userId': userId,
       'propertyId': propertyId,
-      'property': property.toJson,
+      'property': property.toJson(),
     };
   }
 
   factory Favoritesmodel.fromMap(Map<String, dynamic> map) {
     return Favoritesmodel(
       id: map['id'] as int,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
+      createdAt: map['createdAt'] as String,
+      updatedAt: map['updatedAt'] as String,
       userId: map['userId'] as int,
       propertyId: map['propertyId'] as int,
       property:

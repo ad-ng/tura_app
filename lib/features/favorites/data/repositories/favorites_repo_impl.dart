@@ -8,7 +8,7 @@ class FavoritesRepoImpl implements FavoritesRepo {
   FavoritesRepoImpl(this._favoritesapiservice);
 
   @override
-  Future<List<Favoritesmodel>> fetchAllFavorites() async {
+  Future<List<Favoritesmodel?>> fetchAllFavorites() async {
     return await _favoritesapiservice.fetchAllFavorites();
   }
 }

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:tura_app/config/network/dioService.dart';
 import 'package:tura_app/features/favorites/data/models/favoritesModel.dart';
+import 'package:tura_app/config/network/dioService.dart';
 
 class Favoritesapiservice {
   final Dio _dio = DioService.instance.dio;
@@ -10,16 +10,20 @@ class Favoritesapiservice {
       final response = await _dio.get('/favorites');
 
       final dataJson = response.data;
+      print('status code................');
+      print(response.statusCode);
+      print(dataJson.runtimeType); // Debugging: Remove in production
 
       if (dataJson != null && dataJson is List) {
-        return dataJson.map((json) => Favoritesmodel.fromJson(json)).toList();
+        return dataJson.map((json) => Favoritesmodel.fromMap(json)).toList();
       } else {
         throw Exception(
-            'Expected a JSON object but got ${dataJson.runtimeType}');
+            'Expected a list of properties but got ${dataJson.runtimeType}');
       }
     } on DioException catch (e) {
       throw _handleError(e);
     } catch (e) {
+      // You could enhance this error further with specific error handling
       throw 'An unexpected error occurred: $e';
     }
   }
@@ -28,15 +32,22 @@ class Favoritesapiservice {
   String _handleError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
-        return 'Connection timeout';
+        return 'Connection timeout. Please check your network and try again.';
       case DioExceptionType.sendTimeout:
-        return 'Send timeout';
+        return 'Send timeout. The server is taking too long to respond.';
       case DioExceptionType.receiveTimeout:
-        return 'Receive timeout';
+        return 'Receive timeout. The server is taking too long to send data.';
       case DioExceptionType.badResponse:
-        return 'Bad response: ${error.response?.statusCode}';
+        if (error.response != null) {
+          // Handle specific status codes
+          if (error.response?.statusCode == 404) {
+            return 'The requested resource was not found.';
+          }
+          return 'Bad response: ${error.response?.statusCode}';
+        }
+        return 'Bad response with no status code';
       case DioExceptionType.cancel:
-        return 'Request canceled';
+        return 'Request was canceled by the user.';
       case DioExceptionType.unknown:
         return 'Unknown error: ${error.message}';
       default:
