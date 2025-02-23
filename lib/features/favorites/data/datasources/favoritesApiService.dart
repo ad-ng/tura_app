@@ -36,6 +36,18 @@ class Favoritesapiservice {
     }
   }
 
+  Future<bool> checkFavorite(propertyId) async {
+    try {
+      final response = await _dio.delete('/favorites/check/${propertyId}');
+      return response.data['isFavorite'];
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      // You could enhance this error further with specific error handling
+      throw 'An unexpected error occurred: $e';
+    }
+  }
+
   // Handle Dio-specific errors
   String _handleError(DioException error) {
     switch (error.type) {
