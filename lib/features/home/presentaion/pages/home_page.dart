@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tura_app/features/guide/presention/pages/guide_page.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myBottomNavBar.dart';
 import 'package:tura_app/features/home/presentaion/widgets/mydrawer.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myhome.dart';
@@ -16,10 +17,8 @@ int currentIndex = 0;
 final _screens = [
   MyHome(),
   Shares(),
-  Center(
-    child: Text('S E A R C H   P A G E'),
-  ),
-  Profile()
+  GuidePage(),
+  Profile(),
 ];
 
 class _HomePageState extends State<HomePage> {
