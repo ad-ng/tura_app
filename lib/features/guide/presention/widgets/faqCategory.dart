@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
-Widget faqCategory({required BuildContext context}) {
+Widget faqCategory(
+    {required BuildContext context,
+    required String faqCategoryName,
+    required faqIcon,
+    required double iconSize}) {
   return Container(
     margin: EdgeInsets.all(10),
-    padding: EdgeInsets.symmetric(horizontal: 10),
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     height: 200,
     width: 130,
     decoration: BoxDecoration(
@@ -15,8 +19,8 @@ Widget faqCategory({required BuildContext context}) {
       children: [
         Center(
           child: Icon(
-            Icons.person,
-            size: 40,
+            faqIcon,
+            size: iconSize,
           ),
         ),
         Text(
@@ -24,7 +28,7 @@ Widget faqCategory({required BuildContext context}) {
           style: TextStyle(color: Colors.grey[800]),
         ),
         Text(
-          'Account',
+          faqCategoryName,
           style: TextStyle(
               color: Colors.blue, fontSize: 20, fontWeight: FontWeight.bold),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tura_app/features/guide/presention/widgets/eachQuestionTile.dart';
+import 'package:tura_app/features/guide/presention/widgets/faqCategory.dart';
 import 'package:tura_app/features/guide/presention/widgets/mySearch.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myappbar.dart';
 
@@ -24,7 +25,7 @@ class _GuidePageState extends State<GuidePage> {
             height: screenHeight * 0.02,
           ),
           Text(
-            'How can we help you ?',
+            'Frequent Asked Questions',
             style: TextStyle(
                 fontSize: 25, color: Theme.of(context).colorScheme.secondary),
           ),
@@ -43,23 +44,22 @@ class _GuidePageState extends State<GuidePage> {
               children: [
                 Row(
                   children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      color: Colors.amber,
-                      width: 100,
-                      height: 100,
+                    faqCategory(
+                        context: context,
+                        faqCategoryName: 'Account',
+                        faqIcon: Icons.person,
+                        iconSize: 40),
+                    faqCategory(
+                      context: context,
+                      faqCategoryName: 'Shares',
+                      faqIcon: Icons.share,
+                      iconSize: 35,
                     ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      color: Colors.amber,
-                      width: 100,
-                      height: 100,
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      color: Colors.amber,
-                      width: 200,
-                      height: 100,
+                    faqCategory(
+                      context: context,
+                      faqCategoryName: 'Property',
+                      faqIcon: Icons.house_rounded,
+                      iconSize: 35,
                     ),
                   ],
                 ),
