@@ -35,13 +35,44 @@ class _GuidePageState extends State<GuidePage> {
           SizedBox(
             height: 10,
           ),
+          SizedBox(
+            height: 120,
+            width: double.infinity,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      color: Colors.amber,
+                      width: 100,
+                      height: 100,
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      color: Colors.amber,
+                      width: 100,
+                      height: 100,
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      color: Colors.amber,
+                      width: 200,
+                      height: 100,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
           eachQuestionTile(
             question: 'what is tura',
             answer: 'is some bullshit',
             context: context,
           ),
           eachQuestionTile(
-            question: 'what is tura',
+            question: 'what is tura 1',
             answer: 'is some bullshit',
             context: context,
           )
