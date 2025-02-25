@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tura_app/features/guide/presention/widgets/eachQuestionTile.dart';
 import 'package:tura_app/features/guide/presention/widgets/mySearch.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myappbar.dart';
 
@@ -30,7 +31,20 @@ class _GuidePageState extends State<GuidePage> {
           SizedBox(
             height: screenHeight * 0.009,
           ),
-          Mysearch(textEditingController: _searchController)
+          Mysearch(textEditingController: _searchController),
+          SizedBox(
+            height: 10,
+          ),
+          eachQuestionTile(
+            question: 'what is tura',
+            answer: 'is some bullshit',
+            context: context,
+          ),
+          eachQuestionTile(
+            question: 'what is tura',
+            answer: 'is some bullshit',
+            context: context,
+          )
         ],
       ),
     );
