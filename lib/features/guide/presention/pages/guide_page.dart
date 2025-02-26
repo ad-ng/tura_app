@@ -37,7 +37,7 @@ class _GuidePageState extends State<GuidePage> {
             height: 10,
           ),
           SizedBox(
-            height: 120,
+            height: 145,
             width: double.infinity,
             child: ListView(
               scrollDirection: Axis.horizontal,
@@ -73,7 +73,8 @@ class _GuidePageState extends State<GuidePage> {
           ),
           eachQuestionTile(
             question: 'what is tura 1',
-            answer: 'is some bullshit',
+            answer:
+                'Our platform simplifies property oversight, tenant management, and financial tracking for property owners and managers, while providing tenants with easy access to property details, payment options, and maintenance requests',
             context: context,
           )
         ],
