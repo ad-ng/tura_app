@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-Widget faqCategory(
-    {required BuildContext context,
-    required String faqCategoryName,
-    required faqIcon,
-    required double iconSize}) {
+Widget faqCategory({
+  required BuildContext context,
+  required String faqCategoryName,
+}) {
   return Container(
     margin: EdgeInsets.all(10),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -19,8 +18,9 @@ Widget faqCategory(
       children: [
         Center(
           child: Icon(
-            faqIcon,
-            size: iconSize,
+            Icons.lightbulb_sharp,
+            color: Colors.yellow[900],
+            size: 35,
           ),
         ),
         Text(
