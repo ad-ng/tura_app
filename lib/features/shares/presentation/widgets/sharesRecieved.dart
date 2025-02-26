@@ -26,12 +26,12 @@ class _SharesrecievedState extends State<Sharesrecieved> {
         }
         if (state is SharesRecievedError) {
           return Center(
-            child: Text('${state.message}'),
+            child: Text(state.message),
           );
         }
         if (state is SharesRecievedSuccess) {
           // Using a set to track unique slugs
-          Set<String> seenSlugs = Set();
+          Set<String> seenSlugs = {};
           // Filter out the properties that have already been added to the set
           var uniqueProperties = state.response.where((property) {
             // If the slug has already been seen, return false to filter it out
@@ -115,7 +115,7 @@ class _SharesrecievedState extends State<Sharesrecieved> {
                                       );
                                     },
                                     child: Image.network(
-                                      '${property.property.imageUrls![0]}',
+                                      property.property.imageUrls![0],
                                       width: screenWidth * 0.15,
                                     ),
                                   ),

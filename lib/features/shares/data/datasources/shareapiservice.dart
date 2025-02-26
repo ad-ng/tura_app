@@ -72,7 +72,7 @@ class ShareApiService {
 
     try {
       final response0 = await _dio.get(
-        '/shares/${propertyId}/sender/',
+        '/shares/$propertyId/sender/',
         options: Options(
           extra: {
             'useErrorInterceptor': false
@@ -122,7 +122,7 @@ class ShareApiService {
 
   Future<List<Sharemodel>> fetchShareTree(int shareId) async {
     try {
-      final response = await _dio.get('/shares/${shareId}/tree');
+      final response = await _dio.get('/shares/$shareId/tree');
 
       final dataJson = response.data['share']['children'];
 

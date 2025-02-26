@@ -11,10 +11,12 @@ class ShareRepoImpl implements ShareRepo {
     return await _shareApiService.fetchSentShares();
   }
 
+  @override
   Future<List<Sharemodel>> fetchSharesReceived() async {
     return await _shareApiService.fetchSharesReceived();
   }
 
+  @override
   Future<List<UserModel>> searchFilterUsers(String query) async {
     final users = await _shareApiService.fetchAllUsers();
     return users.where((user) {
@@ -27,10 +29,12 @@ class ShareRepoImpl implements ShareRepo {
     }).toList();
   }
 
+  @override
   Future<String?> createShare(int propertyId, int recipientId) async {
     return await _shareApiService.createShare(propertyId, recipientId);
   }
 
+  @override
   Future<List<Sharemodel>> fetchShareTree(int shareId) async {
     return await _shareApiService.fetchShareTree(shareId);
   }

@@ -24,12 +24,12 @@ class _SharessentState extends State<Sharessent> {
         }
         if (state is SharesSentError) {
           return Center(
-            child: Text('${state.message.toString()}'),
+            child: Text(state.message.toString()),
           );
         }
         if (state is SharesSentSuccess) {
           // Using a set to track unique slugs
-          Set<String> seenSlugs = Set();
+          Set<String> seenSlugs = {};
           // Filter out the properties that have already been added to the set
           var uniqueProperties = state.response.where((property) {
             // If the slug has already been seen, return false to filter it out
@@ -113,7 +113,7 @@ class _SharessentState extends State<Sharessent> {
                                       );
                                     },
                                     child: Image.network(
-                                      '${property.property.imageUrls![0]}',
+                                      property.property.imageUrls![0],
                                       width: screenWidth * 0.15,
                                     ),
                                   ),
@@ -132,7 +132,7 @@ class _SharessentState extends State<Sharessent> {
                                         builder: (context) {
                                           return AlertDialog.adaptive(
                                             title: Text('Quick share info'),
-                                            content: Container(
+                                            content: SizedBox(
                                               height: 20,
                                               child: Text(
                                                   'shares sent to ${state.response.length} people'),

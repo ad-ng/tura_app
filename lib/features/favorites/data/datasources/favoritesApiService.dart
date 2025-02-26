@@ -27,7 +27,7 @@ class Favoritesapiservice {
 
   Future deleteFavorite(propertyId) async {
     try {
-      await _dio.delete('/favorites/${propertyId}');
+      await _dio.delete('/favorites/$propertyId');
     } on DioException catch (e) {
       throw _handleError(e);
     } catch (e) {
@@ -38,7 +38,7 @@ class Favoritesapiservice {
 
   Future<bool> checkFavorite(propertyId) async {
     try {
-      final response = await _dio.get('/favorites/check/${propertyId}');
+      final response = await _dio.get('/favorites/check/$propertyId');
       return response.data['isFavorite'];
     } on DioException catch (e) {
       throw _handleError(e);

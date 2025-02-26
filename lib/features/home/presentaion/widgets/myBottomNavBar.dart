@@ -4,7 +4,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 class Mybottomnavbar extends StatefulWidget {
   final int currentIndex;
   final ontap;
-  Mybottomnavbar({super.key, required this.currentIndex, required this.ontap});
+  const Mybottomnavbar({super.key, required this.currentIndex, required this.ontap});
 
   @override
   State<Mybottomnavbar> createState() => _MybottomnavbarState();
@@ -15,11 +15,11 @@ class _MybottomnavbarState extends State<Mybottomnavbar> {
   Widget build(BuildContext context) {
     //double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    final _items = [
+    final items = [
       SalomonBottomBarItem(
         icon: Image.asset(
           '././lib/images/home.png',
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           height: screenHeight * 0.03,
         ),
         selectedColor: const Color.fromARGB(254, 64, 212, 0),
@@ -28,7 +28,7 @@ class _MybottomnavbarState extends State<Mybottomnavbar> {
       SalomonBottomBarItem(
         icon: Image.asset(
           '././lib/images/cloud-share.png',
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           height: screenHeight * 0.03,
         ),
         selectedColor: const Color.fromARGB(254, 64, 212, 0),
@@ -37,7 +37,7 @@ class _MybottomnavbarState extends State<Mybottomnavbar> {
       SalomonBottomBarItem(
         icon: Image.asset(
           '././lib/images/guide-alt.png',
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           height: screenHeight * 0.03,
         ),
         selectedColor: const Color.fromARGB(254, 64, 212, 0),
@@ -46,7 +46,7 @@ class _MybottomnavbarState extends State<Mybottomnavbar> {
       SalomonBottomBarItem(
           icon: Image.asset(
             '././lib/images/user.png',
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             height: screenHeight * 0.03,
           ),
           selectedColor: const Color.fromARGB(254, 64, 212, 0),
@@ -57,7 +57,7 @@ class _MybottomnavbarState extends State<Mybottomnavbar> {
       elevation: 6,
       margin: EdgeInsets.all(10),
       child: SalomonBottomBar(
-        items: _items,
+        items: items,
         duration: Duration(seconds: 1),
         currentIndex: widget.currentIndex,
         onTap: widget.ontap,

@@ -68,7 +68,7 @@ class Profile extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.surface,
                       child: DataTable(
                         dividerThickness: 0,
                         columns: <DataColumn>[

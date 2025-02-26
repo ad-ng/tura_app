@@ -112,7 +112,7 @@ class ShareButtonComponents {
                                   ),
                                 )
                               : SizedBox.shrink(),
-                          Container(
+                          SizedBox(
                             height: 200,
                             width: 300,
                             child: ListView.builder(

@@ -6,7 +6,7 @@ import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
 
 class Propertycard extends StatefulWidget {
   final PropertiesModel property;
-  Propertycard({super.key, required this.property});
+  const Propertycard({super.key, required this.property});
 
   @override
   State<Propertycard> createState() => _PropertycardState();

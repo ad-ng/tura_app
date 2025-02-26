@@ -14,39 +14,34 @@ class GuidePage extends StatefulWidget {
 }
 
 class _GuidePageState extends State<GuidePage> {
-  late List<FaqModel> faqs = []; // Original unfiltered FAQ list
+  late List<FaqModel> faqs = []; // Original FAQ list
   late List<FaqModel> filteredFaqs = []; // Filtered list for display
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
+  late Future<List<FaqModel>>
+      _faqFuture; // Store the Future to prevent multiple calls
 
   @override
   void initState() {
     super.initState();
-    // Initialize the filtered list with all FAQs
-    filteredFaqs = faqs;
-
-    // Add a listener to searchController to listen for text changes
+    _faqFuture = FaqApiService().fetchFaq(); // Initialize Future once
+    filteredFaqs = faqs; // Initial state is empty
     _searchController.addListener(() {
-      
-      filterFAQs(
-          _searchController.text); // Filter whenever the search text changes
+      filterFAQs(_searchController.text);
     });
   }
 
   void filterFAQs(String query) {
-    // If the query is empty, show all FAQs
-    if (query.isEmpty) {
-      setState(() {
-        filteredFaqs = faqs; // Show all FAQs when search is cleared
-      });
-    } else {
-      setState(() {
+    setState(() {
+      if (query.isEmpty) {
+        filteredFaqs = faqs; // Reset to all FAQs when search is empty
+      } else {
         filteredFaqs = faqs
             .where((faq) =>
                 faq.question.toLowerCase().contains(query.toLowerCase()) ||
                 faq.answer.toLowerCase().contains(query.toLowerCase()))
             .toList();
-      });
-    }
+      }
+    });
   }
 
   @override
@@ -56,66 +51,53 @@ class _GuidePageState extends State<GuidePage> {
       child: Column(
         children: [
           myappbar(screenHeight: screenHeight),
-          SizedBox(
-            height: screenHeight * 0.02,
-          ),
+          SizedBox(height: screenHeight * 0.02),
           Text(
             'Frequent Asked Questions',
             style: TextStyle(
                 fontSize: 25, color: Theme.of(context).colorScheme.secondary),
           ),
-          SizedBox(
-            height: screenHeight * 0.009,
-          ),
+          SizedBox(height: screenHeight * 0.009),
           Mysearch(textEditingController: _searchController),
-          SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           SizedBox(
             height: 145,
-            width: double.infinity,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
                 Row(
                   children: [
+                    // Account Category
                     GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          // Filter by Account category
-                          filteredFaqs = faqs
-                              .where((faq) => faq.subject == 'Account')
-                              .toList();
-                        });
-                      },
+                      onTap: () => setState(() {
+                        filteredFaqs = faqs
+                            .where((faq) => faq.subject == 'Account')
+                            .toList();
+                      }),
                       child: faqCategory(
                         context: context,
                         faqCategoryName: 'Account',
                       ),
                     ),
+                    // Shares Category (corrected subject to 'Shares')
                     GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          // Filter by Shares category
-                          filteredFaqs = faqs
-                              .where((faq) => faq.subject == 'Share')
-                              .toList();
-                        });
-                      },
+                      onTap: () => setState(() {
+                        filteredFaqs = faqs
+                            .where((faq) => faq.subject == 'Shares')
+                            .toList();
+                      }),
                       child: faqCategory(
                         context: context,
                         faqCategoryName: 'Shares',
                       ),
                     ),
+                    // Property Category
                     GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          // Filter by Property category
-                          filteredFaqs = faqs
-                              .where((faq) => faq.subject == 'Property')
-                              .toList();
-                        });
-                      },
+                      onTap: () => setState(() {
+                        filteredFaqs = faqs
+                            .where((faq) => faq.subject == 'Property')
+                            .toList();
+                      }),
                       child: faqCategory(
                         context: context,
                         faqCategoryName: 'Property',
@@ -127,39 +109,33 @@ class _GuidePageState extends State<GuidePage> {
             ),
           ),
           FutureBuilder<List<FaqModel>>(
-            future: FaqApiService().fetchFaq(),
+            future: _faqFuture, // Use the stored Future
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator.adaptive();
+                return const CircularProgressIndicator();
               } else if (snapshot.hasError) {
-                return Center(
-                  child: Text("Error: ${snapshot.error}"),
-                );
-              } else if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  faqs = snapshot.data!;
-
-                  // If the filtered list is empty (first time), set the filtered list to all FAQs
-                  if (filteredFaqs.isEmpty) {
-                    filteredFaqs = faqs;
-                  }
-
-                  return Expanded(
-                    child: ListView.builder(
-                      itemCount: filteredFaqs.length,
-                      itemBuilder: (context, index) {
-                        return eachQuestionTile(
-                            question: filteredFaqs[index].question,
-                            answer: filteredFaqs[index].answer,
-                            context: context);
-                      },
-                    ),
-                  );
-                } else {
-                  return Center(child: Text("No data available"));
+                return Center(child: Text("Error: ${snapshot.error}"));
+              } else if (snapshot.hasData) {
+                faqs = snapshot.data!;
+                // Initialize filteredFaqs with all FAQs on first load
+                if (filteredFaqs.isEmpty) {
+                  filteredFaqs = faqs;
                 }
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: filteredFaqs.length,
+                    itemBuilder: (context, index) {
+                      return eachQuestionTile(
+                        question: filteredFaqs[index].question,
+                        answer: filteredFaqs[index].answer,
+                        context: context,
+                      );
+                    },
+                  ),
+                );
+              } else {
+                return const Center(child: Text("No data available"));
               }
-              return SizedBox.shrink();
             },
           ),
         ],

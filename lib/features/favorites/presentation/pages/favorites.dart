@@ -29,7 +29,7 @@ class Favorites_page extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
-                child: Text('${state.message}'),
+                child: Text(state.message),
               ),
             );
           }

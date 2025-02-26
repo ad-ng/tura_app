@@ -117,12 +117,8 @@ class _EachSharePageState extends State<EachSharePage> {
           }
         } else {
           for (final child in children) {
-            if (child is Sharemodel) {
-              _addPersonNodes(child, senderNode, graph, senderNodes);
-            } else {
-              debugPrint('Invalid child type: ${child.runtimeType}');
-            }
-          }
+            _addPersonNodes(child, senderNode, graph, senderNodes);
+                    }
         }
       }
     } catch (e) {

@@ -7,7 +7,7 @@ import 'package:tura_app/features/shares/presentation/bloc/createShareCubit.dart
 
 class MyCustomShareButton extends StatefulWidget {
   final int propertyId;
-  MyCustomShareButton({super.key, required this.propertyId});
+  const MyCustomShareButton({super.key, required this.propertyId});
 
   @override
   State<MyCustomShareButton> createState() => _MyCustomShareButtonState();

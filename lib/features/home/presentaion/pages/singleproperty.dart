@@ -222,12 +222,12 @@ class _SinglepropertyState extends State<Singleproperty> {
                                   DataRow(cells: [
                                     DataCell(Text('year built')),
                                     DataCell(Text(
-                                        '${property.yearBuilt!.split('-')[0]}'))
+                                        property.yearBuilt!.split('-')[0]))
                                   ]),
                                   DataRow(cells: [
                                     DataCell(Text('category')),
                                     DataCell(
-                                        Text('${property.category!.name!}'))
+                                        Text(property.category!.name!))
                                   ]),
                                 ],
                               ),
@@ -239,7 +239,7 @@ class _SinglepropertyState extends State<Singleproperty> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color:
-                                    Theme.of(context).colorScheme.background),
+                                    Theme.of(context).colorScheme.surface),
                             child: Column(
                               children: [
                                 Container(
@@ -280,7 +280,7 @@ class _SinglepropertyState extends State<Singleproperty> {
                               }
                               if (snapshot.hasError) {
                                 return Center(
-                                  child: Text('${snapshot.error.toString()}'),
+                                  child: Text(snapshot.error.toString()),
                                 );
                               }
                               if (snapshot.connectionState ==
