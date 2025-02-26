@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:intl/intl.dart';
 import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 //import 'package:share_plus/share_plus.dart';
 import 'package:tura_app/features/home/data/datasources/remote/propertiesapiservice.dart';
@@ -200,7 +199,7 @@ class _SinglepropertyState extends State<Singleproperty> {
                                   DataRow(cells: [
                                     DataCell(Text('price')),
                                     DataCell(Text(
-                                        '${NumberFormat('#,###').format(property.price!)} Rwf'))
+                                        '${property.price!} Rwf'))
                                   ]),
                                   DataRow(cells: [
                                     DataCell(Text('area')),

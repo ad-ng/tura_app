@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 import 'package:tura_app/features/home/data/models/properties_model.dart';
 import 'package:tura_app/features/home/presentaion/pages/singleproperty.dart';
@@ -177,7 +176,7 @@ class _PropertycardState extends State<Propertycard> {
           decoration: BoxDecoration(
               color: Colors.green[400], borderRadius: BorderRadius.circular(5)),
           child: Text(
-            '${NumberFormat('#,###').format(widget.property.price)} Rwf',
+            '${widget.property.price} Rwf',
             style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 20,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 import 'package:tura_app/features/favorites/data/models/favoritesModel.dart';
 import 'package:tura_app/features/favorites/presentation/bloc/favoritesCubit.dart';
@@ -24,7 +23,7 @@ class Favoritecard extends StatelessWidget {
             ),
           ),
           subtitle: Text(
-            "${NumberFormat('#,###').format(favotite.property.price!)} Rwf",
+            "${favotite.property.price!} Rwf",
             style: TextStyle(
               color: Colors.green[400],
               fontSize: 18,

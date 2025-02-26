@@ -5,7 +5,7 @@ class PropertiesModel {
   List<String>? imageUrls;
   String? slug;
   String? details;
-  int? price;
+  String? price;
   int? categoryId;
   int? size;
   bool? hasParking;
