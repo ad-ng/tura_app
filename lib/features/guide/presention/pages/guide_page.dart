@@ -48,19 +48,17 @@ class _GuidePageState extends State<GuidePage> {
                     faqCategory(
                         context: context,
                         faqCategoryName: 'Account',
-                        faqIcon: Icons.person,
-                        iconSize: 40),
+                        
+                        ),
                     faqCategory(
                       context: context,
                       faqCategoryName: 'Shares',
-                      faqIcon: Icons.share,
-                      iconSize: 35,
+                      
                     ),
                     faqCategory(
                       context: context,
                       faqCategoryName: 'Property',
-                      faqIcon: Icons.house_rounded,
-                      iconSize: 35,
+                     
                     ),
                   ],
                 ),
