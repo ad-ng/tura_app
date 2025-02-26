@@ -26,16 +26,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     //double screenHeight = MediaQuery.of(context).size.height;
     //ouble screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      drawer: MyDrawer(),
-      body: _screens[currentIndex],
-      bottomNavigationBar: Mybottomnavbar(
-        currentIndex: currentIndex,
-        ontap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
+    return SafeArea(
+      child: Scaffold(
+        drawer: MyDrawer(),
+        body: _screens[currentIndex],
+        bottomNavigationBar: Mybottomnavbar(
+          currentIndex: currentIndex,
+          ontap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+        ),
       ),
     );
   }

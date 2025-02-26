@@ -16,38 +16,36 @@ class _SharesState extends State<Shares> {
     double screenHeight = MediaQuery.of(context).size.height;
     return DefaultTabController(
       length: 2,
-      child: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: screenHeight * 0.01,
-            ),
-            myappbar(screenHeight: screenHeight),
-            TabBar(
-              dividerHeight: 0,
-              tabs: [
-                Tab(
-                  text: 'shares sent',
-                  icon: Icon(Icons.arrow_upward_sharp),
+      child: Column(
+        children: [
+          SizedBox(
+            height: screenHeight * 0.01,
+          ),
+          myappbar(screenHeight: screenHeight),
+          TabBar(
+            dividerHeight: 0,
+            tabs: [
+              Tab(
+                text: 'shares sent',
+                icon: Icon(Icons.arrow_upward_sharp),
+              ),
+              Tab(
+                text: 'shares received',
+                icon: Icon(
+                  Icons.arrow_downward_outlined,
                 ),
-                Tab(
-                  text: 'shares received',
-                  icon: Icon(
-                    Icons.arrow_downward_outlined,
-                  ),
-                )
+              )
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
+              children: [
+                Sharessent(),
+                Sharesrecieved(),
               ],
             ),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  Sharessent(),
-                  Sharesrecieved(),
-                ],
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
