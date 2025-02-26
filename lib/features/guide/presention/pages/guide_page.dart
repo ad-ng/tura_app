@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tura_app/features/guide/data/datasource/faqApiService.dart';
 import 'package:tura_app/features/guide/presention/widgets/eachQuestionTile.dart';
 import 'package:tura_app/features/guide/presention/widgets/faqCategory.dart';
 import 'package:tura_app/features/guide/presention/widgets/mySearch.dart';
@@ -66,17 +67,31 @@ class _GuidePageState extends State<GuidePage> {
               ],
             ),
           ),
-          eachQuestionTile(
-            question: 'what is tura',
-            answer: 'is some bullshit',
-            context: context,
+          FutureBuilder(
+            future: FaqApiService().fetchFaq(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator.adaptive();
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text("error ${snapshot.error}"),
+                );
+              } else if (snapshot.connectionState == ConnectionState.done) {
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return eachQuestionTile(
+                          question: snapshot.data![index].question,
+                          answer: snapshot.data![index].answer,
+                          context: context);
+                    },
+                  ),
+                );
+              }
+              return SizedBox.shrink();
+            },
           ),
-          eachQuestionTile(
-            question: 'what is tura 1',
-            answer:
-                'Our platform simplifies property oversight, tenant management, and financial tracking for property owners and managers, while providing tenants with easy access to property details, payment options, and maintenance requests',
-            context: context,
-          )
         ],
       ),
     );

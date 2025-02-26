@@ -2,16 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:tura_app/config/network/dioService.dart';
 import 'package:tura_app/features/guide/data/model/faqModel.dart';
 
-class Faqapiservice {
+class FaqApiService {
   final Dio _dio = DioService.instance.dio;
 
   Future<List<FaqModel>> fetchFaq() async {
     try {
-      final response = await _dio.get('faq');
+      final response = await _dio.get('/faq');
 
       final dataJson = response.data['data'];
+
       if (dataJson != null && dataJson is List) {
-        return dataJson.map((json) => FaqModel.fromJson(json)).toList();
+        return dataJson.map((json) => FaqModel.fromMap(json)).toList();
       } else {
         throw Exception(
             'Expected a list of properties but got ${dataJson.runtimeType}');
