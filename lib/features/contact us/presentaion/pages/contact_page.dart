@@ -47,7 +47,10 @@ class _ContactPageState extends State<ContactPage> {
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
                   'Get In Touch',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Card(
@@ -160,7 +163,11 @@ class _ContactPageState extends State<ContactPage> {
               Center(
                 child: Text(
                   'Follow Us',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                 ),
               ),
               Row(
@@ -170,6 +177,7 @@ class _ContactPageState extends State<ContactPage> {
                     onPressed: () {},
                     icon: Image.asset(
                       '././lib/images/facebookNew.png',
+                      color: Theme.of(context).colorScheme.secondary,
                       height: 30,
                     ),
                   ),
@@ -177,6 +185,7 @@ class _ContactPageState extends State<ContactPage> {
                     onPressed: () {},
                     icon: Image.asset(
                       '././lib/images/instagram.png',
+                      color: Theme.of(context).colorScheme.secondary,
                       height: 30,
                     ),
                   ),
@@ -184,6 +193,7 @@ class _ContactPageState extends State<ContactPage> {
                     onPressed: () {},
                     icon: Image.asset(
                       '././lib/images/twitter-alt.png',
+                      color: Theme.of(context).colorScheme.secondary,
                       height: 30,
                     ),
                   ),
