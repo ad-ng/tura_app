@@ -47,14 +47,14 @@ class PropertiesCubit extends Cubit<PropertiesState> {
   final PropertiesRepo _propertiesRepo;
 
   PropertiesCubit(this._propertiesRepo) : super(PropertiesInitial()) {
-    fetchProps();
+    fetchProps(1);
   }
 
-  Future fetchProps() async {
+  Future fetchProps(int page) async {
     emit(PropertiesLoading());
 
     try {
-      final response = await _propertiesRepo.fetchProps();
+      final response = await _propertiesRepo.fetchProps(page);
       print('Fetched properties: $response'); // Log the response
       emit(PropertiesSuccess(response));
     } catch (e) {
