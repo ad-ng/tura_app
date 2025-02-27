@@ -15,17 +15,18 @@ Widget contactInput(
       minLines: (isMessage) ? 6 : 1,
       cursorColor: Colors.black,
       decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-        ),
-        fillColor: Theme.of(context).colorScheme.secondary,
-        filled: true,
-        errorStyle: TextStyle(color: Colors.white),
-        hintText: hintText,
-      ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
+          ),
+          fillColor: Theme.of(context).colorScheme.secondary,
+          filled: true,
+          errorStyle: TextStyle(color: Colors.white),
+          hintText: hintText,
+          ),
     ),
   );
 }
