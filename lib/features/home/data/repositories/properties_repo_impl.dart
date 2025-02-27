@@ -19,8 +19,8 @@ class PropertiesRepoImpl implements PropertiesRepo {
   PropertiesRepoImpl(this._propertiesapiservice);
 
   @override
-  Future<List<PropertiesModel>> fetchProps() async {
-    return await _propertiesapiservice.fetchProps();
+  Future<List<PropertiesModel>> fetchProps(int page) async {
+    return await _propertiesapiservice.fetchProps(page);
   }
 
   @override
