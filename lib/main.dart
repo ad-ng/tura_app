@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/core/theme/light_mode.dart';
 import 'package:tura_app/core/theme/theme_cubit.dart';
+import 'package:tura_app/features/contact%20us/presentaion/pages/contact_page.dart';
 import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 import 'package:tura_app/features/favorites/data/repositories/favorites_repo_impl.dart';
 import 'package:tura_app/features/favorites/presentation/bloc/favoritesCubit.dart';
@@ -40,10 +41,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registerRepo = RegisterRepoImpl(Registerapiservice());
-    final _userRepo = UserRepoImpl(UserApiService());
-    final _propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
-    final _shareRepo = ShareRepoImpl(ShareApiService());
-    final _favoritesRepo = FavoritesRepoImpl(Favoritesapiservice());
+    final userRepo = UserRepoImpl(UserApiService());
+    final propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
+    final shareRepo = ShareRepoImpl(ShareApiService());
+    final favoritesRepo = FavoritesRepoImpl(Favoritesapiservice());
 
     final slug = 'slug';
 
@@ -52,15 +53,15 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => LoginCubit(LoginApiService())),
         BlocProvider(create: (context) => Registercubit(registerRepo)),
         BlocProvider(create: (context) => ThemeCubit()),
-        BlocProvider(create: (context) => PropertiesCubit(_propertiesRepo)),
-        BlocProvider(create: (context) => SharesSentCubit(_shareRepo)),
-        BlocProvider(create: (context) => SharesrecievedCubit(_shareRepo)),
-        BlocProvider(create: (context) => CreateShareCubit(_shareRepo)),
-        BlocProvider(create: (context) => Wholesharetree(_shareRepo)),
-        BlocProvider(create: (context) => UserCubit(_userRepo)),
-        BlocProvider(create: (context) => Favoritescubit(_favoritesRepo)),
+        BlocProvider(create: (context) => PropertiesCubit(propertiesRepo)),
+        BlocProvider(create: (context) => SharesSentCubit(shareRepo)),
+        BlocProvider(create: (context) => SharesrecievedCubit(shareRepo)),
+        BlocProvider(create: (context) => CreateShareCubit(shareRepo)),
+        BlocProvider(create: (context) => Wholesharetree(shareRepo)),
+        BlocProvider(create: (context) => UserCubit(userRepo)),
+        BlocProvider(create: (context) => Favoritescubit(favoritesRepo)),
         BlocProvider(
-            create: (context) => SinglePropertyCubit(_propertiesRepo, slug))
+            create: (context) => SinglePropertyCubit(propertiesRepo, slug))
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -73,7 +74,8 @@ class MyApp extends StatelessWidget {
           'homePage': (context) => const HomePage(),
           'registerPage': (context) => const RegisterPage(),
           'loginPage': (context) => const LoginPage(),
-          'favoritePage': (context) => const Favorites_page()
+          'favoritePage': (context) => const Favorites_page(),
+          'contactPage': (context) => const ContactPage()
         },
       ),
     );

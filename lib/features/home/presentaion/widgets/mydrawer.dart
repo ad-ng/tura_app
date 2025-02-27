@@ -13,16 +13,6 @@ class MyDrawer extends StatelessWidget {
       width: screenWidth * 0.6,
       child: ListView(
         children: [
-          // DrawerHeader(
-          //   child: ClipRRect(
-          //     borderRadius: BorderRadius.circular(20),
-          //     child: Image.network(
-          //       'https://d1covwzj3ggua9.cloudfront.net/user/Adolphe.jpg',
-          //       height: 10,
-          //       width: 10,
-          //     ),
-          //   ),
-          // ),
           Padding(
             padding:
                 const EdgeInsets.only(top: 65, left: 28, right: 28), //all(28),
@@ -35,7 +25,6 @@ class MyDrawer extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.05,
           ),
-
           ListTile(
             leading: Icon(Icons.settings,
                 color: Theme.of(context).colorScheme.secondary),
@@ -76,7 +65,9 @@ class MyDrawer extends StatelessWidget {
             title: Text('contact us',
                 style:
                     TextStyle(color: Theme.of(context).colorScheme.secondary)),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, 'contactPage');
+            },
           ),
           ListTile(
             leading: Icon(Icons.logout,
