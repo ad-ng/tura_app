@@ -12,66 +12,99 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  // Moved all state variables inside the State class
+  late ScrollController _scrollController;
+  List properties = [];
+  int page = 2;
+  bool isLoading = false;
+  bool hasMore = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+    // Fetch initial data when the widget is first created
+    _fetchInitialData();
+  }
+
+  void _fetchInitialData() {
+    BlocProvider.of<PropertiesCubit>(context).fetchProps(page);
+    page++; // Increment page after the initial fetch
+  }
+
+  void _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange &&
+        !isLoading &&
+        hasMore) {
+      setState(() {
+        isLoading = true;
+      });
+      BlocProvider.of<PropertiesCubit>(context).fetchProps(page);
+      page++;
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+
     return Column(
       children: [
-        SizedBox(
-          height: screenHeight * 0.01,
-        ),
+        SizedBox(height: screenHeight * 0.01),
         myappbar(screenHeight: screenHeight),
-        SizedBox(
-          height: screenHeight * 0.00001,
-        ),
-        // FutureBuilder<List<PropertiesModel>>(
-        //   //future: _propertiesApiService.fetchProps(),
-        //   future: _propertiesApiService.fetchProps(),
-        //   builder: (context, snapshot) {
-        //     if (snapshot.connectionState == ConnectionState.waiting) {
-        //       return Center(child: CircularProgressIndicator());
-        //     } else if (snapshot.hasError) {
-        //       // Handle errors
-        //       return Center(child: Text('Error: ${snapshot.error}'));
-        //     } else {
-        //       return Expanded(
-        //         child: ListView.builder(
-        //           itemCount: snapshot.data!.length,
-        //           itemBuilder: (context, index) {
-        //             final property = snapshot.data![index];
-        //             return Propertycard(property: property);
-        //           },
-        //         ),
-        //       );
-        //     }
-        //   },
-        // ),
-        BlocBuilder<PropertiesCubit, PropertiesState>(
-          builder: (context, state) {
-            if (state is PropertiesLoading) {
-              print('Loading properties...');
-              return Center(child: CircularProgressIndicator.adaptive());
-            }
+        SizedBox(height: screenHeight * 0.00001),
+        BlocListener<PropertiesCubit, PropertiesState>(
+          listener: (context, state) {
             if (state is PropertiesSuccess) {
-              print('Properties loaded successfully!');
-              final properties = state.response;
+              setState(() {
+                isLoading = false;
+                if (state.response.isEmpty) {
+                  hasMore = false;
+                } else {
+                  properties.addAll(state.response);
+                }
+              });
+            } else if (state is PropertiesError) {
+              setState(() => isLoading = false);
+              // Optionally show error message
+            }
+          },
+          child: BlocBuilder<PropertiesCubit, PropertiesState>(
+            builder: (context, state) {
               return Expanded(
                 child: ListView.builder(
-                  itemCount: properties.length,
+                  controller: _scrollController,
+                  itemCount: properties.length + (isLoading ? 1 : 0),
                   itemBuilder: (context, index) {
+                    if (index >= properties.length) {
+                      return const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
                     final property = properties[index];
-                    return Propertycard(property: property);
+                    return Propertycard(
+                      key: Key(property.id.toString()), // Unique key
+                      property: property,
+                    );
                   },
                 ),
               );
-            }
-            if (state is PropertiesError) {
-              print('Error: ${state.message}');
-              return Center(child: Text('Error: ${state.message}'));
-            }
-            return SizedBox.shrink(); // Default case (initial state, etc.)
-          },
-        )
+            },
+          ),
+        ),
       ],
     );
   }
