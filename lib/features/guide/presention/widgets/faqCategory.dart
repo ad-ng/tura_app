@@ -5,10 +5,9 @@ Widget faqCategory({
   required String faqCategoryName,
 }) {
   return Container(
-    margin: EdgeInsets.all(10),
-    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-    height: 200,
-    width: 130,
+    margin: EdgeInsets.symmetric(vertical: 20),
+    padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * 0.05, vertical: 15),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(12),
       color: Theme.of(context).colorScheme.secondary,
@@ -16,15 +15,15 @@ Widget faqCategory({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(
-          child: Icon(
-            Icons.lightbulb_sharp,
-            color: Colors.yellow[900],
-            size: 35,
-          ),
-        ),
+        // Center(
+        //   child: Icon(
+        //     Icons.lightbulb_sharp,
+        //     color: Colors.yellow[900],
+        //     size: 35,
+        //   ),
+        // ),
         Text(
-          'Questions about:',
+          'Questions \nabout:',
           style: TextStyle(color: Colors.grey[800]),
         ),
         Text(

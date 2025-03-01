@@ -59,53 +59,43 @@ class _GuidePageState extends State<GuidePage> {
         SizedBox(height: screenHeight * 0.009),
         Mysearch(textEditingController: _searchController),
         const SizedBox(height: 10),
-        SizedBox(
-          height: 145,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              Row(
-                children: [
-                  // Account Category
-                  GestureDetector(
-                    onTap: () => setState(() {
-                      filteredFaqs = faqs
-                          .where((faq) => faq.subject == 'Account')
-                          .toList();
-                    }),
-                    child: faqCategory(
-                      context: context,
-                      faqCategoryName: 'Account',
-                    ),
-                  ),
-                  // Shares Category (corrected subject to 'Shares')
-                  GestureDetector(
-                    onTap: () => setState(() {
-                      filteredFaqs = faqs
-                          .where((faq) => faq.subject == 'Shares')
-                          .toList();
-                    }),
-                    child: faqCategory(
-                      context: context,
-                      faqCategoryName: 'Shares',
-                    ),
-                  ),
-                  // Property Category
-                  GestureDetector(
-                    onTap: () => setState(() {
-                      filteredFaqs = faqs
-                          .where((faq) => faq.subject == 'Property')
-                          .toList();
-                    }),
-                    child: faqCategory(
-                      context: context,
-                      faqCategoryName: 'Property',
-                    ),
-                  ),
-                ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            // Account Category
+            GestureDetector(
+              onTap: () => setState(() {
+                filteredFaqs =
+                    faqs.where((faq) => faq.subject == 'Account').toList();
+              }),
+              child: faqCategory(
+                context: context,
+                faqCategoryName: 'Account',
               ),
-            ],
-          ),
+            ),
+            // Shares Category (corrected subject to 'Shares')
+            GestureDetector(
+              onTap: () => setState(() {
+                filteredFaqs =
+                    faqs.where((faq) => faq.subject == 'Shares').toList();
+              }),
+              child: faqCategory(
+                context: context,
+                faqCategoryName: 'Shares',
+              ),
+            ),
+            // Property Category
+            GestureDetector(
+              onTap: () => setState(() {
+                filteredFaqs =
+                    faqs.where((faq) => faq.subject == 'Property').toList();
+              }),
+              child: faqCategory(
+                context: context,
+                faqCategoryName: 'Property',
+              ),
+            ),
+          ],
         ),
         FutureBuilder<List<FaqModel>>(
           future: _faqFuture, // Use the stored Future

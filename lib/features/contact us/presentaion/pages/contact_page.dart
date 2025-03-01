@@ -8,9 +8,9 @@ class ContactPage extends StatefulWidget {
   State<ContactPage> createState() => _ContactPageState();
 }
 
-TextEditingController emailController = new TextEditingController();
-TextEditingController namesController = new TextEditingController();
-TextEditingController messageController = new TextEditingController();
+TextEditingController emailController = TextEditingController();
+TextEditingController namesController = TextEditingController();
+TextEditingController messageController = TextEditingController();
 final _contactFormKey = GlobalKey<FormState>();
 
 class _ContactPageState extends State<ContactPage> {
