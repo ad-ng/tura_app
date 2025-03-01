@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:popover/popover.dart';
+import 'package:tura_app/features/home/presentaion/widgets/myFilter.dart';
 
 class myappbar extends StatelessWidget {
   const myappbar({
@@ -36,7 +38,15 @@ class myappbar extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () => showPopover(
+                  context: context,
+                  height: 500,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  direction: PopoverDirection.top,
+                  bodyBuilder: (context) {
+                    return MyFilter();
+                  },
+                ),
                 icon: Image.asset(
                   '././lib/images/options.png',
                   color: Theme.of(context).colorScheme.secondary,
