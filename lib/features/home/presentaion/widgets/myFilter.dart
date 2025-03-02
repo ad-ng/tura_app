@@ -46,7 +46,10 @@ class _MyFilterState extends State<MyFilter> {
             SizedBox(width: MediaQuery.of(context).size.width * 0.05),
             Text(
               'Property Prices:',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.surface),
             ),
             SizedBox(width: MediaQuery.of(context).size.width * 0.02),
             DropdownButton<String>(
