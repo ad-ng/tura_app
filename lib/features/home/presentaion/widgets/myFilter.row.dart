@@ -23,6 +23,7 @@ class _MyFilterRowState extends State<MyFilterRow> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(width: MediaQuery.of(context).size.width * 0.05),
         Text(
@@ -34,9 +35,11 @@ class _MyFilterRowState extends State<MyFilterRow> {
         ),
         SizedBox(width: MediaQuery.of(context).size.width * 0.02),
         DropdownButton<String>(
-            items: widget.itemRanges,
-            value: widget.firstDropDown, // Use the valid dropDownValue here
-            onChanged: widget.onChanged),
+          items: widget.itemRanges,
+          value: widget.firstDropDown, // Use the valid dropDownValue here
+          onChanged: widget.onChanged,
+        ),
+        SizedBox(width: MediaQuery.of(context).size.width * 0.04)
       ],
     );
   }

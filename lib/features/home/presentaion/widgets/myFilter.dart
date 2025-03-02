@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tura_app/features/guide/presention/widgets/mySearch.dart';
+import 'package:tura_app/features/home/presentaion/widgets/myFilter.row.dart';
 
 class MyFilter extends StatefulWidget {
   MyFilter({super.key});
@@ -13,12 +14,12 @@ class _MyFilterState extends State<MyFilter> {
 
   final priceRanges = [
     DropdownMenuItem(
-      child: Text('All Ranges'),
-      value: 'All Ranges',
+      child: Text('All'),
+      value: 'All',
     ),
     DropdownMenuItem(
       child: Text('Under RWF 50 M'),
-      value: '[0,50]',
+      value: 'one',
     ),
     DropdownMenuItem(
       child: Text('RWF 50 M -  100 M'),
@@ -34,33 +35,122 @@ class _MyFilterState extends State<MyFilter> {
     )
   ];
 
-  String? dropDownValue = 'All Ranges'; // Set default value to 'one'
+  String? dropDownValue = 'All'; // Set default value to 'All'
+
+  bool isForSale = false;
+  bool isLand = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Mysearch(textEditingController: textEditingController),
+        MyFilterRow(
+          dropDownTitle: 'Property Price:      ',
+          firstDropDown: 'All',
+          itemRanges: priceRanges,
+          onChanged: (String? newValue) {
+            setState(() {
+              dropDownValue = newValue;
+            });
+          },
+        ),
+        MyFilterRow(
+          dropDownTitle: 'Property size:         ',
+          firstDropDown: 'All',
+          itemRanges: priceRanges,
+          onChanged: (String? newValue) {
+            setState(() {
+              dropDownValue = newValue;
+            });
+          },
+        ),
+        MyFilterRow(
+          dropDownTitle: 'Property Category:',
+          firstDropDown: 'All',
+          itemRanges: priceRanges,
+          onChanged: (String? newValue) {
+            setState(() {
+              dropDownValue = newValue;
+            });
+          },
+        ),
+        MyFilterRow(
+          dropDownTitle: 'Property Location:',
+          firstDropDown: 'All',
+          itemRanges: priceRanges,
+          onChanged: (String? newValue) {
+            setState(() {
+              dropDownValue = newValue;
+            });
+          },
+        ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-            Text(
-              'Property Prices:',
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.surface),
+            Row(
+              children: [
+                Checkbox.adaptive(
+                  activeColor: Colors.blueAccent,
+                  value: isForSale,
+                  onChanged: (value) {
+                    setState(() {
+                      isForSale = value!;
+                    });
+                  },
+                ),
+                Text(
+                  'For Sale',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                )
+              ],
             ),
-            SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-            DropdownButton<String>(
-              items: priceRanges,
-              value: dropDownValue, // Use the valid dropDownValue here
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropDownValue = newValue;
-                });
+            Row(
+              children: [
+                Checkbox.adaptive(
+                  activeColor: Colors.blueAccent,
+                  value: isLand,
+                  onChanged: (value) {
+                    setState(() {
+                      isLand = value!;
+                    });
+                  },
+                ),
+                Text(
+                  'Land',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
               },
+              child: Text('Cancel'),
             ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.05,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Search'),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.05,
+            )
           ],
         )
       ],
