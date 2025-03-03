@@ -42,6 +42,12 @@ class _SharessentState extends State<Sharessent> {
             }
           }).toList();
 
+          propertyEachShareCount(propId) {
+            return state.response
+                .where((prop) => prop.propertyId == propId)
+                .toList();
+          }
+
           return Column(
             children: [
               Padding(
@@ -84,113 +90,96 @@ class _SharessentState extends State<Sharessent> {
                   itemCount: uniqueProperties.length,
                   itemBuilder: (context, index) {
                     var property = uniqueProperties[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        children: [
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () async {
-                                      bool isFavorited =
-                                          await Favoritesapiservice()
-                                              .checkFavorite(
-                                                  property.propertyId);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Singleproperty(
-                                            slug: property.property.slug!,
-                                            propertyId: property.propertyId,
-                                            isFavorited: isFavorited,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Image.network(
-                                      property.property.imageUrls![0],
-                                      width: screenWidth * 0.15,
-                                    ),
-                                  ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(25),
-                                    child: Image.network(
-                                      property.sender!.profileImg!,
-                                      width: screenWidth * 0.1,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      showDialog(
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog.adaptive(
-                                            title: Text('Quick share info'),
-                                            content: SizedBox(
-                                              height: 20,
-                                              child: Text(
-                                                  'shares sent to ${state.response.length} people'),
-                                            ),
-                                            actions: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      BlocProvider.of<
-                                                                  Wholesharetree>(
-                                                              context)
-                                                          .fetchShareTree(
-                                                              property.id);
-
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              EachSharePage(),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Text('whole tree'),
-                                                  ),
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Text('cancel'),
-                                                  ),
-                                                ],
+                    return Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Column(
+                            children: [
+                              Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () async {
+                                          bool isFavorited =
+                                              await Favoritesapiservice()
+                                                  .checkFavorite(
+                                                      property.propertyId);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Singleproperty(
+                                                slug: property.property.slug!,
+                                                propertyId: property.propertyId,
+                                                isFavorited: isFavorited,
                                               ),
-                                            ],
+                                            ),
                                           );
                                         },
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 3),
-                                      child: Icon(
-                                        Icons.info_outline_rounded,
-                                        size: 30,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
+                                        child: Image.network(
+                                          property.property.imageUrls![0],
+                                          width: screenWidth * 0.15,
+                                        ),
                                       ),
-                                    ),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(25),
+                                        child: Image.network(
+                                          property.sender!.profileImg!,
+                                          width: screenWidth * 0.1,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          BlocProvider.of<Wholesharetree>(
+                                                  context)
+                                              .fetchShareTree(property.id);
+
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EachSharePage(),
+                                            ),
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 3),
+                                          child: Icon(
+                                            Icons.info_outline_rounded,
+                                            size: 30,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.2,
+                              top: 3),
+                          child: Center(
+                              child: Text(
+                            '${propertyEachShareCount(property.parentShareId).length}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          )),
+                        )
+                      ],
                     );
                   },
                 ),
