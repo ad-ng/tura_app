@@ -84,8 +84,8 @@ class _SettingPageState extends State<SettingPage> {
                 'Dark Mode',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.secondary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               trailing: Switch(
@@ -122,8 +122,8 @@ class _SettingPageState extends State<SettingPage> {
                     'Notification',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   trailing: Switch(
@@ -145,8 +145,8 @@ class _SettingPageState extends State<SettingPage> {
                     'Emails',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   trailing: Switch(
