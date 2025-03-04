@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/features/Setting/data/model/updateUserModel.dart';
+import 'package:tura_app/features/Setting/data/datasource/userUpdateApiService.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
 import 'package:tura_app/features/login/presentation/widgets/myInput.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
@@ -7,27 +9,35 @@ import 'package:tura_app/features/register/presentaion/widgets/dob_input.dart';
 import 'package:tura_app/features/register/presentaion/widgets/gender_picker.dart';
 
 class UpdateProfile extends StatelessWidget {
-  final UserModel user;
-  UpdateProfile({super.key, required this.user});
+  UpdateProfile(
+      {super.key,
+      required this.user,
+      required this.fullnameController,
+      required this.usernameController,
+      required this.emailController,
+      required this.dateController,
+      required this.phoneNumberController,
+      required this.addressController,
+      required this.genderController});
 
-  final fullnameController = TextEditingController();
-  final usernameController = TextEditingController();
-  final emailController = TextEditingController();
-  final phoneNumberController = TextEditingController();
-  final dateController = TextEditingController();
-  final genderController = TextEditingController();
-  final addressController = TextEditingController();
+  final UserModel user;
+
+  final TextEditingController fullnameController;
+
+  final TextEditingController usernameController;
+
+  final TextEditingController emailController;
+
+  final TextEditingController phoneNumberController;
+
+  final TextEditingController dateController;
+
+  final TextEditingController genderController;
+
+  final TextEditingController addressController;
 
   @override
   Widget build(BuildContext context) {
-    fullnameController.text = user.fullname!;
-    usernameController.text = user.username!;
-    emailController.text = user.email!;
-    phoneNumberController.text = user.phoneNumber!;
-    dateController.text = user.dob!;
-    genderController.text = user.gender!;
-    addressController.text = user.address!;
-
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -210,11 +220,19 @@ class UpdateProfile extends StatelessWidget {
                                 .adaptive(); // Show loading indicator
                           }
                           return GestureDetector(
-                            onTap: () {
-                              //_formKey.currentState!.validate();
-                              // Get the username and password from the text fields
-
-                              // Trigger the login method in the Cubit
+                            onTap: () async {
+                              await UserUpdateApiService().updateUser(
+                                UpdateUserModel(
+                                  //  username: usernameController.text,
+                                  fullname: fullnameController.text,
+                                  // email: emailController.text,
+                                  phoneNumber: phoneNumberController.text,
+                                  dob: dateController.text,
+                                  gender: genderController.text,
+                                  address: addressController.text,
+                                ),
+                                user.username,
+                              );
                             },
                             child: Text(
                               'Update',

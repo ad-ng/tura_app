@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Myinput extends StatefulWidget {
-  Myinput(
-      {super.key,
-      required this.myBool,
-      required this.hintText,
-      required this.isPassword,
-      required this.controller,
-      required this.hider});
+  Myinput({
+    super.key,
+    required this.myBool,
+    required this.hintText,
+    required this.isPassword,
+    required this.controller,
+    required this.hider,
+  });
   bool myBool;
   bool hider;
   final hintText;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/core/theme/light_mode.dart';
 import 'package:tura_app/core/theme/theme_cubit.dart';
-import 'package:tura_app/features/Setting/presentaion/pages/setting_page.dart';
+import 'package:tura_app/features/Setting/presentation/pages/setting_page.dart';
 import 'package:tura_app/features/contact%20us/presentaion/pages/contact_page.dart';
 import 'package:tura_app/features/favorites/data/datasources/favoritesApiService.dart';
 import 'package:tura_app/features/favorites/data/repositories/favorites_repo_impl.dart';
