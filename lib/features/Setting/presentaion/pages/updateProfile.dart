@@ -36,26 +36,28 @@ class UpdateProfile extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(65),
-              child: Image.network(
-                user.profileImg!,
-                width: MediaQuery.of(context).size.width * 0.35,
-              ),
-            ),
-            Card(
-              margin: EdgeInsets.symmetric(vertical: 5),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Update Profile Image',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(65),
+                  child: Image.network(
+                    'https://avatars.githubusercontent.com/u/120335033?v=4', //user.profileImg!,
+                    width: MediaQuery.of(context).size.width * 0.35,
                   ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 140),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Icon(
+                        Icons.add_a_photo,
+                        size: 35,
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
             SizedBox(
               height: 10,
