@@ -67,7 +67,9 @@ class _SettingPageState extends State<SettingPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return const UpdateProfile();
+                              return UpdateProfile(
+                                user: state.response,
+                              );
                             },
                           ),
                         );

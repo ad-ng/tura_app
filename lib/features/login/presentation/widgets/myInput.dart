@@ -23,7 +23,7 @@ class _MyinputState extends State<Myinput> {
   Widget build(BuildContext context) {
     return Container(
       height: 55,
-      padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+      padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
       child: Center(
         child: TextFormField(
           validator: (value) =>
