@@ -223,9 +223,7 @@ class UpdateProfile extends StatelessWidget {
                             onTap: () async {
                               await UserUpdateApiService().updateUser(
                                 UpdateUserModel(
-                                  //  username: usernameController.text,
                                   fullname: fullnameController.text,
-                                  // email: emailController.text,
                                   phoneNumber: phoneNumberController.text,
                                   dob: dateController.text,
                                   gender: genderController.text,
@@ -233,6 +231,7 @@ class UpdateProfile extends StatelessWidget {
                                 ),
                                 user.username,
                               );
+                              Navigator.pushNamed(context, 'settingPage');
                             },
                             child: Text(
                               'Update',
