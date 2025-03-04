@@ -41,7 +41,7 @@ class UpdateProfile extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(65),
                   child: Image.network(
-                    'https://avatars.githubusercontent.com/u/120335033?v=4', //user.profileImg!,
+                    user.profileImg!,
                     width: MediaQuery.of(context).size.width * 0.35,
                   ),
                 ),
