@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/features/Setting/presentaion/pages/updateProfile.dart';
 import 'package:tura_app/features/profile/presentaion/bloc/userCubit.dart';
 
 class SettingPage extends StatefulWidget {
@@ -61,7 +62,16 @@ class _SettingPageState extends State<SettingPage> {
                       ),
                     ),
                     trailing: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const UpdateProfile();
+                            },
+                          ),
+                        );
+                      },
                       icon: Icon(
                         Icons.arrow_forward_ios,
                         color: Theme.of(context).colorScheme.secondary,
