@@ -35,7 +35,9 @@ class MyDrawer extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, 'settingPage');
+            },
           ),
           ListTile(
             leading: Icon(Icons.favorite_sharp,
