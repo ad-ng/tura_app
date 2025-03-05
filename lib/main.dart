@@ -18,6 +18,7 @@ import 'package:tura_app/features/register/data/datasources/registerApiService.d
 import 'package:tura_app/features/register/data/repository/register_repo_impl.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
 import 'package:tura_app/features/register/presentaion/pages/register_page.dart';
+import 'package:tura_app/features/setting/presentation/pages/setting_page.dart';
 import 'package:tura_app/features/shares/data/datasources/shareapiservice.dart';
 import 'package:tura_app/features/shares/data/repositories/share_repo_impl.dart';
 import 'package:tura_app/features/shares/presentation/bloc/createShareCubit.dart';
@@ -75,7 +76,8 @@ class MyApp extends StatelessWidget {
           'registerPage': (context) => const RegisterPage(),
           'loginPage': (context) => const LoginPage(),
           'favoritePage': (context) => const Favorites_page(),
-          'contactPage': (context) => const ContactPage()
+          'contactPage': (context) => const ContactPage(),
+          'settingPage': (context) => const SettingPage()
         },
       ),
     );
