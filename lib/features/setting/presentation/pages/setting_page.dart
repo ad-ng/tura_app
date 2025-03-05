@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-//import 'package:tura_app/features/Setting/presentation/pages/updateProfile.dart';
+import 'package:tura_app/features/Setting/presentation/pages/updateProfile.dart';
 import 'package:tura_app/features/profile/presentaion/bloc/userCubit.dart';
 
 class SettingPage extends StatefulWidget {
@@ -63,37 +63,37 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                     trailing: IconButton(
                       onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) {
-                        //       return UpdateProfile(
-                        //         fullnameController: TextEditingController(
-                        //           text: state.response.fullname,
-                        //         ),
-                        //         addressController: TextEditingController(
-                        //           text: state.response.address,
-                        //         ),
-                        //         dateController: TextEditingController(
-                        //           text: state.response.dob,
-                        //         ),
-                        //         emailController: TextEditingController(
-                        //           text: state.response.email,
-                        //         ),
-                        //         genderController: TextEditingController(
-                        //           text: state.response.gender,
-                        //         ),
-                        //         phoneNumberController: TextEditingController(
-                        //           text: state.response.phoneNumber,
-                        //         ),
-                        //         usernameController: TextEditingController(
-                        //           text: state.response.username,
-                        //         ),
-                        //         user: state.response,
-                        //       );
-                        //     },
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return UpdateProfile(
+                                fullnameController: TextEditingController(
+                                  text: state.response.fullname,
+                                ),
+                                addressController: TextEditingController(
+                                  text: state.response.address,
+                                ),
+                                dateController: TextEditingController(
+                                  text: state.response.dob,
+                                ),
+                                emailController: TextEditingController(
+                                  text: state.response.email,
+                                ),
+                                genderController: TextEditingController(
+                                  text: state.response.gender,
+                                ),
+                                phoneNumberController: TextEditingController(
+                                  text: state.response.phoneNumber,
+                                ),
+                                usernameController: TextEditingController(
+                                  text: state.response.username,
+                                ),
+                                user: state.response,
+                              );
+                            },
+                          ),
+                        );
                       },
                       icon: Icon(
                         Icons.arrow_forward_ios,
