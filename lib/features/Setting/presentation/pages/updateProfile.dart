@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tura_app/features/Setting/data/model/updateUserModel.dart';
 import 'package:tura_app/features/Setting/data/datasource/userUpdateApiService.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
@@ -55,14 +56,28 @@ class UpdateProfile extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.35,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 140),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Icon(
-                        Icons.add_a_photo,
-                        size: 35,
+                GestureDetector(
+                  onTap: () async {
+                    final ImagePicker picker = ImagePicker();
+                    final XFile? image =
+                        await picker.pickImage(source: ImageSource.gallery);
+
+                    if (image != null) {
+                      print('image picked');
+                      print(image.name);
+                    } else {
+                      print('image not picked');
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 140),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Icon(
+                          Icons.add_a_photo,
+                          size: 35,
+                        ),
                       ),
                     ),
                   ),
