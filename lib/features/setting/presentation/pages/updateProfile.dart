@@ -11,101 +11,135 @@ import 'package:tura_app/features/register/presentaion/widgets/dob_input.dart';
 import 'package:tura_app/features/register/presentaion/widgets/gender_picker.dart';
 import 'package:tura_app/features/setting/data/model/updateUserMoodel.dart';
 
-class UpdateProfile extends StatelessWidget {
-  UpdateProfile(
-      {super.key,
-      required this.user,
-      required this.fullnameController,
-      required this.usernameController,
-      required this.emailController,
-      required this.dateController,
-      required this.phoneNumberController,
-      required this.addressController,
-      required this.genderController});
-
+class UpdateProfile extends StatefulWidget {
   final UserModel user;
-
   final TextEditingController fullnameController;
-
   final TextEditingController usernameController;
-
   final TextEditingController emailController;
-
-  final TextEditingController phoneNumberController;
-
   final TextEditingController dateController;
-
+  final TextEditingController phoneNumberController;
+  final TextEditingController addressController;
   final TextEditingController genderController;
 
-  final TextEditingController addressController;
+  const UpdateProfile({
+    super.key,
+    required this.user,
+    required this.fullnameController,
+    required this.usernameController,
+    required this.emailController,
+    required this.dateController,
+    required this.phoneNumberController,
+    required this.addressController,
+    required this.genderController,
+  });
+
+  @override
+  State<UpdateProfile> createState() => _UpdateProfileState();
+}
+
+class _UpdateProfileState extends State<UpdateProfile> {
+  File? _pickedImage; // To store the picked image locally
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize controllers with user data if needed
+    widget.fullnameController.text = widget.user.fullname ?? '';
+    widget.usernameController.text = widget.user.username ?? '';
+    widget.emailController.text = widget.user.email ?? '';
+    widget.phoneNumberController.text = widget.user.phoneNumber ?? '';
+    widget.dateController.text = widget.user.dob ?? '';
+    widget.addressController.text = widget.user.address ?? '';
+    widget.genderController.text = widget.user.gender ?? '';
+  }
+
+  Future<void> _pickImage() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        setState(() {
+          _pickedImage = File(image.path);
+        });
+        await UserUpdateApiService()
+            .updateImage(widget.user.username, _pickedImage!);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text('Profile picture updated successfully')),
+          );
+        }
+      } else {
+        print('No image selected');
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to pick image: $e')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Update Profile'),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Stack(
+              alignment: Alignment.bottomRight,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(65),
-                  child: Image.network(
-                    user.profileImg!,
-                    width: MediaQuery.of(context).size.width * 0.35,
-                  ),
+                  child: _pickedImage != null
+                      ? Image.file(
+                          _pickedImage!,
+                          width: MediaQuery.of(context).size.width * 0.35,
+                          height: MediaQuery.of(context).size.width * 0.35,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.network(
+                          widget.user.profileImg ?? '',
+                          width: MediaQuery.of(context).size.width * 0.35,
+                          height: MediaQuery.of(context).size.width * 0.35,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Icon(
+                            Icons.person,
+                            size: 100,
+                          ),
+                        ),
                 ),
                 GestureDetector(
-                  onTap: () async {
-                    final ImagePicker picker = ImagePicker();
-                    final XFile? image =
-                        await picker.pickImage(source: ImageSource.gallery);
-
-                    if (image != null) {
-                      UserUpdateApiService()
-                          .updateImage(user.username, File(image.path));
-                      print('image picked');
-                      print(
-                        UserUpdateApiService().updateImage(
-                          user.username,
-                          File(image.path),
-                        ),
-                      );
-                    } else {
-                      print('image not picked');
-                    }
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 140),
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Icon(
-                          Icons.add_a_photo,
-                          size: 35,
-                        ),
+                  onTap: _pickImage,
+                  child: const Card(
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Icon(
+                        Icons.add_a_photo,
+                        size: 35,
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Form(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20),
                     child: Text(
                       'Full Name',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
@@ -115,15 +149,14 @@ class UpdateProfile extends StatelessWidget {
                     myBool: true,
                     hintText: 'Fullname',
                     isPassword: false,
-                    controller: fullnameController,
+                    controller: widget.fullnameController,
                     hider: false,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20),
                     child: Text(
-                      'UserName',
+                      'Username',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
@@ -133,15 +166,14 @@ class UpdateProfile extends StatelessWidget {
                     myBool: true,
                     hintText: 'Username',
                     isPassword: false,
-                    controller: usernameController,
+                    controller: widget.usernameController,
                     hider: false,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20),
                     child: Text(
                       'Email',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
@@ -151,15 +183,14 @@ class UpdateProfile extends StatelessWidget {
                     myBool: true,
                     hintText: 'Email',
                     isPassword: false,
-                    controller: emailController,
+                    controller: widget.emailController,
                     hider: false,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20),
                     child: Text(
-                      'Phone NUmber',
+                      'Phone Number',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
@@ -167,17 +198,16 @@ class UpdateProfile extends StatelessWidget {
                   ),
                   Myinput(
                     myBool: true,
-                    hintText: 'PhoneNumber',
+                    hintText: 'Phone Number',
                     isPassword: false,
-                    controller: phoneNumberController,
+                    controller: widget.phoneNumberController,
                     hider: false,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20),
                     child: Text(
                       'Address',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
@@ -187,7 +217,7 @@ class UpdateProfile extends StatelessWidget {
                     myBool: true,
                     hintText: 'Address',
                     isPassword: false,
-                    controller: addressController,
+                    controller: widget.addressController,
                     hider: false,
                   ),
                   Container(
@@ -198,39 +228,36 @@ class UpdateProfile extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Date Of Birth',
                               style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
                               ),
                             ),
-                            DobInput(dobController: dateController),
+                            DobInput(dobController: widget.dateController),
                           ],
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Gender',
                               style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
                               ),
                             ),
-                            GenderPicker(genderController: genderController),
+                            GenderPicker(
+                                genderController: widget.genderController),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.black,
@@ -240,24 +267,41 @@ class UpdateProfile extends StatelessWidget {
                       child: BlocBuilder<Registercubit, RegisterState>(
                         builder: (context, state) {
                           if (state is RegisterLoading) {
-                            return CircularProgressIndicator
-                                .adaptive(); // Show loading indicator
+                            return const CircularProgressIndicator.adaptive();
                           }
                           return GestureDetector(
                             onTap: () async {
-                              await UserUpdateApiService().updateUser(
-                                UpdateUserModel(
-                                  fullname: fullnameController.text,
-                                  phoneNumber: phoneNumberController.text,
-                                  dob: dateController.text,
-                                  gender: genderController.text,
-                                  address: addressController.text,
-                                ),
-                                user.username,
-                              );
-                              Navigator.pushNamed(context, 'settingPage');
+                              try {
+                                await UserUpdateApiService().updateUser(
+                                  UpdateUserModel(
+                                    fullname: widget.fullnameController.text,
+                                    phoneNumber:
+                                        widget.phoneNumberController.text,
+                                    dob: widget.dateController.text,
+                                    gender: widget.genderController.text,
+                                    address: widget.addressController.text,
+                                  ),
+                                  widget.user.username,
+                                );
+                                if (mounted) {
+                                  Navigator.pushNamed(context, 'settingPage');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            'Profile updated successfully')),
+                                  );
+                                }
+                              } catch (e) {
+                                if (mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Failed to update profile: $e')),
+                                  );
+                                }
+                              }
                             },
-                            child: Text(
+                            child: const Text(
                               'Update',
                               style: TextStyle(
                                 color: Colors.grey,
@@ -269,13 +313,11 @@ class UpdateProfile extends StatelessWidget {
                         },
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
