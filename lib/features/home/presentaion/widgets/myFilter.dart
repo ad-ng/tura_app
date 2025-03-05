@@ -46,7 +46,7 @@ class _MyFilterState extends State<MyFilter> {
       children: [
         Mysearch(textEditingController: textEditingController),
         MyFilterRow(
-          dropDownTitle: 'Property Price:      ',
+          dropDownTitle: 'Price:      ',
           firstDropDown: 'All',
           itemRanges: priceRanges,
           onChanged: (String? newValue) {
@@ -56,7 +56,7 @@ class _MyFilterState extends State<MyFilter> {
           },
         ),
         MyFilterRow(
-          dropDownTitle: 'Property size:         ',
+          dropDownTitle: 'Size:         ',
           firstDropDown: 'All',
           itemRanges: priceRanges,
           onChanged: (String? newValue) {
@@ -66,7 +66,7 @@ class _MyFilterState extends State<MyFilter> {
           },
         ),
         MyFilterRow(
-          dropDownTitle: 'Property Category:',
+          dropDownTitle: 'Category:',
           firstDropDown: 'All',
           itemRanges: priceRanges,
           onChanged: (String? newValue) {
@@ -76,7 +76,7 @@ class _MyFilterState extends State<MyFilter> {
           },
         ),
         MyFilterRow(
-          dropDownTitle: 'Property Location:',
+          dropDownTitle: 'Location:',
           firstDropDown: 'All',
           itemRanges: priceRanges,
           onChanged: (String? newValue) {
