@@ -10,6 +10,8 @@ class Changepassword extends StatefulWidget {
 
 class _ChangepasswordState extends State<Changepassword> {
   TextEditingController currentPasswordController = new TextEditingController();
+  TextEditingController newPasswordController = new TextEditingController();
+  TextEditingController confirmPasswordController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class _ChangepasswordState extends State<Changepassword> {
             myBool: false,
             hintText: 'new password',
             isPassword: false,
-            controller: currentPasswordController,
+            controller: newPasswordController,
             hider: true,
           ),
           Padding(
@@ -75,28 +77,45 @@ class _ChangepasswordState extends State<Changepassword> {
             myBool: false,
             hintText: 'confirm password',
             isPassword: false,
-            controller: currentPasswordController,
+            controller: confirmPasswordController,
             hider: true,
           ),
-          Container(
-            margin: EdgeInsets.only(
-              left: 25,
-              right: 25,
-              top: 20,
-              bottom: MediaQuery.of(context).size.height * 0.3,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            height: 60,
-            child: Center(
-              child: Text(
-                'Update Password',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+          GestureDetector(
+            onTap: () {
+              if (newPasswordController.text !=
+                  confirmPasswordController.text) {
+                currentPasswordController.clear();
+                newPasswordController.clear();
+                confirmPasswordController.clear();
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                        'New Password doesn\'t match with Confirm Password'),
+                  ),
+                );
+              }
+            },
+            child: Container(
+              margin: EdgeInsets.only(
+                left: 25,
+                right: 25,
+                top: 20,
+                bottom: MediaQuery.of(context).size.height * 0.3,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              height: 60,
+              child: Center(
+                child: Text(
+                  'Update Password',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
