@@ -1,10 +1,108 @@
 import 'package:flutter/material.dart';
+import 'package:tura_app/features/login/presentation/widgets/myInput.dart';
 
-class Changepassword extends StatelessWidget {
+class Changepassword extends StatefulWidget {
   const Changepassword({super.key});
 
   @override
+  State<Changepassword> createState() => _ChangepasswordState();
+}
+
+class _ChangepasswordState extends State<Changepassword> {
+  TextEditingController currentPasswordController = new TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            'Change Password',
+            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          )),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            child: Text(
+              'Current Password:',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          Myinput(
+            myBool: false,
+            hintText: 'current password',
+            isPassword: false,
+            controller: currentPasswordController,
+            hider: true,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            child: Text(
+              'New Password:',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          Myinput(
+            myBool: false,
+            hintText: 'new password',
+            isPassword: false,
+            controller: currentPasswordController,
+            hider: true,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            child: Text(
+              'Confirm Password:',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          Myinput(
+            myBool: false,
+            hintText: 'confirm password',
+            isPassword: false,
+            controller: currentPasswordController,
+            hider: true,
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              left: 25,
+              right: 25,
+              top: 20,
+              bottom: MediaQuery.of(context).size.height * 0.3,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            height: 60,
+            child: Center(
+              child: Text(
+                'Update Password',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

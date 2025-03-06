@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/features/Setting/presentation/pages/updateProfile.dart';
 import 'package:tura_app/features/profile/presentaion/bloc/userCubit.dart';
+import 'package:tura_app/features/setting/presentation/pages/changePassword.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -215,7 +216,14 @@ class _SettingPageState extends State<SettingPage> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Changepassword(),
+                        ),
+                      );
+                    },
                     icon: Icon(
                       Icons.arrow_forward_ios,
                       color: Theme.of(context).colorScheme.secondary,
