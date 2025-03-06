@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tura_app/features/Setting/data/datasource/userUpdateApiService.dart';
 import 'package:tura_app/features/login/presentation/widgets/myInput.dart';
+import 'package:tura_app/features/setting/data/model/changePasswordModel.dart';
 
 class Changepassword extends StatefulWidget {
   const Changepassword({super.key});
@@ -81,7 +83,7 @@ class _ChangepasswordState extends State<Changepassword> {
             hider: true,
           ),
           GestureDetector(
-            onTap: () {
+            onTap: () async {
               if (newPasswordController.text !=
                   confirmPasswordController.text) {
                 currentPasswordController.clear();
@@ -94,6 +96,33 @@ class _ChangepasswordState extends State<Changepassword> {
                         'New Password doesn\'t match with Confirm Password'),
                   ),
                 );
+              } else {
+                try {
+                  String myMessage =
+                      await UserUpdateApiService().changeUserPassword(
+                    ChangePasswordModel(
+                      newPassword: newPasswordController.text,
+                      oldPassword: currentPasswordController.text,
+                    ),
+                  );
+                  currentPasswordController.clear();
+                  newPasswordController.clear();
+                  confirmPasswordController.clear();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(myMessage),
+                    ),
+                  );
+                } catch (e) {
+                  currentPasswordController.clear();
+                  newPasswordController.clear();
+                  confirmPasswordController.clear();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('$e'),
+                    ),
+                  );
+                }
               }
             },
             child: Container(
