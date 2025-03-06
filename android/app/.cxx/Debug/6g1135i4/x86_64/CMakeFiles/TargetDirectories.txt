@@ -1,0 +1,2 @@
+/Users/ngogaadolphe/Desktop/tura_app/android/app/.cxx/Debug/6g1135i4/x86_64/CMakeFiles/edit_cache.dir
+/Users/ngogaadolphe/Desktop/tura_app/android/app/.cxx/Debug/6g1135i4/x86_64/CMakeFiles/rebuild_cache.dir

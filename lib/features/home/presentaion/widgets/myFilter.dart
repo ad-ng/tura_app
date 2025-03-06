@@ -3,7 +3,7 @@ import 'package:tura_app/features/guide/presention/widgets/mySearch.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myFilter.row.dart';
 
 class MyFilter extends StatefulWidget {
-  MyFilter({super.key});
+  const MyFilter({super.key});
 
   @override
   State<MyFilter> createState() => _MyFilterState();
@@ -14,24 +14,24 @@ class _MyFilterState extends State<MyFilter> {
 
   final priceRanges = [
     DropdownMenuItem(
-      child: Text('All'),
       value: 'All',
+      child: Text('All'),
     ),
     DropdownMenuItem(
-      child: Text('Under RWF 50 M'),
       value: 'one',
+      child: Text('Under RWF 50 M'),
     ),
     DropdownMenuItem(
-      child: Text('RWF 50 M -  100 M'),
       value: 'two',
+      child: Text('RWF 50 M -  100 M'),
     ),
     DropdownMenuItem(
-      child: Text('RWF 100 M - 150 M'),
       value: 'three',
+      child: Text('RWF 100 M - 150 M'),
     ),
     DropdownMenuItem(
-      child: Text('RWF 150 M - 200 M'),
       value: 'four',
+      child: Text('RWF 150 M - 200 M'),
     )
   ];
 
