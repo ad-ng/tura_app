@@ -41,7 +41,7 @@ class myappbar extends StatelessWidget {
                 onPressed: () => showPopover(
                   barrierDismissible: false,
                   context: context,
-                  height: MediaQuery.of(context).size.height * 0.45,
+                  height: MediaQuery.of(context).size.height * 0.38,
                   width: MediaQuery.of(context).size.width * 0.9,
                   direction: PopoverDirection.top,
                   bodyBuilder: (context) {
