@@ -12,11 +12,9 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-  // Moved all state variables inside the State class
   late ScrollController _scrollController;
   List properties = [];
   int page = 2;
-  bool isLoading = false;
   bool hasMore = true;
 
   @override
@@ -37,11 +35,7 @@ class _MyHomeState extends State<MyHome> {
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange &&
-        !isLoading &&
         hasMore) {
-      setState(() {
-        isLoading = true;
-      });
       BlocProvider.of<PropertiesCubit>(context).fetchProps(page);
       page++;
     }
@@ -66,25 +60,33 @@ class _MyHomeState extends State<MyHome> {
         BlocListener<PropertiesCubit, PropertiesState>(
           listener: (context, state) {
             if (state is PropertiesSuccess) {
-              setState(() {
-                isLoading = false;
-                if (state.response.isEmpty) {
+              if (state.response.isEmpty) {
+                setState(() {
                   hasMore = false;
-                } else {
+                });
+              } else {
+                setState(() {
                   properties.addAll(state.response);
-                }
-              });
+                });
+              }
             } else if (state is PropertiesError) {
-              setState(() => isLoading = false);
-              // Optionally show error message
+              // Optionally show an error using a Snackbar or dialog
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Error: ${state.message}')),
+              );
             }
           },
           child: BlocBuilder<PropertiesCubit, PropertiesState>(
             builder: (context, state) {
+              if (state is PropertiesLoading && properties.isEmpty) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
               return Expanded(
                 child: ListView.builder(
                   controller: _scrollController,
-                  itemCount: properties.length + (isLoading ? 1 : 0),
+                  itemCount:
+                      properties.length + (state is PropertiesLoading ? 1 : 0),
                   itemBuilder: (context, index) {
                     if (index >= properties.length) {
                       return const Center(
@@ -95,6 +97,7 @@ class _MyHomeState extends State<MyHome> {
                       );
                     }
                     final property = properties[index];
+
                     return Propertycard(
                       key: Key(property.id.toString()), // Unique key
                       property: property,
