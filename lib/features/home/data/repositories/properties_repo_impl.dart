@@ -27,4 +27,9 @@ class PropertiesRepoImpl implements PropertiesRepo {
   Future<PropertiesModel> fetchSingleProp(String slug) async {
     return await _propertiesapiservice.fetchSingleProp(slug);
   }
+
+  @override
+  Future<List<PropertiesModel>> filterProperties() async {
+    return await _propertiesapiservice.filterProperties();
+  }
 }

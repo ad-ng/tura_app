@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/features/guide/presention/widgets/mySearch.dart';
+import 'package:tura_app/features/home/presentaion/cubit/propertiesCubit.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myFilter.row.dart';
 
 class MyFilter extends StatefulWidget {
@@ -145,7 +147,10 @@ class _MyFilterState extends State<MyFilter> {
               width: MediaQuery.of(context).size.width * 0.05,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<PropertiesCubit>(context).filterProperties();
+                Navigator.pop(context);
+              },
               child: Text('Search'),
             ),
             SizedBox(
