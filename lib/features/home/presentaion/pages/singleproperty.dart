@@ -172,7 +172,8 @@ class _SinglepropertyState extends State<Singleproperty> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       color: Theme.of(context)
-                                          .secondaryHeaderColor,
+                                          .colorScheme
+                                          .secondary,
                                     ),
                                   ),
                                 ),
@@ -198,8 +199,7 @@ class _SinglepropertyState extends State<Singleproperty> {
                                   ]),
                                   DataRow(cells: [
                                     DataCell(Text('price')),
-                                    DataCell(Text(
-                                        '${property.price!} Rwf'))
+                                    DataCell(Text('${property.price!} Rwf'))
                                   ]),
                                   DataRow(cells: [
                                     DataCell(Text('area')),
@@ -221,13 +221,12 @@ class _SinglepropertyState extends State<Singleproperty> {
                                   ]),
                                   DataRow(cells: [
                                     DataCell(Text('year built')),
-                                    DataCell(Text(
-                                        property.yearBuilt!.split('-')[0]))
+                                    DataCell(
+                                        Text(property.yearBuilt!.split('-')[0]))
                                   ]),
                                   DataRow(cells: [
                                     DataCell(Text('category')),
-                                    DataCell(
-                                        Text(property.category!.name!))
+                                    DataCell(Text(property.category!.name!))
                                   ]),
                                 ],
                               ),
@@ -238,8 +237,7 @@ class _SinglepropertyState extends State<Singleproperty> {
                             padding: EdgeInsets.all(13),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color:
-                                    Theme.of(context).colorScheme.surface),
+                                color: Theme.of(context).colorScheme.surface),
                             child: Column(
                               children: [
                                 Container(
