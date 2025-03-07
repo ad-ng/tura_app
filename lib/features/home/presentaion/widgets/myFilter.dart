@@ -202,6 +202,7 @@ class _MyFilterState extends State<MyFilter> {
                   dropDownValueSize,
                   isForSale,
                   dropDownValueCategories,
+                  textEditingController.text,
                 );
                 Navigator.pop(context); // Close the filter screen
               },

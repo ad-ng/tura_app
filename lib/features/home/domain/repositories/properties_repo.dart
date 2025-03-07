@@ -18,5 +18,6 @@ abstract class PropertiesRepo {
     String size,
     bool isForRent,
     String categoryId,
+    String searchTerm,
   );
 }

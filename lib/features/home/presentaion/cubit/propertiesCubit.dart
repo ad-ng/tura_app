@@ -28,6 +28,7 @@ class PropertiesCubit extends Cubit<PropertiesState> {
     String size,
     bool isForRent,
     String categoryId,
+    String searchTerm,
   ) async {
     emit(PropertiesLoading());
 
@@ -38,6 +39,7 @@ class PropertiesCubit extends Cubit<PropertiesState> {
         size,
         isForRent,
         categoryId,
+        searchTerm,
       );
       print('searching properties');
       emit(PropertiesSuccess(response));
