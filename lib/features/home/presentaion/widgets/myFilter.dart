@@ -37,7 +37,31 @@ class _MyFilterState extends State<MyFilter> {
     )
   ];
 
+  final sizeRanges = [
+    DropdownMenuItem(
+      value: '[0,1000]',
+      child: Text('All'),
+    ),
+    DropdownMenuItem(
+      value: '[0,50]',
+      child: Text('Under 50 m²'),
+    ),
+    DropdownMenuItem(
+      value: '[50,100]',
+      child: Text('50 m² - 100 m²'),
+    ),
+    DropdownMenuItem(
+      value: '[100,150]',
+      child: Text('100 m² - 150 m²'),
+    ),
+    DropdownMenuItem(
+      value: '[150,200]',
+      child: Text('150 m² - 200 m²'),
+    )
+  ];
+
   String dropDownValuePrice = '[0,10000000000]'; // Default value is 'All'
+  String dropDownValueSize = '[0,1000]'; // Default value is 'All'
 
   bool isForSale = false;
   bool isLand = false;
@@ -47,12 +71,9 @@ class _MyFilterState extends State<MyFilter> {
     return Column(
       children: [
         Mysearch(textEditingController: textEditingController),
-
-        // Updated MyFilterRow to use dynamic dropDownValue
         MyFilterRow(
           dropDownTitle: 'Price:      ',
-          firstDropDown:
-              dropDownValuePrice, // Use the dynamic dropDownValue here
+          firstDropDown: dropDownValuePrice,
           itemRanges: priceRanges,
           onChanged: (String? newValue) {
             setState(() {
@@ -60,40 +81,16 @@ class _MyFilterState extends State<MyFilter> {
             });
           },
         ),
-
-        // Optionally uncomment the other filter rows if you need them:
-        // MyFilterRow(
-        //   dropDownTitle: 'Size:         ',
-        //   firstDropDown: 'All',
-        //   itemRanges: priceRanges,
-        //   onChanged: (String? newValue) {
-        //     setState(() {
-        //       dropDownValue = newValue;
-        //     });
-        //   },
-        // ),
-        // MyFilterRow(
-        //   dropDownTitle: 'Category:',
-        //   firstDropDown: 'All',
-        //   itemRanges: priceRanges,
-        //   onChanged: (String? newValue) {
-        //     setState(() {
-        //       dropDownValue = newValue;
-        //     });
-        //   },
-        // ),
-        // MyFilterRow(
-        //   dropDownTitle: 'Location:',
-        //   firstDropDown: 'All',
-        //   itemRanges: priceRanges,
-        //   onChanged: (String? newValue) {
-        //     setState(() {
-        //       dropDownValue = newValue;
-        //     });
-        //   },
-        // ),
-
-        // Add checkbox filters for `For Sale` and `Land` (if needed)
+        MyFilterRow(
+          dropDownTitle: 'Size:       ',
+          firstDropDown: dropDownValueSize,
+          itemRanges: sizeRanges,
+          onChanged: (String? newValue) {
+            setState(() {
+              dropDownValueSize = newValue!;
+            });
+          },
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -141,8 +138,6 @@ class _MyFilterState extends State<MyFilter> {
             ),
           ],
         ),
-
-        // Buttons for "Cancel" and "Search"
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -155,9 +150,8 @@ class _MyFilterState extends State<MyFilter> {
             SizedBox(width: MediaQuery.of(context).size.width * 0.05),
             ElevatedButton(
               onPressed: () {
-                // Call filterProperties method in Cubit with all selected filters
-                BlocProvider.of<PropertiesCubit>(context)
-                    .filterProperties(isForSale, dropDownValuePrice);
+                BlocProvider.of<PropertiesCubit>(context).filterProperties(
+                    isForSale, dropDownValuePrice, dropDownValueSize);
                 Navigator.pop(context); // Close the filter screen
               },
               child: Text('Search'),

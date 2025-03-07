@@ -69,14 +69,15 @@ class PropertiesApiService {
   }
 
   Future<List<PropertiesModel>> filterProperties(
-      bool isForSale, String price) async {
+      bool isForSale, String price, String size) async {
     try {
       final response = await _dio.get(
         '/properties/search',
         queryParameters: {
           // 'hasParking': true,
           'isForSale': isForSale,
-          'price': price
+          'price': price,
+          'size': size
         },
       );
 

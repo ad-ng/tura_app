@@ -30,7 +30,7 @@ class PropertiesRepoImpl implements PropertiesRepo {
 
   @override
   Future<List<PropertiesModel>> filterProperties(
-      bool isForSale, String price) async {
-    return await _propertiesapiservice.filterProperties(isForSale, price);
+      bool isForSale, String price, String size) async {
+    return await _propertiesapiservice.filterProperties(isForSale, price, size);
   }
 }
