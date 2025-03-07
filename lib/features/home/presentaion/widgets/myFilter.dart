@@ -16,28 +16,28 @@ class _MyFilterState extends State<MyFilter> {
 
   final priceRanges = [
     DropdownMenuItem(
-      value: 'All',
+      value: '[0,10000000000]',
       child: Text('All'),
     ),
     DropdownMenuItem(
-      value: 'one',
+      value: '[0,50000000]',
       child: Text('Under RWF 50 M'),
     ),
     DropdownMenuItem(
-      value: 'two',
-      child: Text('RWF 50 M -  100 M'),
+      value: '[50000000,100000000]',
+      child: Text('RWF 50 M - 100 M'),
     ),
     DropdownMenuItem(
-      value: 'three',
+      value: '[100000000,150000000]',
       child: Text('RWF 100 M - 150 M'),
     ),
     DropdownMenuItem(
-      value: 'four',
+      value: '[150000000,200000000]',
       child: Text('RWF 150 M - 200 M'),
     )
   ];
 
-  String? dropDownValue = 'All'; // Set default value to 'All'
+  String dropDownValuePrice = '[0,10000000000]'; // Default value is 'All'
 
   bool isForSale = false;
   bool isLand = false;
@@ -47,46 +47,53 @@ class _MyFilterState extends State<MyFilter> {
     return Column(
       children: [
         Mysearch(textEditingController: textEditingController),
+
+        // Updated MyFilterRow to use dynamic dropDownValue
         MyFilterRow(
           dropDownTitle: 'Price:      ',
-          firstDropDown: 'All',
+          firstDropDown:
+              dropDownValuePrice, // Use the dynamic dropDownValue here
           itemRanges: priceRanges,
           onChanged: (String? newValue) {
             setState(() {
-              dropDownValue = newValue;
+              dropDownValuePrice = newValue!;
             });
           },
         ),
-        MyFilterRow(
-          dropDownTitle: 'Size:         ',
-          firstDropDown: 'All',
-          itemRanges: priceRanges,
-          onChanged: (String? newValue) {
-            setState(() {
-              dropDownValue = newValue;
-            });
-          },
-        ),
-        MyFilterRow(
-          dropDownTitle: 'Category:',
-          firstDropDown: 'All',
-          itemRanges: priceRanges,
-          onChanged: (String? newValue) {
-            setState(() {
-              dropDownValue = newValue;
-            });
-          },
-        ),
-        MyFilterRow(
-          dropDownTitle: 'Location:',
-          firstDropDown: 'All',
-          itemRanges: priceRanges,
-          onChanged: (String? newValue) {
-            setState(() {
-              dropDownValue = newValue;
-            });
-          },
-        ),
+
+        // Optionally uncomment the other filter rows if you need them:
+        // MyFilterRow(
+        //   dropDownTitle: 'Size:         ',
+        //   firstDropDown: 'All',
+        //   itemRanges: priceRanges,
+        //   onChanged: (String? newValue) {
+        //     setState(() {
+        //       dropDownValue = newValue;
+        //     });
+        //   },
+        // ),
+        // MyFilterRow(
+        //   dropDownTitle: 'Category:',
+        //   firstDropDown: 'All',
+        //   itemRanges: priceRanges,
+        //   onChanged: (String? newValue) {
+        //     setState(() {
+        //       dropDownValue = newValue;
+        //     });
+        //   },
+        // ),
+        // MyFilterRow(
+        //   dropDownTitle: 'Location:',
+        //   firstDropDown: 'All',
+        //   itemRanges: priceRanges,
+        //   onChanged: (String? newValue) {
+        //     setState(() {
+        //       dropDownValue = newValue;
+        //     });
+        //   },
+        // ),
+
+        // Add checkbox filters for `For Sale` and `Land` (if needed)
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -134,30 +141,30 @@ class _MyFilterState extends State<MyFilter> {
             ),
           ],
         ),
+
+        // Buttons for "Cancel" and "Search"
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context); // Cancel action
               },
               child: Text('Cancel'),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.05,
-            ),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.05),
             ElevatedButton(
               onPressed: () {
-                BlocProvider.of<PropertiesCubit>(context).filterProperties();
-                Navigator.pop(context);
+                // Call filterProperties method in Cubit with all selected filters
+                BlocProvider.of<PropertiesCubit>(context)
+                    .filterProperties(isForSale, dropDownValuePrice);
+                Navigator.pop(context); // Close the filter screen
               },
               child: Text('Search'),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.05,
-            )
+            SizedBox(width: MediaQuery.of(context).size.width * 0.05),
           ],
-        )
+        ),
       ],
     );
   }

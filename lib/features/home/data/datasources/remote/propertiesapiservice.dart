@@ -68,14 +68,16 @@ class PropertiesApiService {
     }
   }
 
-  Future<List<PropertiesModel>> filterProperties() async {
+  Future<List<PropertiesModel>> filterProperties(
+      bool isForSale, String price) async {
     try {
       final response = await _dio.get(
-        '/properties/search?hasParking=true&isForSale=true',
-        // queryParameters: {
-        //   'page': page,
-        //   'limit': 4,
-        // },
+        '/properties/search',
+        queryParameters: {
+          // 'hasParking': true,
+          'isForSale': isForSale,
+          'price': price
+        },
       );
 
       final dataJson = response.data['data'];

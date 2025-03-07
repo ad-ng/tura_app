@@ -12,5 +12,5 @@ abstract class PropertiesRepo {
 
   Future<PropertiesModel> fetchSingleProp(String slug);
 
-  Future<List<PropertiesModel>> filterProperties();
+  Future<List<PropertiesModel>> filterProperties(bool isForSale,String price);
 }
