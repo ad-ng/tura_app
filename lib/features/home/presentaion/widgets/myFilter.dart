@@ -63,8 +63,8 @@ class _MyFilterState extends State<MyFilter> {
   String dropDownValuePrice = '[0,10000000000]'; // Default value is 'All'
   String dropDownValueSize = '[0,1000]'; // Default value is 'All'
 
-  bool isForSale = false;
-  bool isLand = false;
+  bool isForSale = true;
+  bool isForRent = false;
 
   @override
   Widget build(BuildContext context) {
@@ -119,15 +119,15 @@ class _MyFilterState extends State<MyFilter> {
               children: [
                 Checkbox.adaptive(
                   activeColor: Colors.blueAccent,
-                  value: isLand,
+                  value: isForRent,
                   onChanged: (value) {
                     setState(() {
-                      isLand = value!;
+                      isForRent = value!;
                     });
                   },
                 ),
                 Text(
-                  'Land',
+                  'For Rent',
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -151,7 +151,10 @@ class _MyFilterState extends State<MyFilter> {
             ElevatedButton(
               onPressed: () {
                 BlocProvider.of<PropertiesCubit>(context).filterProperties(
-                    isForSale, dropDownValuePrice, dropDownValueSize);
+                    isForSale,
+                    dropDownValuePrice,
+                    dropDownValueSize,
+                    isForSale);
                 Navigator.pop(context); // Close the filter screen
               },
               child: Text('Search'),
