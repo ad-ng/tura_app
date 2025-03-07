@@ -68,8 +68,8 @@ class PropertiesApiService {
     }
   }
 
-  Future<List<PropertiesModel>> filterProperties(
-      bool isForSale, String price, String size, bool isForRent) async {
+  Future<List<PropertiesModel>> filterProperties(bool isForSale, String price,
+      String size, bool isForRent, String categoryId) async {
     try {
       final response = await _dio.get(
         '/properties/search',
@@ -78,7 +78,8 @@ class PropertiesApiService {
           'isForSale': isForSale,
           'price': price,
           'size': size,
-          'isForRent': isForRent
+          'isForRent': isForRent,
+          'categoryId': categoryId
         },
       );
 

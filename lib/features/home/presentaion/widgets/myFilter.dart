@@ -60,8 +60,44 @@ class _MyFilterState extends State<MyFilter> {
     )
   ];
 
-  String dropDownValuePrice = '[0,10000000000]'; // Default value is 'All'
-  String dropDownValueSize = '[0,1000]'; // Default value is 'All'
+  final categories = [
+    DropdownMenuItem(
+      value: '100',
+      child: Text('All Types'),
+    ),
+    DropdownMenuItem(
+      value: '7',
+      child: Text('Commercial'),
+    ),
+    DropdownMenuItem(
+      value: '6',
+      child: Text('Land'),
+    ),
+    DropdownMenuItem(
+      value: '5',
+      child: Text('Office'),
+    ),
+    DropdownMenuItem(
+      value: '4',
+      child: Text('Cottage'),
+    ),
+    DropdownMenuItem(
+      value: '3',
+      child: Text('Villa'),
+    ),
+    DropdownMenuItem(
+      value: '2',
+      child: Text('Apartment'),
+    ),
+    DropdownMenuItem(
+      value: '1',
+      child: Text('Residential House'),
+    )
+  ];
+
+  String dropDownValuePrice = '[0,10000000000]';
+  String dropDownValueSize = '[0,1000]';
+  String dropDownValueCategories = '100'; // Default value is 'All'
 
   bool isForSale = true;
   bool isForRent = false;
@@ -88,6 +124,16 @@ class _MyFilterState extends State<MyFilter> {
           onChanged: (String? newValue) {
             setState(() {
               dropDownValueSize = newValue!;
+            });
+          },
+        ),
+        MyFilterRow(
+          dropDownTitle: 'Category',
+          firstDropDown: dropDownValueCategories,
+          itemRanges: categories,
+          onChanged: (String? newValue) {
+            setState(() {
+              dropDownValueCategories = newValue!;
             });
           },
         ),
@@ -151,10 +197,12 @@ class _MyFilterState extends State<MyFilter> {
             ElevatedButton(
               onPressed: () {
                 BlocProvider.of<PropertiesCubit>(context).filterProperties(
-                    isForSale,
-                    dropDownValuePrice,
-                    dropDownValueSize,
-                    isForSale);
+                  isForSale,
+                  dropDownValuePrice,
+                  dropDownValueSize,
+                  isForSale,
+                  dropDownValueCategories,
+                );
                 Navigator.pop(context); // Close the filter screen
               },
               child: Text('Search'),

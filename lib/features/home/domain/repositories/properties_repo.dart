@@ -13,5 +13,10 @@ abstract class PropertiesRepo {
   Future<PropertiesModel> fetchSingleProp(String slug);
 
   Future<List<PropertiesModel>> filterProperties(
-      bool isForSale, String price, String size, bool isForRent);
+    bool isForSale,
+    String price,
+    String size,
+    bool isForRent,
+    String categoryId,
+  );
 }

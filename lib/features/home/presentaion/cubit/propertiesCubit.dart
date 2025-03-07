@@ -23,12 +23,22 @@ class PropertiesCubit extends Cubit<PropertiesState> {
   }
 
   Future filterProperties(
-      bool isForSale, String price, String size, bool isForRent) async {
+    bool isForSale,
+    String price,
+    String size,
+    bool isForRent,
+    String categoryId,
+  ) async {
     emit(PropertiesLoading());
 
     try {
       final response = await _propertiesRepo.filterProperties(
-          isForSale, price, size, isForRent);
+        isForSale,
+        price,
+        size,
+        isForRent,
+        categoryId,
+      );
       print('searching properties');
       emit(PropertiesSuccess(response));
     } catch (e) {
