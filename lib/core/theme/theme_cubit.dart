@@ -1,9 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ThemeCubit extends Cubit<bool> {
-  ThemeCubit() : super(false); // Default theme is light (false)
+enum ThemeModeState { light, dark }
 
+class ThemeCubit extends Cubit<ThemeModeState> {
+  ThemeCubit() : super(ThemeModeState.light);
+
+  // Toggle between light and dark theme
   void toggleTheme() {
-    emit(!state); // Toggle between true (dark) and false (light)
+    if (state == ThemeModeState.light) {
+      emit(ThemeModeState.dark);
+    } else {
+      emit(ThemeModeState.light);
+    }
   }
 }
