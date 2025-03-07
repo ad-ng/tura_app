@@ -83,7 +83,7 @@ class _PropertycardState extends State<Propertycard> {
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16,
-                                color: Theme.of(context).colorScheme.secondary),
+                                color: Theme.of(context).colorScheme.primary),
                           ),
                         )
                       : Container(),
@@ -99,7 +99,7 @@ class _PropertycardState extends State<Propertycard> {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
                         )
@@ -113,13 +113,14 @@ class _PropertycardState extends State<Propertycard> {
                 margin: EdgeInsets.all(15),
               ),
               GestureDetector(
-                onTap: () async{
-                  bool isFavorited = await Favoritesapiservice().checkFavorite(widget.property.id);
+                onTap: () async {
+                  bool isFavorited = await Favoritesapiservice()
+                      .checkFavorite(widget.property.id);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
                       return Singleproperty(
-                         isFavorited: isFavorited,
+                        isFavorited: isFavorited,
                         slug: widget.property.slug!,
                         propertyId: widget.property.id!,
                       );
@@ -151,7 +152,7 @@ class _PropertycardState extends State<Propertycard> {
           decoration: BoxDecoration(
             color: widget.property.isForSale!
                 ? Theme.of(context).colorScheme.surface
-                : Colors.green[400],
+                : Theme.of(context).colorScheme.tertiary,
             borderRadius: BorderRadius.circular(15),
           ),
           height: screenHeight * 0.035,
@@ -174,7 +175,8 @@ class _PropertycardState extends State<Propertycard> {
               left: screenWidth * 0.13, top: screenWidth * 0.585),
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
           decoration: BoxDecoration(
-              color: Colors.green[400], borderRadius: BorderRadius.circular(5)),
+              color: Theme.of(context).colorScheme.tertiary,
+              borderRadius: BorderRadius.circular(5)),
           child: Text(
             '${widget.property.price} Rwf',
             style: TextStyle(

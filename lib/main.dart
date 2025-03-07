@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/core/theme/dark_mode.dart';
 import 'package:tura_app/core/theme/light_mode.dart';
 import 'package:tura_app/core/theme/theme_cubit.dart';
 import 'package:tura_app/features/contact%20us/presentaion/pages/contact_page.dart';
@@ -64,22 +65,29 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => SinglePropertyCubit(propertiesRepo, slug))
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: lightMode,
-        //home: const LoginPage(), // Initial page is LoginPage
-        initialRoute: '/',
-        routes: {
-          '/': (context) => LoginPage(),
-          'homePage': (context) => const HomePage(),
-          'registerPage': (context) => const RegisterPage(),
-          'loginPage': (context) => const LoginPage(),
-          'favoritePage': (context) => const Favorites_page(),
-          'contactPage': (context) => const ContactPage(),
-          'settingPage': (context) => const SettingPage()
-        },
-      ),
+      child: BlocBuilder<ThemeCubit, ThemeModeState>(
+          builder: (context, themeMode) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: lightMode,
+          darkTheme: darkMode,
+          themeMode: themeMode == ThemeModeState.light
+              ? ThemeMode.light
+              : ThemeMode.dark,
+          //home: const LoginPage(), // Initial page is LoginPage
+          initialRoute: '/',
+          routes: {
+            '/': (context) => LoginPage(),
+            'homePage': (context) => const HomePage(),
+            'registerPage': (context) => const RegisterPage(),
+            'loginPage': (context) => const LoginPage(),
+            'favoritePage': (context) => const Favorites_page(),
+            'contactPage': (context) => const ContactPage(),
+            'settingPage': (context) => const SettingPage()
+          },
+        );
+      }),
     );
   }
 }

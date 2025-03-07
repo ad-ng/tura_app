@@ -100,16 +100,22 @@ class _MyCustomShareButtonState extends State<MyCustomShareButton> {
           height: screenHeight * 0.05,
           width: screenWidth * 0.27,
           decoration: BoxDecoration(
-            color: Colors.green[300],
+            color: Theme.of(context).colorScheme.tertiary,
             borderRadius: BorderRadius.circular(15),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Icon(Icons.share),
+              Icon(
+                Icons.share,
+                color: Theme.of(context).colorScheme.primary,
+              ),
               Text(
                 'share',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             ],
           ),
