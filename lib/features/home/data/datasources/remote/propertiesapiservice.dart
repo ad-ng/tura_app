@@ -68,6 +68,33 @@ class PropertiesApiService {
     }
   }
 
+  Future<List<PropertiesModel>> filterProperties(int page) async {
+    try {
+      final response = await _dio.get(
+        '/properties/search',
+        queryParameters: {
+          'page': page,
+          'limit': 4,
+          'hasParking': true,
+          'isForSale': true
+        },
+      );
+
+      final dataJson = response.data['data'];
+
+      if (dataJson != null && dataJson is List) {
+        return dataJson.map((json) => PropertiesModel.fromJson(json)).toList();
+      } else {
+        throw Exception(
+            'Expected a list of properties but got ${dataJson.runtimeType}');
+      }
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      throw 'An unexpected error occurred: $e';
+    }
+  }
+
   // Handle Dio-specific errors
   String _handleError(DioException error) {
     switch (error.type) {
