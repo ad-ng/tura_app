@@ -75,18 +75,19 @@ class PropertiesApiService {
     bool isForRent,
     String categoryId,
     String searchTerm,
+    bool hasParking,
   ) async {
     try {
       final response = await _dio.get(
         '/properties/search',
         queryParameters: {
-          // 'hasParking': true,
           'isForSale': isForSale,
           'price': price,
           'size': size,
           'isForRent': isForRent,
-          // 'categoryId': categoryId,
-          'searchTerm': searchTerm
+          //  'categoryId': categoryId,
+          'searchTerm': searchTerm,
+          'hasParking': hasParking
         },
       );
 

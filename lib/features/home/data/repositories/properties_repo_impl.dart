@@ -36,6 +36,7 @@ class PropertiesRepoImpl implements PropertiesRepo {
     bool isForRent,
     String categoryId,
     String searchTerm,
+    bool hasParking,
   ) async {
     return await _propertiesapiservice.filterProperties(
       isForSale,
@@ -44,6 +45,7 @@ class PropertiesRepoImpl implements PropertiesRepo {
       isForRent,
       categoryId,
       searchTerm,
+      hasParking,
     );
   }
 }

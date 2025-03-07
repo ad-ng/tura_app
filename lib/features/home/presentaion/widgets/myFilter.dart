@@ -21,7 +21,7 @@ class _MyFilterState extends State<MyFilter> {
     ),
     DropdownMenuItem(
       value: '[0,50000000]',
-      child: Text('Under RWF 50 M'),
+      child: Text('Under RWF 50 M             '),
     ),
     DropdownMenuItem(
       value: '[50000000,100000000]',
@@ -44,7 +44,7 @@ class _MyFilterState extends State<MyFilter> {
     ),
     DropdownMenuItem(
       value: '[0,50]',
-      child: Text('Under 50 m²'),
+      child: Text('Under 50 m²                    '),
     ),
     DropdownMenuItem(
       value: '[50,100]',
@@ -62,8 +62,8 @@ class _MyFilterState extends State<MyFilter> {
 
   final categories = [
     DropdownMenuItem(
-      value: '100',
-      child: Text('All Types'),
+      value: '0',
+      child: Text('All Types                       '),
     ),
     DropdownMenuItem(
       value: '7',
@@ -97,10 +97,11 @@ class _MyFilterState extends State<MyFilter> {
 
   String dropDownValuePrice = '[0,10000000000]';
   String dropDownValueSize = '[0,1000]';
-  String dropDownValueCategories = '100'; // Default value is 'All'
+  String dropDownValueCategories = '0'; // Default value is 'All'
 
   bool isForSale = true;
   bool isForRent = false;
+  bool hasParking = true;
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +153,7 @@ class _MyFilterState extends State<MyFilter> {
                   },
                 ),
                 Text(
-                  'For Sale',
+                  'Sale',
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -173,7 +174,28 @@ class _MyFilterState extends State<MyFilter> {
                   },
                 ),
                 Text(
-                  'For Rent',
+                  'Rent',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Checkbox.adaptive(
+                  activeColor: Colors.blueAccent,
+                  value: hasParking,
+                  onChanged: (value) {
+                    setState(() {
+                      hasParking = value!;
+                    });
+                  },
+                ),
+                Text(
+                  'Parking',
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -197,13 +219,13 @@ class _MyFilterState extends State<MyFilter> {
             ElevatedButton(
               onPressed: () {
                 BlocProvider.of<PropertiesCubit>(context).filterProperties(
-                  isForSale,
-                  dropDownValuePrice,
-                  dropDownValueSize,
-                  isForSale,
-                  dropDownValueCategories,
-                  textEditingController.text,
-                );
+                    isForSale,
+                    dropDownValuePrice,
+                    dropDownValueSize,
+                    isForSale,
+                    dropDownValueCategories,
+                    textEditingController.text,
+                    hasParking);
                 Navigator.pop(context); // Close the filter screen
               },
               child: Text('Search'),

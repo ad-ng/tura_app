@@ -19,5 +19,6 @@ abstract class PropertiesRepo {
     bool isForRent,
     String categoryId,
     String searchTerm,
+    bool hasParking,
   );
 }
