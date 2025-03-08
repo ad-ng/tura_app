@@ -17,6 +17,7 @@ class _SharessentState extends State<Sharessent> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+
     return BlocBuilder<SharesSentCubit, SharesSentState>(
       builder: (context, state) {
         if (state is SharesSentLoading) {
