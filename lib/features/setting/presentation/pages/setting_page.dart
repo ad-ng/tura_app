@@ -324,28 +324,28 @@ class _SettingPageState extends State<SettingPage> {
           ),
           Card(
             margin: EdgeInsets.symmetric(horizontal: 10),
-            child: ListTile(
-              leading: Icon(
-                Icons.share,
-                color: Theme.of(context).colorScheme.primary,
-                size: 30,
-              ),
-              title: Text(
-                'Share App',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+            child: GestureDetector(
+              onTap: () async {
+                await Share.share(
+                  'check out https://www.turaestates.com',
+                  subject: 'Real estate app',
+                );
+              },
+              child: ListTile(
+                leading: Icon(
+                  Icons.share,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 30,
                 ),
-              ),
-              trailing: IconButton(
-                onPressed: () async {
-                  await Share.share(
-                    'check out https://www.turaestates.com',
-                    subject: 'Real estate app',
-                  );
-                },
-                icon: Icon(
+                title: Text(
+                  'Share App',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                trailing: Icon(
                   Icons.arrow_forward_ios,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
