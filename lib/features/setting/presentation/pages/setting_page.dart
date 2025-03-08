@@ -242,26 +242,112 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                   ),
                 ),
-                ListTile(
-                  trailing: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
+                GestureDetector(
+                  onTap: () => showAdaptiveDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog.adaptive(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        title: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            BlocBuilder<UserCubit, UserState>(
+                              builder: (context, state) {
+                                if (state is UserLoading) {
+                                  return CircularProgressIndicator.adaptive();
+                                }
+                                if (state is UserSuccess) {
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.network(
+                                      state.response.profileImg!,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  );
+                                }
+                                return SizedBox.shrink();
+                              },
+                            ),
+                          ],
+                        ),
+                        content: SizedBox(
+                          height: 210,
+                          child: Column(
+                            children: [
+                              Text(
+                                'Delete Your Account ?',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'You will lose all your data by deleting your account. This action cannot be undone.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              SizedBox(height: 5),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  padding: EdgeInsets.all(10),
+                                  margin: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.indigo[500],
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Center(
+                                    child: Text(
+                                      'No! I\'ve Changed My Mind',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                'Delete My Account',
+                                style: TextStyle(
+                                  color: Colors.red[300],
+                                  fontSize: 18,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  child: ListTile(
+                    trailing: Icon(
                       Icons.arrow_forward_ios,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                  ),
-                  title: Text(
-                    'Deactivate Account',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                    title: Text(
+                      'Deactivate Account',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  leading: Icon(
-                    Icons.delete_rounded,
-                    size: 30,
-                    color: Theme.of(context).colorScheme.primary,
+                    leading: Icon(
+                      Icons.delete_rounded,
+                      size: 30,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
               ],
