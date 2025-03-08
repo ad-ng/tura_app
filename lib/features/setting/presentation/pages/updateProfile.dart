@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tura_app/features/Setting/data/datasource/userUpdateApiService.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
 import 'package:tura_app/features/login/presentation/widgets/myInput.dart';
+import 'package:tura_app/features/profile/presentaion/bloc/userCubit.dart';
 import 'package:tura_app/features/register/presentaion/bloc/registerCubit.dart';
 import 'package:tura_app/features/register/presentaion/widgets/dob_input.dart';
 import 'package:tura_app/features/register/presentaion/widgets/gender_picker.dart';
@@ -63,6 +64,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
         });
         await UserUpdateApiService()
             .updateImage(widget.user.username, _pickedImage!);
+        BlocProvider.of<UserCubit>(context).fetchUser();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -284,6 +286,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   widget.user.username,
                                 );
                                 if (mounted) {
+                                  BlocProvider.of<UserCubit>(context)
+                                      .fetchUser();
                                   Navigator.pushNamed(context, 'settingPage');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
