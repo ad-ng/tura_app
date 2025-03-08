@@ -152,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5)),
                       height: 0.5,
-                      width: 120,
+                      width: MediaQuery.of(context).size.width * 0.35,
                     ),
                     Text(
                       'continue with',
@@ -160,13 +160,12 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white, fontWeight: FontWeight.w400),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5)),
-                      height: 0.5,
-                      width: 115,
-                    ),
+                        margin: EdgeInsets.only(left: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5)),
+                        height: 0.5,
+                        width: MediaQuery.of(context).size.width * 0.3),
                   ],
                 ),
                 SizedBox(
