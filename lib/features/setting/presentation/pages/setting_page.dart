@@ -52,7 +52,13 @@ class _SettingPageState extends State<SettingPage> {
                 return Card(
                   margin: EdgeInsets.all(12),
                   child: ListTile(
-                    leading: Image.network(state.response.profileImg!),
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.network(
+                        state.response.profileImg!,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     title: Text(state.response.fullname!,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
