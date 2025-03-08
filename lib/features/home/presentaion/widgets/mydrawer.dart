@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/features/favorites/presentation/bloc/favoritesCubit.dart';
+import 'package:tura_app/features/login/data/datasources/local/userPreferences.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -77,7 +78,8 @@ class MyDrawer extends StatelessWidget {
             title: Text('log out',
                 style:
                     TextStyle(color: Theme.of(context).colorScheme.secondary)),
-            onTap: () {
+            onTap: ()async {
+              await UserPreferences().removeLocalUser();
               Navigator.pushReplacementNamed(context, 'loginPage');
             },
           )
