@@ -17,6 +17,7 @@ class _SharessentState extends State<Sharessent> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+
     return BlocBuilder<SharesSentCubit, SharesSentState>(
       builder: (context, state) {
         if (state is SharesSentLoading) {
@@ -41,12 +42,6 @@ class _SharessentState extends State<Sharessent> {
               return true;
             }
           }).toList();
-
-          propertyEachShareCount(propId) {
-            return state.response
-                .where((prop) => prop.propertyId == propId)
-                .toList();
-          }
 
           return Column(
             children: [
@@ -172,7 +167,7 @@ class _SharessentState extends State<Sharessent> {
                               top: 3),
                           child: Center(
                               child: Text(
-                            '${propertyEachShareCount(property.parentShareId).length}',
+                            '${state.response.where((prop) => prop.propertyId == property.propertyId).toList().length}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,

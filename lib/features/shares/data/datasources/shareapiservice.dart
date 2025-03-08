@@ -11,7 +11,12 @@ class ShareApiService {
   Future<List<Sharemodel>> fetchSentShares() async {
     try {
       final localUser = await UserPreferences().getLocalUser();
-      final response = await _dio.get('/shares/sender/${localUser!.id}');
+      final response = await _dio.get(
+        '/shares/sender/${localUser!.id}',
+        queryParameters: {
+          'limit': 100,
+        },
+      );
 
       final dataJson = response.data['data'];
 
