@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tura_app/core/theme/theme_cubit.dart';
 import 'package:tura_app/features/Setting/presentation/pages/updateProfile.dart';
 import 'package:tura_app/features/profile/presentaion/bloc/userCubit.dart';
@@ -338,7 +339,12 @@ class _SettingPageState extends State<SettingPage> {
                 ),
               ),
               trailing: IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await Share.share(
+                    'check out https://www.turaestates.com',
+                    subject: 'Real estate app',
+                  );
+                },
                 icon: Icon(
                   Icons.arrow_forward_ios,
                   color: Theme.of(context).colorScheme.secondary,
