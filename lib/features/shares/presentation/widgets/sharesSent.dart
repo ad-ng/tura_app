@@ -42,12 +42,6 @@ class _SharessentState extends State<Sharessent> {
             }
           }).toList();
 
-          propertyEachShareCount(propId) {
-            return state.response
-                .where((prop) => prop.propertyId == propId)
-                .toList();
-          }
-
           return Column(
             children: [
               Padding(
@@ -172,7 +166,7 @@ class _SharessentState extends State<Sharessent> {
                               top: 3),
                           child: Center(
                               child: Text(
-                            '${propertyEachShareCount(property.parentShareId).length}',
+                            '${state.response.where((prop) => prop.propertyId == property.propertyId).toList().length}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
