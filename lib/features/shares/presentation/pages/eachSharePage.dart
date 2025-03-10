@@ -13,12 +13,12 @@ class EachSharePage extends StatefulWidget {
 
 class _EachSharePageState extends State<EachSharePage> {
   static const _defaultNodeWidth = 80.0;
-  static const _defaultNodeHeight = 40.0;
+  static const _defaultNodeHeight = 30.0;
 
   final BuchheimWalkerConfiguration configuration =
       BuchheimWalkerConfiguration()
         ..orientation = BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM
-        ..siblingSeparation = 20
+        ..siblingSeparation = 10
         ..levelSeparation = 40
         ..subtreeSeparation = 30;
 
@@ -118,7 +118,7 @@ class _EachSharePageState extends State<EachSharePage> {
         } else {
           for (final child in children) {
             _addPersonNodes(child, senderNode, graph, senderNodes);
-                    }
+          }
         }
       }
     } catch (e) {
@@ -186,7 +186,8 @@ class _EachSharePageState extends State<EachSharePage> {
                           ..color = Colors.grey
                           ..strokeWidth = 1
                           ..style = PaintingStyle.stroke,
-                        builder: (Node node) => _buildNodeWidget(node),
+                        builder: (Node node) => _buildNodeWidget(
+                            node, state.response[0].property.imageUrls![0]),
                       ),
                     );
                   } catch (e, stackTrace) {
@@ -212,8 +213,26 @@ class _EachSharePageState extends State<EachSharePage> {
     return scale.clamp(0.1, 1.0);
   }
 
-  Widget _buildNodeWidget(Node node) {
+  Widget _buildNodeWidget(Node node, String imgUrl) {
     final key = node.key?.value.toString() ?? 'Unknown';
+
+    // Handle root node with network image
+    if (key == 'start') {
+      return Container(
+        width: 50, // Circle diameter
+        height: 50,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            image: NetworkImage(imgUrl), // Replace with your image URL
+            fit: BoxFit.cover,
+          ),
+          border: Border.all(color: Colors.blue, width: 2),
+        ),
+      );
+    }
+
+    // Existing code for other nodes
     final parts = key.split('_');
     final displayText = parts.last;
     final isRecipient = key.contains('Recipient');
@@ -223,9 +242,7 @@ class _EachSharePageState extends State<EachSharePage> {
         if (!isRecipient) {
           setState(() {
             _expandedNodes[key] = !(_expandedNodes[key] ?? false);
-            _graph =
-                _buildGraphFromResponse(_rootShares); // Update _graph on tap
-            debugPrint('Tapped $key, expanded: ${_expandedNodes[key]}');
+            _graph = _buildGraphFromResponse(_rootShares);
           });
         }
       },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/features/favorites/presentation/bloc/favoritesCubit.dart';
 import 'package:tura_app/features/login/data/datasources/local/userPreferences.dart';
+import 'package:tura_app/features/sell%20property/presentation/pages/sellProperty.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -60,7 +61,14 @@ class MyDrawer extends StatelessWidget {
             title: Text('sell property',
                 style:
                     TextStyle(color: Theme.of(context).colorScheme.secondary)),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Sellproperty(),
+                ),
+              );
+            },
           ),
           ListTile(
             leading: Icon(Icons.contact_phone_sharp,
@@ -78,7 +86,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('log out',
                 style:
                     TextStyle(color: Theme.of(context).colorScheme.secondary)),
-            onTap: ()async {
+            onTap: () async {
               await UserPreferences().removeLocalUser();
               Navigator.pushReplacementNamed(context, 'loginPage');
             },
