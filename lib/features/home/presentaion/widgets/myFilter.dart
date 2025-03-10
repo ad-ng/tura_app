@@ -209,14 +209,21 @@ class _MyFilterState extends State<MyFilter> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            ElevatedButton(
+            TextButton(
               onPressed: () {
                 Navigator.pop(context); // Cancel action
               },
-              child: Text('Cancel'),
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+              ),
             ),
             SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-            ElevatedButton(
+            TextButton(
               onPressed: () {
                 BlocProvider.of<PropertiesCubit>(context).filterProperties(
                     isForSale,
@@ -228,7 +235,14 @@ class _MyFilterState extends State<MyFilter> {
                     hasParking);
                 Navigator.pop(context); // Close the filter screen
               },
-              child: Text('Search'),
+              child: Text(
+                'Search',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+              ),
             ),
             SizedBox(width: MediaQuery.of(context).size.width * 0.05),
           ],

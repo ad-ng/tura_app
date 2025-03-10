@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tura_app/features/notification/presentation/bloc/eachNotificationCard.dart';
+import 'package:tura_app/features/notification/presentation/widgets/eachNotificationCard.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
