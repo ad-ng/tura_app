@@ -101,7 +101,7 @@ class _EachSharePageState extends State<EachSharePage> {
             'Sender username null for share ID ${share.id}, using $senderUsername');
       }
 
-      final children = share.children ?? [];
+      final children = share.children;
       if (_expandedNodes[senderNodeId] == true) {
         if (children.isEmpty) {
           final recipientUsername = share.recipient?.username ??
@@ -144,7 +144,7 @@ class _EachSharePageState extends State<EachSharePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Error: ${message ?? 'Unknown error'}'),
+                    Text('Error: ${message}'),
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
