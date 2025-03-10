@@ -20,7 +20,7 @@ class _EachSharePageState extends State<EachSharePage> {
         ..orientation = BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM
         ..siblingSeparation = 10
         ..levelSeparation = 40
-        ..subtreeSeparation = 30;
+        ..subtreeSeparation = 20;
 
   late Map<String, bool> _expandedNodes;
   late List<Sharemodel> _rootShares;
