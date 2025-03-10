@@ -12,6 +12,7 @@ class _EachnotificationcardState extends State<Eachnotificationcard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).colorScheme.secondary,
       margin: EdgeInsets.only(
         left: 6,
         right: 6,
@@ -25,14 +26,31 @@ class _EachnotificationcardState extends State<Eachnotificationcard> {
           width: 40,
           color: Colors.amber,
         ),
-        title: Text('notification title'),
+        title: Text(
+          'notification title',
+          style: TextStyle(color: Theme.of(context).colorScheme.surface),
+        ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               'hghghhvhfvfdsewewethbhbhvgsawaeryggqqqqqqqqqqqrrrrrrrrr',
             ),
-            Text('time'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '01/02/2024',
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.surface),
+                ),
+                Text(
+                  '06:20',
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.surface),
+                ),
+              ],
+            ),
           ],
         ),
         trailing: IconButton(
@@ -76,7 +94,10 @@ class _EachnotificationcardState extends State<Eachnotificationcard> {
               },
             );
           },
-          icon: Icon(Icons.more_vert_outlined),
+          icon: Icon(
+            Icons.more_vert_outlined,
+            color: Theme.of(context).colorScheme.surface,
+          ),
         ),
       ),
     );

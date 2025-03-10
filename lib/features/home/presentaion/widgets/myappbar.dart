@@ -57,6 +57,7 @@ class myappbar extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () => showPopover(
+                  backgroundColor: Theme.of(context).colorScheme.surface,
                   context: context,
                   height: MediaQuery.of(context).size.height * 0.5,
                   width: MediaQuery.of(context).size.width * 0.93,
