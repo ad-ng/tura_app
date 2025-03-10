@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tura_app/features/favorites/presentation/bloc/favoritesCubit.dart';
 import 'package:tura_app/features/login/data/datasources/local/userPreferences.dart';
-import 'package:tura_app/features/setting/presentation/sellProperty.dart';
+import 'package:tura_app/features/sell%20property/presentation/pages/sellProperty.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
