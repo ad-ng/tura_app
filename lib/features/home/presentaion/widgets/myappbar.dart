@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:popover/popover.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myFilter.dart';
+import 'package:tura_app/features/notification/presentation/pages/notification.dart';
 
 class myappbar extends StatelessWidget {
   const myappbar({
@@ -55,7 +56,15 @@ class myappbar extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () => showPopover(
+                  context: context,
+                  height: MediaQuery.of(context).size.height * 0.38,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  direction: PopoverDirection.top,
+                  bodyBuilder: (context) {
+                    return NotificationPage();
+                  },
+                ),
                 icon: Image.asset(
                   '././lib/images/bell.png',
                   color: Theme.of(context).colorScheme.secondary,
