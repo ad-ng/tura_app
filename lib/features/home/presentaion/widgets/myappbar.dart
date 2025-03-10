@@ -40,11 +40,11 @@ class myappbar extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () => showPopover(
-                  barrierDismissible: false,
                   context: context,
                   height: MediaQuery.of(context).size.height * 0.38,
                   width: MediaQuery.of(context).size.width * 0.9,
                   direction: PopoverDirection.top,
+                  contentDxOffset: MediaQuery.of(context).size.width * 0.6,
                   bodyBuilder: (context) {
                     return MyFilter();
                   },
