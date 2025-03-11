@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tura_app/core/theme/dark_mode.dart';
 import 'package:tura_app/core/theme/light_mode.dart';
 import 'package:tura_app/core/theme/theme_cubit.dart';
@@ -32,8 +33,9 @@ import 'package:tura_app/features/login/data/datasources/loginApiService.dart';
 import 'package:tura_app/features/login/presentation/bloc/loginCubit.dart';
 import 'package:tura_app/features/shares/presentation/bloc/wholeShareTree.dart';
 
-void main() {
+void main() async {
   DioService.instance.setup();
+  await dotenv.load(fileName: '.env');
   runApp(const MyApp());
 }
 

@@ -1,4 +1,4 @@
-package turaestate.com.tura_app
+package com.example.tura_app
 
 import io.flutter.embedding.android.FlutterActivity
 
