@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tura_app/features/contact%20us/presentaion/widgets/contactInput.dart';
+import 'package:tura_app/features/sell%20property/data/mailservice.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -12,6 +13,7 @@ TextEditingController emailController = TextEditingController();
 TextEditingController namesController = TextEditingController();
 TextEditingController messageController = TextEditingController();
 final _contactFormKey = GlobalKey<FormState>();
+bool mailStatus = true;
 
 class _ContactPageState extends State<ContactPage> {
   @override
@@ -77,8 +79,65 @@ class _ContactPageState extends State<ContactPage> {
                           isMessage: true,
                           textEditingController: messageController),
                       GestureDetector(
-                        onTap: () {
-                          _contactFormKey.currentState!.validate();
+                        onTap: () async {
+                          //  _contactFormKey.currentState!.validate();
+                          if (namesController.text != '' &&
+                              emailController.text != '' &&
+                              messageController.text != '') {
+                            setState(() {
+                              mailStatus = false;
+                            });
+                            String messageToSend = """
+  <html>
+    <body style="font-family: Arial, sans-serif; color: #333;">
+      <h2 style="color: #2E6C80;">Contact Us</h2>
+      <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+        <tr style="background-color: #f2f2f2;">
+          <td style="padding: 10px; font-weight: bold;">Names:</td>
+          <td style="padding: 10px;">${namesController.text}</td>
+        </tr>
+      
+        <tr style="background-color: #f2f2f2;">
+          <td style="padding: 10px; font-weight: bold;">Email:</td>
+          <td style="padding: 10px;">${emailController.text}</td>
+       
+        <tr style="background-color: #f2f2f2;">
+          <td style="padding: 10px; font-weight: bold;">Message:</td>
+          <td style="padding: 10px;">${messageController.text}</td>
+        </tr>
+      </table>
+      
+    </body>
+  </html>
+""";
+                            final mailResponse = await CustomMailService()
+                                .sendEmail(messageToSend, 'Contact us');
+                            if (mailResponse != null) {
+                              setState(() {
+                                mailStatus = true;
+                              });
+                            }
+                            namesController.clear();
+                            emailController.clear();
+                            messageController.clear();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Message is sent !',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Email ,Name and Message can\'t be empty !',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            );
+                          }
                         },
                         child: Container(
                           margin: EdgeInsets.all(10),
@@ -89,13 +148,16 @@ class _ContactPageState extends State<ContactPage> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Center(
-                            child: Text(
-                              "Send Message",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                            ),
+                            child: (mailStatus)
+                                ? Text(
+                                    "Send Message",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary),
+                                  )
+                                : CircularProgressIndicator(),
                           ),
                         ),
                       )
