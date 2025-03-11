@@ -8,11 +8,11 @@ class CustomMailService {
     dotenv.env['GMAIL_PASSWORD']!,
   );
 
-  Future sendEmail(text) async {
+  Future sendEmail(text,subject) async {
     final message = Message()
       ..from = Address(dotenv.env['GMAIL_MAIL']!)
       ..recipients.add(dotenv.env['GMAIL_MAIL']!)
-      ..subject = "Requesting To Sell Property"
+      ..subject = subject
       ..html = text;
 
     try {

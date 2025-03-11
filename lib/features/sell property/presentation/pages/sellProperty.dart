@@ -141,8 +141,8 @@ class _SellpropertyState extends State<Sellproperty> {
                     ),
                   );
                 } else {
-                  final mailResponse =
-                      await CustomMailService().sendEmail(messageToSend);
+                  final mailResponse = await CustomMailService()
+                      .sendEmail(messageToSend, "Requesting To Sell Property");
                   if (mailResponse != null) {
                     setState(() {
                       mailStatus = true;
