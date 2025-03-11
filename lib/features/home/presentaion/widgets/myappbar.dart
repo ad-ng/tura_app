@@ -67,10 +67,17 @@ class myappbar extends StatelessWidget {
                     return NotificationPage();
                   },
                 ),
-                icon: Image.asset(
-                  '././lib/images/bell.png',
-                  color: Theme.of(context).colorScheme.secondary,
-                  height: screenHeight * 0.03,
+                icon: Badge(
+                  backgroundColor: Colors.amber,
+                  label: Text('12',
+                      style: TextStyle(
+                        color: Colors.black,
+                      )),
+                  child: Image.asset(
+                    '././lib/images/bell.png',
+                    color: Theme.of(context).colorScheme.secondary,
+                    height: screenHeight * 0.03,
+                  ),
                 ),
               ),
             ],
