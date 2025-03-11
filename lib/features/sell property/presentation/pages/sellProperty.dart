@@ -128,24 +128,38 @@ class _SellpropertyState extends State<Sellproperty> {
   </html>
 """;
 
-                final mailResponse =
-                    await CustomMailService().sendEmail(messageToSend);
-                if (mailResponse != null) {
+                if (namesController.text == '' &&
+                    phonesController.text == '' &&
+                    locationController.text == '') {
                   setState(() {
                     mailStatus = true;
-                    namesController.clear();
-                    phonesController.clear();
-                    emailController.clear();
-                    locationController.clear();
-                    numberPropertiesController.clear();
-                    priceController.clear();
-                    messageController.clear();
                   });
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Message Sent Successfully'),
+                      content: Text(
+                          'Names, Phone Number and Location can\'t be empty'),
                     ),
                   );
+                } else {
+                  final mailResponse =
+                      await CustomMailService().sendEmail(messageToSend);
+                  if (mailResponse != null) {
+                    setState(() {
+                      mailStatus = true;
+                      namesController.clear();
+                      phonesController.clear();
+                      emailController.clear();
+                      locationController.clear();
+                      numberPropertiesController.clear();
+                      priceController.clear();
+                      messageController.clear();
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Message Sent Successfully'),
+                      ),
+                    );
+                  }
                 }
               },
               child: Container(
