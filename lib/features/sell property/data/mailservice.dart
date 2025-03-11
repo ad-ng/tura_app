@@ -17,10 +17,10 @@ class CustomMailService {
 
     try {
       final sendReport = await send(message, gmailsmtp);
-      print('message sent ${sendReport}');
+      print('message i will use ....... ${sendReport}');
+      return sendReport;
     } catch (e) {
-      print('message not sent');
-      print(e.toString());
+      return e.toString();
     }
   }
 }

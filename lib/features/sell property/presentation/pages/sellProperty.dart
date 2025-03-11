@@ -9,6 +9,8 @@ class Sellproperty extends StatefulWidget {
   State<Sellproperty> createState() => _SellpropertyState();
 }
 
+bool mailStatus = true;
+
 class _SellpropertyState extends State<Sellproperty> {
   TextEditingController namesController = new TextEditingController();
   TextEditingController phonesController = new TextEditingController();
@@ -84,6 +86,9 @@ class _SellpropertyState extends State<Sellproperty> {
             ),
             GestureDetector(
               onTap: () async {
+                setState(() {
+                  mailStatus = false;
+                });
                 String messageToSend = """
   <html>
     <body style="font-family: Arial, sans-serif; color: #333;">
@@ -123,7 +128,25 @@ class _SellpropertyState extends State<Sellproperty> {
   </html>
 """;
 
-                await CustomMailService().sendEmail(messageToSend);
+                final mailResponse =
+                    await CustomMailService().sendEmail(messageToSend);
+                if (mailResponse != null) {
+                  setState(() {
+                    mailStatus = true;
+                    namesController.clear();
+                    phonesController.clear();
+                    emailController.clear();
+                    locationController.clear();
+                    numberPropertiesController.clear();
+                    priceController.clear();
+                    messageController.clear();
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Message Sent Successfully'),
+                    ),
+                  );
+                }
               },
               child: Container(
                 padding: EdgeInsets.all(8),
@@ -131,12 +154,17 @@ class _SellpropertyState extends State<Sellproperty> {
                 decoration: BoxDecoration(
                     color: Colors.yellow[600],
                     borderRadius: BorderRadius.circular(12)),
-                child: Text(
-                  'Send Form',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
+                child: (mailStatus)
+                    ? Text(
+                        'Send Form',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: CircularProgressIndicator.adaptive(),
+                      ),
               ),
             )
           ],
