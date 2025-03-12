@@ -11,4 +11,9 @@ class NotificationRepoImpl implements NotificationRepo {
   Future<List<NotificationModel>> fetchAllNotifications() {
     return _notificationApiService.fetchAllNotifications();
   }
+
+  @override
+  Future<List<NotificationModel>> fetchUnreadNotifications() {
+    return _notificationApiService.fetchUnreadNotifications();
+  }
 }
