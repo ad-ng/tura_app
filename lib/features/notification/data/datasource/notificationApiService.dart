@@ -53,6 +53,16 @@ class NotificationApiService {
     }
   }
 
+  Future readNotification(int notId) async {
+    try {
+      await _dio.patch('/notifications/$notId/read');
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      throw 'An unexpected error occured: $e';
+    }
+  }
+
   // Handle Dio-specific errors
   String _handleError(DioException error) {
     switch (error.type) {
