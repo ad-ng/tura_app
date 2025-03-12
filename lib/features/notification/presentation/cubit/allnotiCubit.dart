@@ -20,48 +20,6 @@ class AllNotiCubit extends Cubit<NotificationState> {
       emit(NotificationError(e.toString()));
     }
   }
-
-  Future fetchUnreadNotifications() async {
-    emit(NotificationLoading());
-
-    try {
-      final response = await _notificationRepo.fetchUnreadNotifications();
-      print('Fetched properties: $response'); // Log the response
-      emit(NotificationSuccess(response));
-    } catch (e) {
-      print('Error fetching properties: $e'); // Log any error
-      emit(NotificationError(e.toString()));
-    }
-  }
-
-  // Future filterProperties(
-  //   bool isForSale,
-  //   String price,
-  //   String size,
-  //   bool isForRent,
-  //   String categoryId,
-  //   String searchTerm,
-  //   bool hasParking,
-  // ) async {
-  //   emit(NotificationLoading());
-
-  //   try {
-  //     final response = await _propertiesRepo.filterProperties(
-  //       isForSale,
-  //       price,
-  //       size,
-  //       isForRent,
-  //       categoryId,
-  //       searchTerm,
-  //       hasParking,
-  //     );
-  //     print('searching properties');
-  //     emit(NotificationSuccess(response));
-  //   } catch (e) {
-  //     print('error searching prop');
-  //     emit(NotificationError(e.toString()));
-  //   }
-  // }
 }
 
 abstract class NotificationState {}

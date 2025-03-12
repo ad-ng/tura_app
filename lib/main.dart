@@ -16,6 +16,7 @@ import 'package:tura_app/features/home/presentaion/cubit/singlePropertyCubit.dar
 import 'package:tura_app/features/notification/data/datasource/notificationApiService.dart';
 import 'package:tura_app/features/notification/data/repositories/notification_repo_impl.dart';
 import 'package:tura_app/features/notification/presentation/cubit/allnotiCubit.dart';
+import 'package:tura_app/features/notification/presentation/cubit/unreadCubit.dart';
 import 'package:tura_app/features/profile/data/datasources/remote/userapiservice.dart';
 import 'package:tura_app/features/profile/data/repositories/user_repo_impl.dart';
 import 'package:tura_app/features/profile/presentaion/bloc/userCubit.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => UserCubit(userRepo)),
         BlocProvider(create: (context) => Favoritescubit(favoritesRepo)),
         BlocProvider(create: (context) => AllNotiCubit(notificationRepo)),
+        BlocProvider(create: (context) => UnreadCubit(notificationRepo)),
         BlocProvider(
             create: (context) => SinglePropertyCubit(propertiesRepo, slug))
       ],
