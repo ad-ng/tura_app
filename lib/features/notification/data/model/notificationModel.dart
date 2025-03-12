@@ -4,12 +4,12 @@ import 'dart:convert';
 class NotificationModel {
   int id;
   String title;
-  String body;
+  String message;
   String createdAt;
   NotificationModel({
     required this.id,
     required this.title,
-    required this.body,
+    required this.message,
     required this.createdAt,
   });
 
@@ -17,7 +17,7 @@ class NotificationModel {
     return <String, dynamic>{
       'id': id,
       'title': title,
-      'body': body,
+      'message': message,
       'createdAt': createdAt,
     };
   }
@@ -26,12 +26,13 @@ class NotificationModel {
     return NotificationModel(
       id: map['id'] as int,
       title: map['title'] as String,
-      body: map['body'] as String,
+      message: map['message'] as String,
       createdAt: map['createdAt'] as String,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory NotificationModel.fromJson(String source) => NotificationModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory NotificationModel.fromJson(String source) =>
+      NotificationModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

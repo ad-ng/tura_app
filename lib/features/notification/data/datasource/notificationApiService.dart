@@ -9,10 +9,10 @@ class NotificationApiService {
     try {
       final response = await _dio.get('/notifications');
 
-      final dataJson = response.data['data'];
+      final dataJson = response.data;
 
       if (dataJson != null && dataJson is List) {
-        return dataJson.map((json) => NotificationModel.fromJson(json)).toList();
+        return dataJson.map((json) => NotificationModel.fromMap(json)).toList();
       } else {
         throw Exception(
             'Expected a list of properties but got ${dataJson.runtimeType}');
