@@ -2,15 +2,17 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class NotificationModel {
-  int id;
-  String title;
-  String message;
-  String createdAt;
+  int? id;
+  String? title;
+  String? message;
+  bool? isRead;
+  String? createdAt;
   NotificationModel({
-    required this.id,
-    required this.title,
-    required this.message,
-    required this.createdAt,
+    this.id,
+    this.title,
+    this.message,
+    this.isRead,
+    this.createdAt,
   });
 
   Map<String, dynamic> toMap() {
@@ -18,16 +20,18 @@ class NotificationModel {
       'id': id,
       'title': title,
       'message': message,
+      'isRead': isRead,
       'createdAt': createdAt,
     };
   }
 
   factory NotificationModel.fromMap(Map<String, dynamic> map) {
     return NotificationModel(
-      id: map['id'] as int,
-      title: map['title'] as String,
-      message: map['message'] as String,
-      createdAt: map['createdAt'] as String,
+      id: map['id'] != null ? map['id'] as int : null,
+      title: map['title'] != null ? map['title'] as String : null,
+      message: map['message'] != null ? map['message'] as String : null,
+      isRead: map['isRead'] != null ? map['isRead'] as bool : null,
+      createdAt: map['createdAt'] != null ? map['createdAt'] as String : null,
     );
   }
 

@@ -29,7 +29,9 @@ class _NotificationPageState extends State<NotificationPage> {
           return ListView.builder(
               itemCount: state.response.length,
               itemBuilder: (BuildContext context, int index) {
-                return Eachnotificationcard();
+                return Eachnotificationcard(
+                  notification: state.response[index],
+                );
               });
         }
         return SizedBox.shrink();

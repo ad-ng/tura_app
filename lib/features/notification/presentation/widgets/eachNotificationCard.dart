@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:popover/popover.dart';
+import 'package:tura_app/features/notification/data/model/notificationModel.dart';
 
 class Eachnotificationcard extends StatefulWidget {
-  const Eachnotificationcard({super.key});
+  final NotificationModel notification;
+  const Eachnotificationcard({super.key, required this.notification});
 
   @override
   State<Eachnotificationcard> createState() => _EachnotificationcardState();
@@ -27,25 +29,25 @@ class _EachnotificationcardState extends State<Eachnotificationcard> {
           color: Colors.amber,
         ),
         title: Text(
-          'notification title',
+          widget.notification.title!,
           style: TextStyle(color: Theme.of(context).colorScheme.surface),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              'hghghhvhfvfdsewewethbhbhvgsawaeryggqqqqqqqqqqqrrrrrrrrr',
+              '${widget.notification.message!.substring(0, 50)}.....',
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '01/02/2024',
+                  '${widget.notification.createdAt!.substring(0, 10)}',
                   style:
                       TextStyle(color: Theme.of(context).colorScheme.surface),
                 ),
                 Text(
-                  '06:20',
+                  '${widget.notification.createdAt!.substring(11, 16)}',
                   style:
                       TextStyle(color: Theme.of(context).colorScheme.surface),
                 ),
