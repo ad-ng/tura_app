@@ -1,0 +1,65 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/features/notification/data/datasource/notificationApiService.dart';
+import 'package:tura_app/features/notification/data/model/notificationModel.dart';
+
+class AllNotiCubit extends Cubit<NotificationState> {
+  AllNotiCubit(super.NotificationInitial);
+
+  Future fetchAllNotifications() async {
+    emit(NotificationLoading());
+
+    try {
+      final response = await NotificationApiService().fetchAllNotifications();
+      print('Fetched properties: $response'); // Log the response
+      emit(NotificationSuccess(response));
+    } catch (e) {
+      print('Error fetching properties: $e'); // Log any error
+      emit(NotificationError(e.toString()));
+    }
+  }
+
+  // Future filterProperties(
+  //   bool isForSale,
+  //   String price,
+  //   String size,
+  //   bool isForRent,
+  //   String categoryId,
+  //   String searchTerm,
+  //   bool hasParking,
+  // ) async {
+  //   emit(NotificationLoading());
+
+  //   try {
+  //     final response = await _propertiesRepo.filterProperties(
+  //       isForSale,
+  //       price,
+  //       size,
+  //       isForRent,
+  //       categoryId,
+  //       searchTerm,
+  //       hasParking,
+  //     );
+  //     print('searching properties');
+  //     emit(NotificationSuccess(response));
+  //   } catch (e) {
+  //     print('error searching prop');
+  //     emit(NotificationError(e.toString()));
+  //   }
+  // }
+}
+
+abstract class NotificationState {}
+
+class NotificationInitial extends NotificationState {}
+
+class NotificationLoading extends NotificationState {}
+
+class NotificationSuccess extends NotificationState {
+  final List<NotificationModel> response; // Response from the API
+  NotificationSuccess(this.response);
+}
+
+class NotificationError extends NotificationState {
+  final String message; // Error message
+  NotificationError(this.message);
+}
