@@ -1,20 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:tura_app/config/network/dioService.dart';
+import 'package:tura_app/features/notification/data/model/notificationModel.dart';
 
 class NotificationApiService {
   final Dio _dio = DioService.instance.dio;
 
-  Future fetchAllNotifications() async {
+  Future<List<NotificationModel>> fetchAllNotifications() async {
     try {
       final response = await _dio.get('/notifications');
 
       final dataJson = response.data['data'];
 
-      if (dataJson != null && dataJson is Map<String, dynamic>) {
-        return PropertiesModel.fromJson(dataJson);
+      if (dataJson != null && dataJson is List) {
+        return dataJson.map((json) => NotificationModel.fromJson(json)).toList();
       } else {
         throw Exception(
-            'Expected a JSON object but got ${dataJson.runtimeType}');
+            'Expected a list of properties but got ${dataJson.runtimeType}');
       }
     } on DioException catch (e) {
       throw _handleError(e);
