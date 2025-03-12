@@ -1,15 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tura_app/features/notification/data/datasource/notificationApiService.dart';
 import 'package:tura_app/features/notification/data/model/notificationModel.dart';
+import 'package:tura_app/features/notification/domain/repositories/notification_repo.dart';
 
 class AllNotiCubit extends Cubit<NotificationState> {
-  AllNotiCubit(super.NotificationInitial);
+  final NotificationRepo _notificationRepo;
+  AllNotiCubit(this._notificationRepo) : super(NotificationInitial()) {
+    fetchAllNotifications();
+  }
 
   Future fetchAllNotifications() async {
     emit(NotificationLoading());
 
     try {
-      final response = await NotificationApiService().fetchAllNotifications();
+      final response = await _notificationRepo.fetchAllNotifications();
       print('Fetched properties: $response'); // Log the response
       emit(NotificationSuccess(response));
     } catch (e) {
