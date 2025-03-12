@@ -34,6 +34,25 @@ class NotificationApiService {
     }
   }
 
+  Future<List<NotificationModel>> fetchUnreadNotifications() async {
+    try {
+      final response = await _dio.get('/notifications/unread');
+
+      final dataJson = response.data;
+
+      if (dataJson != null && dataJson is List) {
+        return dataJson.map((json) => NotificationModel.fromMap(json)).toList();
+      } else {
+        throw Exception(
+            'Expected a list of properties but got ${dataJson.runtimeType}');
+      }
+    } on DioException catch (e) {
+      throw _handleError(e);
+    } catch (e) {
+      throw 'An unexpected error occurred: $e';
+    }
+  }
+
   // Handle Dio-specific errors
   String _handleError(DioException error) {
     switch (error.type) {
