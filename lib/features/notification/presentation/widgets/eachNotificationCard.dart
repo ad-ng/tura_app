@@ -27,12 +27,17 @@ class _EachnotificationcardState extends State<Eachnotificationcard> {
         top: 6,
       ),
       child: ListTile(
+        key: ValueKey(widget.notification.id),
         minVerticalPadding: 5,
         contentPadding: EdgeInsets.symmetric(horizontal: 8),
         leading: Container(
           height: 40,
           width: 40,
-          color: Colors.amber,
+          child: Icon(
+            Icons.home_work_rounded,
+            size: 37,
+            color: (widget.notification.isRead!) ? Colors.white : Colors.black,
+          ),
         ),
         title: Text(
           widget.notification.title!,

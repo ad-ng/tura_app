@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tura_app/features/login/data/models/user_model.dart';
 import 'package:tura_app/features/shares/presentation/bloc/createShareCubit.dart';
+import 'package:tura_app/features/shares/presentation/bloc/sharesSentCubit.dart';
 
 class ShareButtonComponents {
   UserModel? userToShare;
@@ -62,6 +63,8 @@ class ShareButtonComponents {
                             context
                                 .read<CreateShareCubit>()
                                 .createShare(propertyId, userToShare!.id);
+                            BlocProvider.of<SharesSentCubit>(context)
+                                .fetchSharesSent();
                           }
 
                           searchController.clear();

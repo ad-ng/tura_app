@@ -3,6 +3,7 @@ import 'package:tura_app/features/guide/presention/pages/guide_page.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myBottomNavBar.dart';
 import 'package:tura_app/features/home/presentaion/widgets/mydrawer.dart';
 import 'package:tura_app/features/home/presentaion/widgets/myhome.dart';
+import 'package:tura_app/features/notification/data/datasource/socketService.dart';
 import 'package:tura_app/features/profile/presentaion/pages/profile.dart';
 import 'package:tura_app/features/shares/presentation/pages/shares.dart';
 
@@ -23,9 +24,16 @@ final _screens = [
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    SocketService().connect(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     //double screenHeight = MediaQuery.of(context).size.height;
     //ouble screenWidth = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         drawer: MyDrawer(),
