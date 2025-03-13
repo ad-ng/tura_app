@@ -27,6 +27,7 @@ class _EachnotificationcardState extends State<Eachnotificationcard> {
         top: 6,
       ),
       child: ListTile(
+        key: ValueKey(widget.notification.id),
         minVerticalPadding: 5,
         contentPadding: EdgeInsets.symmetric(horizontal: 8),
         leading: Container(
