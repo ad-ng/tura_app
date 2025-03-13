@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:popover/popover.dart';
+import 'package:tura_app/features/notification/data/datasource/notificationApiService.dart';
+import 'package:tura_app/features/notification/data/model/notificationModel.dart';
+import 'package:tura_app/features/notification/presentation/cubit/allnotiCubit.dart';
+import 'package:tura_app/features/notification/presentation/cubit/unreadCubit.dart';
 
 class Eachnotificationcard extends StatefulWidget {
-  const Eachnotificationcard({super.key});
+  final NotificationModel notification;
+  const Eachnotificationcard({super.key, required this.notification});
 
   @override
   State<Eachnotificationcard> createState() => _EachnotificationcardState();
@@ -12,7 +18,9 @@ class _EachnotificationcardState extends State<Eachnotificationcard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).colorScheme.secondary,
+      color: (widget.notification.isRead!)
+          ? Colors.black54
+          : Theme.of(context).colorScheme.secondary,
       margin: EdgeInsets.only(
         left: 6,
         right: 6,
@@ -27,25 +35,29 @@ class _EachnotificationcardState extends State<Eachnotificationcard> {
           color: Colors.amber,
         ),
         title: Text(
-          'notification title',
+          widget.notification.title!,
           style: TextStyle(color: Theme.of(context).colorScheme.surface),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              'hghghhvhfvfdsewewethbhbhvgsawaeryggqqqqqqqqqqqrrrrrrrrr',
+              '${widget.notification.message!.substring(0, 50)}.....',
+              style: TextStyle(
+                  color: (widget.notification.isRead!)
+                      ? Colors.white
+                      : Colors.black),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '01/02/2024',
+                  '${widget.notification.createdAt!.substring(0, 10)}',
                   style:
                       TextStyle(color: Theme.of(context).colorScheme.surface),
                 ),
                 Text(
-                  '06:20',
+                  '${widget.notification.createdAt!.substring(11, 16)}',
                   style:
                       TextStyle(color: Theme.of(context).colorScheme.surface),
                 ),
@@ -69,6 +81,15 @@ class _EachnotificationcardState extends State<Eachnotificationcard> {
                       height: 50,
                       width: 300,
                       child: ListTile(
+                        onTap: () async {
+                          await NotificationApiService()
+                              .readNotification(widget.notification.id!);
+                          BlocProvider.of<UnreadCubit>(context)
+                              .fetchUnreadNotifications();
+                          BlocProvider.of<AllNotiCubit>(context)
+                              .fetchAllNotifications();
+                          Navigator.pop(context);
+                        },
                         title: Text('Mark as read'),
                         trailing: Icon(Icons.open_in_browser_outlined),
                       ),
@@ -78,7 +99,15 @@ class _EachnotificationcardState extends State<Eachnotificationcard> {
                       height: 50,
                       width: 300,
                       child: ListTile(
-                        onTap: () {},
+                        onTap: () async {
+                          await NotificationApiService()
+                              .deleteNotification(widget.notification.id!);
+                          BlocProvider.of<UnreadCubit>(context)
+                              .fetchUnreadNotifications();
+                          BlocProvider.of<AllNotiCubit>(context)
+                              .fetchAllNotifications();
+                          Navigator.pop(context);
+                        },
                         title: Text(
                           'Delete',
                           style: TextStyle(color: Colors.white),

@@ -13,6 +13,10 @@ import 'package:tura_app/features/home/data/datasources/remote/propertiesapiserv
 import 'package:tura_app/features/home/data/repositories/properties_repo_impl.dart';
 import 'package:tura_app/features/home/presentaion/cubit/propertiesCubit.dart';
 import 'package:tura_app/features/home/presentaion/cubit/singlePropertyCubit.dart';
+import 'package:tura_app/features/notification/data/datasource/notificationApiService.dart';
+import 'package:tura_app/features/notification/data/repositories/notification_repo_impl.dart';
+import 'package:tura_app/features/notification/presentation/cubit/allnotiCubit.dart';
+import 'package:tura_app/features/notification/presentation/cubit/unreadCubit.dart';
 import 'package:tura_app/features/profile/data/datasources/remote/userapiservice.dart';
 import 'package:tura_app/features/profile/data/repositories/user_repo_impl.dart';
 import 'package:tura_app/features/profile/presentaion/bloc/userCubit.dart';
@@ -49,6 +53,7 @@ class MyApp extends StatelessWidget {
     final propertiesRepo = PropertiesRepoImpl(PropertiesApiService());
     final shareRepo = ShareRepoImpl(ShareApiService());
     final favoritesRepo = FavoritesRepoImpl(Favoritesapiservice());
+    final notificationRepo = NotificationRepoImpl(NotificationApiService());
 
     final slug = 'slug';
 
@@ -64,6 +69,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => Wholesharetree(shareRepo)),
         BlocProvider(create: (context) => UserCubit(userRepo)),
         BlocProvider(create: (context) => Favoritescubit(favoritesRepo)),
+        BlocProvider(create: (context) => AllNotiCubit(notificationRepo)),
+        BlocProvider(create: (context) => UnreadCubit(notificationRepo)),
         BlocProvider(
             create: (context) => SinglePropertyCubit(propertiesRepo, slug))
       ],
