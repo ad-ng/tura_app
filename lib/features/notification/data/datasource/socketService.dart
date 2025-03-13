@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:tura_app/features/notification/presentation/cubit/allnotiCubit.dart';
 import 'package:tura_app/features/notification/presentation/cubit/unreadCubit.dart';
+import 'package:tura_app/features/shares/presentation/bloc/sharesRecievedCubit.dart';
 
 class SocketService {
   late IO.Socket _socket;
@@ -37,6 +38,7 @@ class SocketService {
           print('Received createShare message: $data');
           BlocProvider.of<AllNotiCubit>(context).fetchAllNotifications();
           BlocProvider.of<UnreadCubit>(context).fetchUnreadNotifications();
+          BlocProvider.of<SharesrecievedCubit>(context).fetchSharesReceived();
         } else {
           print('Received null or invalid data.');
         }
