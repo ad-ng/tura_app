@@ -38,7 +38,7 @@ class NotificationApiService {
     try {
       final response = await _dio.get('/notifications/unread');
 
-      final dataJson = response.data;
+      final dataJson = response.data['data'];
 
       if (dataJson != null && dataJson is List) {
         return dataJson.map((json) => NotificationModel.fromMap(json)).toList();

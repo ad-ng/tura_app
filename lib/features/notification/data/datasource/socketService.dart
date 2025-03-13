@@ -1,4 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:tura_app/features/notification/presentation/cubit/allnotiCubit.dart';
+import 'package:tura_app/features/notification/presentation/cubit/unreadCubit.dart';
 
 class SocketService {
   late IO.Socket _socket;
@@ -12,36 +16,42 @@ class SocketService {
 
   SocketService._internal();
 
-  // Connect to the server
-  void connect() {
-    _socket = IO.io('http://your-server-url.com', <String, dynamic>{
+  void connect(BuildContext context) {
+    _socket = IO.io('https://backend.turaestates.com', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
 
-    // Listen to the 'connect' event to know when the socket is connected
     _socket.on('connect', (_) {
       print('Connected to server');
     });
 
-    // Listen to the 'disconnect' event to handle disconnect
     _socket.on('disconnect', (_) {
       print('Disconnected from server');
     });
 
-    // Example of listening to a 'message' event from the server
-    _socket.on('message', (data) {
-      print('Received message: $data');
-      // You can add any logic here to update the UI or process the message
+    _socket.on('onCreateShare', (data) {
+      try {
+        print('Connected to createShare');
+        if (data != null) {
+          print('Received createShare message: $data');
+          BlocProvider.of<AllNotiCubit>(context).fetchAllNotifications();
+          BlocProvider.of<UnreadCubit>(context).fetchUnreadNotifications();
+        } else {
+          print('Received null or invalid data.');
+        }
+      } catch (e) {
+        print('Error handling createShare event: $e');
+      }
     });
+
+// // Listen to any other events
+//     _socket.onAny((event, data) {
+//       print('Event received: $event with data: $data');
+//     });
 
     // Connect to the server
     _socket.connect();
-  }
-
-  // Emit an event to the server
-  void sendMessage(String message) {
-    _socket.emit('message', message);
   }
 
   // Close the socket connection
