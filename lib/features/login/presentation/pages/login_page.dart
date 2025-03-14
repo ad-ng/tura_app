@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tura_app/features/login/data/datasources/remote/googleSignInApi.dart';
 import 'package:tura_app/features/login/presentation/widgets/myInput.dart';
 import 'package:tura_app/features/login/presentation/widgets/socialMedia.dart';
 import 'package:tura_app/features/login/presentation/bloc/loginCubit.dart';
@@ -16,6 +17,8 @@ bool isPassword = false;
 final usernameController = TextEditingController();
 final passwordController = TextEditingController();
 //final _formKey = GlobalKey<FormState>();
+
+//keytool -genkey -v -keystore ~/mykey.jks -keyalg RSA -keysize 2048 -validity 10000 -alias androiddebugkey
 
 class _LoginPageState extends State<LoginPage> {
   @override
@@ -136,13 +139,6 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 35,
                 ),
-                // BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
-                //   if (state is LoginSuccess) {
-                //     UserModel login = state.response;
-                //     return Text('${login.email}');
-                //   }
-                //   return SizedBox.shrink();
-                // }),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -174,7 +170,11 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Socialmedia(imageUrl: 'lib/images/google.png'),
+                    GestureDetector(
+                        onTap: () {
+                          GoogleSignInApiService().googleSignIn();
+                        },
+                        child: Socialmedia(imageUrl: 'lib/images/google.png')),
                     Socialmedia(imageUrl: 'lib/images/facebook.png'),
                     Socialmedia(imageUrl: 'lib/images/apple.png'),
                   ],

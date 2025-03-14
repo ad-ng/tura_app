@@ -27,6 +27,7 @@ dependencies:
   flutter_dotenv: ^5.2.1
   mailer: ^6.4.1
   socket_io_client: ^3.0.2
+  google_sign_in: ^6.3.0
   #intl:
   #sign_in_with_apple: 
 
